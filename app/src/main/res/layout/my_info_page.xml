@@ -73,7 +73,9 @@
 
 
         </LinearLayout>
+
         <LinearLayout
+            android:id="@+id/my_info_page_enable_password_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="20dp"
@@ -86,12 +88,14 @@
                 android:text="启用登录密码检查"
                 android:textSize="18sp"/>
             <Switch
+                android:id="@+id/my_info_page_enable_password_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 />
 
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/my_info_page_change_password_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="20dp"
@@ -111,6 +115,7 @@
 
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/my_info_page_change_account_book_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="20dp"
@@ -130,6 +135,7 @@
 
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/my_info_page_about_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="20dp"
@@ -149,6 +155,7 @@
 
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/my_info_page_more_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="20dp"

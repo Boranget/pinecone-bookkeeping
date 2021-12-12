@@ -43,12 +43,7 @@ public class GuideEnablePasswordCheckPageActivity extends BasicActivity {
             @Override
             public void onClick(View v) {
                 // 保存设置状态
-                boolean enableSwitchChecked = enableSwitch.isChecked();
-                if(enableSwitchChecked){
-                    GlobalInfo.guideInfo.setIfEnablePasswordCheck("true");
-                }else {
-                    GlobalInfo.guideInfo.setIfEnablePasswordCheck("false");
-                }
+                GlobalInfo.guideInfo.setIfEnablePasswordCheck(String.valueOf(enableSwitch.isChecked()));
                 GuideAccountBookNamePageActivity.startThisActivity(GuideEnablePasswordCheckPageActivity.this);
             }
         });

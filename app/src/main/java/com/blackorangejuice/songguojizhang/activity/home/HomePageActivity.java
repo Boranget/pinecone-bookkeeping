@@ -46,6 +46,7 @@ public class HomePageActivity extends BasicActivity {
         setContentView(R.layout.home_page);
         homePageNav = findViewById(R.id.home_page_nav);
         homePageNav.setSelectedItemId(defultSelectId);
+
         // 打开默认界面
         replaceFragment(getDefultFragment());
         // 为底部导航栏添加监听器
