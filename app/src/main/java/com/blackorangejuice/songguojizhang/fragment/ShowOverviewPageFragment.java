@@ -4,12 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.blackorangejuice.songguojizhang.R;
+import com.blackorangejuice.songguojizhang.activity.home.info.UpdateUsernamePageActivity;
 import com.blackorangejuice.songguojizhang.utils.globle.BasicFragment;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
 
@@ -30,5 +32,12 @@ public class ShowOverviewPageFragment extends BasicFragment {
         // 初始化标签名
         currentAccountBookNameTextView = thisView.findViewById(R.id.show_overview_page_current_account_book_name);
         currentAccountBookNameTextView.setText(GlobalInfo.currentAccountBook.getAccountBookName());
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        System.out.println();
     }
 }

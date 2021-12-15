@@ -48,7 +48,8 @@
             android:layout_height="match_parent"
             android:scrollbars="none"
             android:overScrollMode="never"
-            android:background="#ffffff">
+            android:background="@color/background_white">
+
 
         </ScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

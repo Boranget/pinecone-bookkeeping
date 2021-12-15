@@ -41,16 +41,5 @@ public abstract class BasicActivity extends AppCompatActivity {
         ActivityController.removeActivity(this);
     }
 
-    /**
-     * 更新碎片
-     * @param layoutId 布局id
-     * @param fragment 需要添加的碎片
-     */
-    public void replaceFragment(int layoutId, Fragment fragment){
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(layoutId,fragment);
-        fragmentTransaction.commit();
 
-    }
 }

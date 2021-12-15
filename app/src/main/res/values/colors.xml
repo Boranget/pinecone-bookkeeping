@@ -9,5 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="nav_green">#FF07C196</color>
     <color name="after_list_click_color">#ff999999</color>
+    <color name="background_gray">#ffededed</color>
+    <color name="line_gray">#55ededed</color>
+    <color name="background_white">#ffffffff</color>
 
 </resources>

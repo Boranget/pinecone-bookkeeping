@@ -11,13 +11,16 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.blackorangejuice.songguojizhang.R;
+import com.blackorangejuice.songguojizhang.activity.home.info.UpdatePasswordPageActivity;
+import com.blackorangejuice.songguojizhang.activity.home.info.UpdateUsernamePageActivity;
 import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
 import com.blackorangejuice.songguojizhang.db.mapper.SettingInfoMapper;
 import com.blackorangejuice.songguojizhang.utils.globle.BasicFragment;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
-import com.blackorangejuice.songguojizhang.utils.globle.SongGuoUtils;
 
 public class ShowMyInfoPageFragment extends BasicFragment {
     private View thisView;
@@ -26,7 +29,7 @@ public class ShowMyInfoPageFragment extends BasicFragment {
     private LinearLayout enablePasswordLayout;
     private Switch enablePasswordSwitch;
     private LinearLayout changePasswordLayout;
-    private LinearLayout changeAccountBookLayout;
+    private LinearLayout switchAccountBookLayout;
     private LinearLayout aboutLayout;
     private LinearLayout moreLayout;
 
@@ -56,16 +59,20 @@ public class ShowMyInfoPageFragment extends BasicFragment {
         enablePasswordLayout = thisView.findViewById(R.id.my_info_page_enable_password_layout);
         enablePasswordSwitch = thisView.findViewById(R.id.my_info_page_enable_password_switch);
         changePasswordLayout = thisView.findViewById(R.id.my_info_page_change_password_layout);
-        changeAccountBookLayout = thisView.findViewById(R.id.my_info_page_change_account_book_layout);
+        switchAccountBookLayout = thisView.findViewById(R.id.my_info_page_switch_account_book_layout);
         aboutLayout = thisView.findViewById(R.id.my_info_page_about_layout);
-        moreLayout = thisView.findViewById(R.id.my_info_page_more_layout);
+        moreLayout = thisView.findViewById(R.id.my_info_page_more_setting_layout);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        // 设置switch
+        enablePasswordSwitch.setChecked(Boolean.valueOf(GlobalInfo.settingInfo.getIfEnablePasswordCheck()));
         // 加载用户名
-        usernameTextView.setText(GlobalInfo.user.getUsername());
+        usernameTextView.setText(GlobalInfo.settingInfo.getUsername());
+
+
     }
 
     /**
@@ -77,6 +84,7 @@ public class ShowMyInfoPageFragment extends BasicFragment {
             @Override
             public void onClick(View v) {
                 // 修改用户名界面
+                UpdateUsernamePageActivity.startThisActivity(getActivity());
             }
         });
         enablePasswordLayout.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +100,11 @@ public class ShowMyInfoPageFragment extends BasicFragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // 更新密码启用设置
                 SettingInfoMapper settingInfoMapper = new SettingInfoMapper(songGuoDatabaseHelper);
-                settingInfoMapper.updateIfEnablePasswordCheck(String.valueOf(enablePasswordSwitch.isChecked()),GlobalInfo.user.getUid());
+                // 更新全局setting
+                GlobalInfo.settingInfo.setIfEnablePasswordCheck(String.valueOf(enablePasswordSwitch.isChecked()));
+                // 更新数据库
+                settingInfoMapper.updateBySid(GlobalInfo.settingInfo);
+
             }
         });
 
@@ -100,9 +112,10 @@ public class ShowMyInfoPageFragment extends BasicFragment {
             @Override
             public void onClick(View v) {
                 // 修改密码界面
+                UpdatePasswordPageActivity.startThisActivity(getActivity());
             }
         });
-        changeAccountBookLayout.setOnClickListener(new View.OnClickListener() {
+        switchAccountBookLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // 切换账本页面

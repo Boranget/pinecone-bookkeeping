@@ -8,6 +8,8 @@ import android.graphics.BitmapFactory;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
 
+import androidx.fragment.app.FragmentManager;
+
 import com.blackorangejuice.songguojizhang.bean.AccountItem;
 import com.blackorangejuice.songguojizhang.bean.Block;
 import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
@@ -60,6 +62,13 @@ public class SongGuoUtils {
 
     }
 
+    /**
+     * 通过文件名获取bitmap
+     *
+     * @param context
+     * @param fileName
+     * @return
+     */
     public static Bitmap getBitmapByFileName(Context context, String fileName) {
         InputStream inputStream = null;
         try {
@@ -75,6 +84,9 @@ public class SongGuoUtils {
         }
         return bitmap;
     }
+
+
+
 
 
 }

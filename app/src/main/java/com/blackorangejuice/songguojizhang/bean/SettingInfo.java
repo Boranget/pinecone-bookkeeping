@@ -3,9 +3,12 @@ package com.blackorangejuice.songguojizhang.bean;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalConstant;
 
 public class SettingInfo {
+
     private Integer sid;
-    // 对应的用户id
-    private Integer uid;
+    // 用户名
+    private String username;
+    // 密码
+    private String password;
     // 是否启用登陆密码检查,存true或false
     private String ifEnablePasswordCheck;
     // 默认启动页面
@@ -15,9 +18,10 @@ public class SettingInfo {
     // 默认当前使用账本bid
     private Integer currentAccountBookBid;
 
-    public static SettingInfo getDefultSettingInfo(Integer uid) {
+    public static SettingInfo getDefultSettingInfo() {
         SettingInfo settingInfo = new SettingInfo();
-        settingInfo.setUid(uid);
+        settingInfo.setUsername("");
+        settingInfo.setPassword("");
         settingInfo.setIfEnablePasswordCheck("true");
         settingInfo.setDefultLaunchPage(GlobalConstant.LAUNCH_PAGE_OVERVIEW_PAGE);
         settingInfo.setDefultAddPage(GlobalConstant.ADD_PAGE_ACCOUNT);
@@ -33,12 +37,20 @@ public class SettingInfo {
         this.sid = sid;
     }
 
-    public Integer getUid() {
-        return uid;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUid(Integer uid) {
-        this.uid = uid;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getIfEnablePasswordCheck() {

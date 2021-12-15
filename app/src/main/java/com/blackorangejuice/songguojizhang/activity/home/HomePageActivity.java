@@ -2,6 +2,8 @@ package com.blackorangejuice.songguojizhang.activity.home;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
 import android.content.Intent;
@@ -29,6 +31,7 @@ public class HomePageActivity extends BasicActivity {
 
     // 填充内容的布局
     private int replaceFragmentLayout = R.id.home_page_fragment_layout;
+
 
     /**
      * 启动此活动
@@ -76,7 +79,10 @@ public class HomePageActivity extends BasicActivity {
      * @param fragment
      */
     protected void replaceFragment(Fragment fragment) {
-        super.replaceFragment(replaceFragmentLayout, fragment);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(replaceFragmentLayout,fragment);
+        fragmentTransaction.commit();
     }
 
     /**

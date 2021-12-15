@@ -23,11 +23,6 @@ public class SongGuoDatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    private static final String CREAT_TABLE_USER = "create table t_user(\n" +
-            "    uid integer primary key autoincrement,\n" +
-            "    username text not null unique,\n" +
-            "    password text\n" +
-            ")";
     private static final String CREAT_TABLE_TAG = "create table t_tag(\n" +
             "    tid integer primary key autoincrement,\n" +
             "    tag_name text not null unique,\n" +
@@ -35,8 +30,7 @@ public class SongGuoDatabaseHelper extends SQLiteOpenHelper {
             ")";
     private static final String CREATE_TABLE_ACCOUNT_BOOK = "create table t_account_book(\n" +
             "    bid integer primary key autoincrement,\n" +
-            "    uid integer not null,\n" +
-            "    account_book_name text not null\n" +
+            "    account_book_name text not null unique\n" +
             ")";
     private static final String CREAT_TABLE_EVENT_ITEM= "create table t_event_item(\n" +
             "    eid integer primary key autoincrement,\n" +
@@ -57,8 +51,9 @@ public class SongGuoDatabaseHelper extends SQLiteOpenHelper {
             "    eid integer not null\n" +
             ")";
     private static final String CREAT_TABLE_SETTING_INFO = "create table t_setting_info(\n" +
+            "    username text not null unique,\n" +
+            "    password text,\n" +
             "    sid integer primary key autoincrement,\n" +
-            "    uid integer not null unique,\n" +
             "    if_enable_password_check text not null,\n" +
             "    defult_launch_page text not null,\n" +
             "    defult_add_page text not null,\n" +
@@ -73,7 +68,6 @@ public class SongGuoDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(CREAT_TABLE_USER);
         db.execSQL(CREAT_TABLE_TAG);
         db.execSQL(CREATE_TABLE_ACCOUNT_BOOK);
         db.execSQL(CREAT_TABLE_EVENT_ITEM);

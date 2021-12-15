@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_weight="1"
-        android:background="#ffffff"
+        android:background="@color/background_white"
         >
 
         <LinearLayout
@@ -115,7 +115,7 @@
 
         </LinearLayout>
         <LinearLayout
-            android:id="@+id/my_info_page_change_account_book_layout"
+            android:id="@+id/my_info_page_switch_account_book_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="20dp"
@@ -155,7 +155,7 @@
 
         </LinearLayout>
         <LinearLayout
-            android:id="@+id/my_info_page_more_layout"
+            android:id="@+id/my_info_page_more_setting_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="20dp"

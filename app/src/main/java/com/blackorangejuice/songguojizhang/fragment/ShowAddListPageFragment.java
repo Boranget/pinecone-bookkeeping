@@ -17,6 +17,7 @@ import com.blackorangejuice.songguojizhang.activity.home.edit.account.AddEditAcc
 import com.blackorangejuice.songguojizhang.utils.globle.BasicFragment;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalConstant;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
+import com.blackorangejuice.songguojizhang.utils.globle.SongGuoUtils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class ShowAddListPageFragment extends BasicFragment {
@@ -66,9 +67,11 @@ public class ShowAddListPageFragment extends BasicFragment {
                 // 更改fragment中的内容
             }
         });
+
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 switch(GlobalInfo.currentAddPage){
                     case GlobalConstant.ADD_PAGE_ACCOUNT:
                         // 跳到新增账本界面
@@ -104,7 +107,8 @@ public class ShowAddListPageFragment extends BasicFragment {
      * @param fragment
      */
     protected void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getFragmentManager();
+        // 这里更换为子碎片管理器
+        FragmentManager fragmentManager = getChildFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.show_add_list_page_fragment,fragment);
         fragmentTransaction.commit();

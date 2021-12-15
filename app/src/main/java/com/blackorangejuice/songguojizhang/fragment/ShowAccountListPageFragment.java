@@ -78,7 +78,6 @@ public class ShowAccountListPageFragment extends BasicFragment {
     public void onResume() {
         super.onResume();
         currentPage = 1;
-//        SongGuoUtils.showOneToast(getContext(), "resume");
         // blocks初始化
         blocks = new ArrayList<>();
         // 第一次填充blocks
