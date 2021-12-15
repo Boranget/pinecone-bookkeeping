@@ -18,6 +18,8 @@ public class SettingInfoMapper {
     public static final String SELECT_BY_SID = "select * from t_setting_info where sid = ?";
     public static final String SELECT_All = "select * from t_setting_info";
 
+
+
     SongGuoDatabaseHelper songGuoDatabaseHelper;
     SQLiteDatabase sqLiteDatabase;
 
@@ -84,6 +86,10 @@ public class SettingInfoMapper {
         return settingInfo;
     }
 
+    /**
+     * 查找第一条(唯一一条设置)
+     * @return
+     */
     private SettingInfo selectTheFirstSetting(){
         Cursor cursor = sqLiteDatabase.rawQuery(SELECT_All, null);
         SettingInfo settingInfo = new SettingInfo();

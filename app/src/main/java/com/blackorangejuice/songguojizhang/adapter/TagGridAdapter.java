@@ -1,6 +1,5 @@
 package com.blackorangejuice.songguojizhang.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
@@ -13,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.blackorangejuice.songguojizhang.R;
-import com.blackorangejuice.songguojizhang.activity.home.edit.account.AddEditAccountPageActivity;
 import com.blackorangejuice.songguojizhang.activity.home.edit.account.EditAccountActivity;
 import com.blackorangejuice.songguojizhang.bean.Tag;
 import com.blackorangejuice.songguojizhang.utils.globle.SongGuoUtils;
@@ -50,7 +48,7 @@ public class TagGridAdapter extends RecyclerView.Adapter<TagGridAdapter.TagGridV
     @Override
     public TagGridViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         mContext = parent.getContext();
-        View view = LayoutInflater.from(mContext).inflate(R.layout.tag_grid_item, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_tag_grid, parent, false);
         TagGridViewHolder tagGridViewHolder = new TagGridViewHolder(view);
 
         tagGridViewHolder.tagItem.setOnClickListener(new View.OnClickListener() {

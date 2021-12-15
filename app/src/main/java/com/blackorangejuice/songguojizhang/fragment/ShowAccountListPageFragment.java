@@ -64,10 +64,10 @@ public class ShowAccountListPageFragment extends BasicFragment {
         accountItem.setIfBorrowOrLend(AccountItem.IF_FALSE);
         accountItem.setBid(1);
         accountItem.setEid(0);
-        for(int j = 0; j < 100; j ++){
+        for (int j = 0; j < 100; j++) {
             Long min = 1639207308234L; // 定义随机数的最小值
-            Random r =new Random();
-            long unixtime=(long) (min+r.nextDouble()*1000*60*60*24*31);
+            Random r = new Random();
+            long unixtime = (long) (min + r.nextDouble() * 1000 * 60 * 60 * 24 * 31);
             accountItem.setAccountTime(unixtime);
             accountItemMapper.insertAccountItem(accountItem);
         }
@@ -83,30 +83,30 @@ public class ShowAccountListPageFragment extends BasicFragment {
         // 第一次填充blocks
         refreshGlobleBlocks(true);
 
-        // 若填充过blocks后blocks还是空,说明数据库中无内容,不进行adapter的初始化
-        if (!blocks.isEmpty()) {
-            // adapter初始化
-            blockRecycleViewAdapter = new BlockRecycleViewAdapter(this, blocks);
-            RecyclerView recyclerView = activity.findViewById(R.id.fragment_show_account_list_recycle_view);
-            recyclerView.setAdapter(blockRecycleViewAdapter);
-            recyclerView.setLayoutManager(new LinearLayoutManager(activity));
 
-            RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
-                @Override
-                public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                    super.onScrollStateChanged(recyclerView, newState);
-                    if (newState == RecyclerView.SCROLL_STATE_IDLE) { //当前状态为停止滑动
-                        if (!recyclerView.canScrollVertically(1)) { // 到达底部
-                            System.out.println("到底了");
-                            extendBlocks();
-                        } else if (!recyclerView.canScrollVertically(-1)) { // 到达顶部
+//        if (!blocks.isEmpty()) {
+        // adapter初始化
+        blockRecycleViewAdapter = new BlockRecycleViewAdapter(this, blocks);
+        RecyclerView recyclerView = activity.findViewById(R.id.fragment_show_account_list_recycle_view);
+        recyclerView.setAdapter(blockRecycleViewAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+
+        RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) { //当前状态为停止滑动
+                    if (!recyclerView.canScrollVertically(1)) { // 到达底部
+                        System.out.println("到底了");
+                        extendBlocks();
+                    } else if (!recyclerView.canScrollVertically(-1)) { // 到达顶部
 //                            System.out.println("到顶了");
-                        }
                     }
                 }
-            };
-            recyclerView.addOnScrollListener(onScrollListener);
-        }
+            }
+        };
+        recyclerView.addOnScrollListener(onScrollListener);
+//        }
 
     }
 
@@ -129,7 +129,7 @@ public class ShowAccountListPageFragment extends BasicFragment {
             List<AccountItem> accountItems = accountItemMapper.selectDescPage(currentPage++, GlobalConstant.PAGE_SIZE);
 //            List<AccountItem> accountItems = accountItemMapper.selectDesc();
 
-            if(accountItems.isEmpty()){
+            if (accountItems.isEmpty()) {
                 return;
             }
 
@@ -145,7 +145,7 @@ public class ShowAccountListPageFragment extends BasicFragment {
             currentBlock.getThatDayAccountItems().add(firstAccountItem);
             // 如果列表中只有一项
             // 则将这一项加入
-            if(accountItems.size() == 1){
+            if (accountItems.size() == 1) {
                 blocks.add(currentBlock);
             }
             // 从第二条开始

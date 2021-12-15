@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.blackorangejuice.songguojizhang.bean.AccountItem;
 import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
+import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +44,7 @@ public class AccountItemMapper {
             "where\n" +
             "    aid = ?";
     public static final String SELECT_BY_AID = "select * from t_account_item where aid = ?";
-    public static final String SELECT_DESC_PAGE = "select * from t_account_item order by account_time desc limit ?,?";
+    public static final String SELECT_DESC_PAGE = "select * from t_account_item where bid = ?  order by account_time desc limit ?,?";
     public static final String SELECT_DESC = "select * from t_account_item order by account_time desc";
 
     SongGuoDatabaseHelper songGuoDatabaseHelper;
@@ -171,7 +172,7 @@ public class AccountItemMapper {
         // 页面转指针
         int index = (page - 1) * size;
 
-        Cursor cursor = sqLiteDatabase.rawQuery(SELECT_DESC_PAGE,new String[]{String.valueOf(index), String.valueOf(size)});
+        Cursor cursor = sqLiteDatabase.rawQuery(SELECT_DESC_PAGE,new String[]{String.valueOf(GlobalInfo.currentAccountBook.getBid()),String.valueOf(index), String.valueOf(size)});
         List<AccountItem> accountItems = new ArrayList<>();
         if(cursor.moveToFirst()){
 

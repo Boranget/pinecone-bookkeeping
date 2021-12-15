@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.blackorangejuice.songguojizhang.R;
+import com.blackorangejuice.songguojizhang.activity.home.info.SwitchAccountBookPageActivity;
 import com.blackorangejuice.songguojizhang.activity.home.info.UpdatePasswordPageActivity;
 import com.blackorangejuice.songguojizhang.activity.home.info.UpdateUsernamePageActivity;
 import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
@@ -118,6 +119,7 @@ public class ShowMyInfoPageFragment extends BasicFragment {
         switchAccountBookLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SwitchAccountBookPageActivity.startThisActivity(getActivity());
                 // 切换账本页面
             }
         });

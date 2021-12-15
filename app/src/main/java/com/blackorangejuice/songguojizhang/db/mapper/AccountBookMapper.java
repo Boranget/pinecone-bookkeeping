@@ -26,6 +26,7 @@ public class AccountBookMapper {
     public static final String SELETE_BY_BID = "select * from t_account_book where bid = ?";
 
     public static final String SELETE_BY_ACCOUNT_BOOK_NAME = "select * from t_account_book where account_book_name = ?";
+    public static final String SELETE_ALL = "select * from t_account_book";
 
 
     SongGuoDatabaseHelper songGuoDatabaseHelper;
@@ -63,8 +64,9 @@ public class AccountBookMapper {
      * 删除帐本
      * @param bid
      */
-    public void deleteAccountBook(Integer bid){
-        sqLiteDatabase.execSQL(DELETE_ACCOUNT_BOOK,new String[]{String.valueOf(bid)});
+    public void deleteAccountBook(AccountBook accountBook){
+
+        sqLiteDatabase.execSQL(DELETE_ACCOUNT_BOOK,new String[]{String.valueOf(accountBook.getBid())});
     }
 
 
@@ -101,5 +103,23 @@ public class AccountBookMapper {
         }
         cursor.close();
         return accountBook;
+    }
+    public List<AccountBook> selectAll(){
+        List<AccountBook> accountBooks = new ArrayList<>();
+        Cursor cursor = sqLiteDatabase.rawQuery(SELETE_ALL,null);
+
+        if(cursor.moveToFirst()){
+            do{
+                AccountBook accountBook = new AccountBook();
+                Integer bid = cursor.getInt(cursor.getColumnIndex("bid"));
+                String accountBookName = cursor.getString(cursor.getColumnIndex("account_book_name"));
+                accountBook.setAccountBookName(accountBookName);
+                accountBook.setBid(bid);
+                accountBooks.add(accountBook);
+            }while (cursor.moveToNext());
+
+        }
+        cursor.close();
+        return accountBooks;
     }
 }

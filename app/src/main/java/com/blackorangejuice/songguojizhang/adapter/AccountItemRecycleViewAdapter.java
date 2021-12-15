@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.blackorangejuice.songguojizhang.R;
 import com.blackorangejuice.songguojizhang.activity.home.edit.account.UpdateEditAccountPageActivity;
 import com.blackorangejuice.songguojizhang.bean.AccountItem;
-import com.blackorangejuice.songguojizhang.bean.Tag;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
 import com.blackorangejuice.songguojizhang.utils.globle.SongGuoUtils;
 
@@ -51,7 +50,7 @@ public class AccountItemRecycleViewAdapter extends RecyclerView.Adapter<AccountI
     @Override
     public AccountItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.account_item_in_the_recycle_view, parent, false);
+                .inflate(R.layout.item_account_list, parent, false);
         AccountItemViewHolder accountItemViewHolder = new AccountItemViewHolder(view);
         accountItemViewHolder.accountItemView.setOnClickListener(new View.OnClickListener() {
             @Override
