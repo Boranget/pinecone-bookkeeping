@@ -39,7 +39,6 @@ public class TagMapper {
     public TagMapper(SongGuoDatabaseHelper songGuoDatabaseHelper) {
         this.songGuoDatabaseHelper = songGuoDatabaseHelper;
         sqLiteDatabase = songGuoDatabaseHelper.getWritableDatabase();
-
     }
 
     /**

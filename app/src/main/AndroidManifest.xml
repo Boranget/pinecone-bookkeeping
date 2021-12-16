@@ -3,53 +3,59 @@
     package="com.blackorangejuice.songguojizhang">
 
     <application
-        android:name=".utils.globle.SelfApplication"
+        android:name=".utils.other.SelfApplication"
         android:allowBackup="true"
         android:icon="@drawable/app_block"
         android:label="@string/app_name_cn"
         android:supportsRtl="true"
         android:theme="@style/Theme.SongGuoJiZhang">
         <activity
-            android:name=".activity.home.info.MoreSettingActivity"
+            android:name=".transaction.home.list.event.edit.UpdateEditEventPageActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.home.info.AboutPageActivity"
+            android:name=".transaction.home.list.event.edit.AddEditEventPageActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.home.info.SwitchAccountBookPageActivity"
+            android:name=".transaction.home.myinfo.MoreSettingActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.home.info.UpdatePasswordPageActivity"
+            android:name=".transaction.home.myinfo.AboutPageActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.home.info.UpdateUsernamePageActivity"
+            android:name=".transaction.home.myinfo.SwitchAccountBookPageActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.home.edit.account.UpdateEditAccountPageActivity"
+            android:name=".transaction.home.myinfo.UpdatePasswordPageActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.home.edit.account.AddEditAccountPageActivity"
+            android:name=".transaction.home.myinfo.UpdateUsernamePageActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.guide.GuideAccountBookNamePageActivity"
+            android:name=".transaction.home.list.account.edit.UpdateEditAccountPageActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.guide.GuideEnablePasswordCheckPageActivity"
+            android:name=".transaction.home.list.account.edit.AddEditAccountPageActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.guide.GuideRepasswordPageActivity"
+            android:name=".transaction.guide.GuideAccountBookNamePageActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.guide.GuidePasswordPageActivity"
+            android:name=".transaction.guide.GuideEnablePasswordCheckPageActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.guide.GuideUsernamePageActivity"
+            android:name=".transaction.guide.GuideRepasswordPageActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.guide.GuideStartPageActivity"
+            android:name=".transaction.guide.GuidePasswordPageActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.home.HomePageActivity"
+            android:name=".transaction.guide.GuideUsernamePageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".transaction.guide.GuideStartPageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".transaction.home.HomePageActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

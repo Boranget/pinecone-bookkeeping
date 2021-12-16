@@ -2,21 +2,21 @@ package com.blackorangejuice.songguojizhang;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 
-import com.blackorangejuice.songguojizhang.activity.guide.GuideStartPageActivity;
-import com.blackorangejuice.songguojizhang.activity.home.HomePageActivity;
+import com.blackorangejuice.songguojizhang.transaction.guide.GuideStartPageActivity;
+import com.blackorangejuice.songguojizhang.transaction.home.HomePageActivity;
 import com.blackorangejuice.songguojizhang.bean.AccountBook;
 import com.blackorangejuice.songguojizhang.bean.SettingInfo;
 import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
 import com.blackorangejuice.songguojizhang.db.mapper.AccountBookMapper;
 import com.blackorangejuice.songguojizhang.db.mapper.SettingInfoMapper;
-import com.blackorangejuice.songguojizhang.utils.globle.BasicActivity;
+import com.blackorangejuice.songguojizhang.utils.basic.BasicActivity;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalConstant;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
-import com.blackorangejuice.songguojizhang.utils.globle.SongGuoUtils;
+import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
 
 public class MainActivity extends BasicActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,5 +60,20 @@ public class MainActivity extends BasicActivity {
 
             }
         }).start();
+    }
+
+    @Override
+    public void init() {
+
+    }
+
+    @Override
+    public void findView() {
+
+    }
+
+    @Override
+    public void setListener() {
+
     }
 }

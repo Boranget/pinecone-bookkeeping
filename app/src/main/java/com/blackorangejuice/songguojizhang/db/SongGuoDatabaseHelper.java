@@ -6,9 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-import com.blackorangejuice.songguojizhang.db.mapper.TagMapper;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalConstant;
-import com.blackorangejuice.songguojizhang.utils.globle.SongGuoUtils;
 
 public class SongGuoDatabaseHelper extends SQLiteOpenHelper {
 
