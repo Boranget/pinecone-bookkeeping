@@ -3,4 +3,6 @@
     <string name="app_name_cn">松果记账</string>
     <string name="vertical_bar"></string>
     <string name="back">&lt;</string>
+    <string name="at">\u0040</string>
+    <string name="sanheng">≡</string>
 </resources>

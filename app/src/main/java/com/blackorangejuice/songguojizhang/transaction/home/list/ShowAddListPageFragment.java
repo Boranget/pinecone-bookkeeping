@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.blackorangejuice.songguojizhang.R;
 import com.blackorangejuice.songguojizhang.transaction.home.list.account.edit.AddEditAccountPageActivity;
 import com.blackorangejuice.songguojizhang.transaction.home.list.account.show.ShowAccountListPageFragment;
+import com.blackorangejuice.songguojizhang.transaction.home.list.event.edit.AddEditEventPageActivity;
 import com.blackorangejuice.songguojizhang.utils.basic.BasicFragment;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalConstant;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
@@ -123,7 +124,7 @@ public class ShowAddListPageFragment extends BasicFragment {
                         break;
                     case GlobalConstant.ADD_PAGE_EVENT:
                         // 跳到新增事件界面
-
+                        AddEditEventPageActivity.startThisActivity(getActivity());
                         break;
                 }
             }

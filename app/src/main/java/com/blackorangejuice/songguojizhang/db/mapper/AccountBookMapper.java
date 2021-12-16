@@ -62,7 +62,7 @@ public class AccountBookMapper {
 
     /**
      * 删除帐本
-     * @param bid
+     * @param accountBook
      */
     public void deleteAccountBook(AccountBook accountBook){
 

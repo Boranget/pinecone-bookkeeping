@@ -113,7 +113,7 @@ public class AddEditAccountPageActivity extends EditAccountActivity {
     @Override
     public void init() {
         songGuoDatabaseHelper = SongGuoDatabaseHelper.getSongGuoDatabaseHelper(this);
-        // 初始化记账项对象
+        // 初始化记账项对象,若是从其他界面返回需要保存信息
         if (GlobalInfo.lastAddAccount == null) {
             accountItem = new AccountItem();
         } else {
@@ -124,8 +124,6 @@ public class AddEditAccountPageActivity extends EditAccountActivity {
         Date date = new Date();
         simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
         timeTextView.setText(simpleDateFormat.format(date));
-
-        // 账目设置时间
         accountItem.setAccountTime(date.getTime());
 
         // 金额输入框过滤器
@@ -197,7 +195,7 @@ public class AddEditAccountPageActivity extends EditAccountActivity {
                     public void onDateSet(DatePicker view, int year, int monthOfYear,
                                           int dayOfMonth) {
 
-                        Toast.makeText(getApplicationContext(), "你选择的是 " + year + "年" + (monthOfYear + 1) + "月" + dayOfMonth + "日", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplicationContext(), "你选择的是 " + year + "年" + (monthOfYear + 1) + "月" + dayOfMonth + "日", Toast.LENGTH_SHORT).show();
                         String dataS = year + "/" + (monthOfYear + 1) + "/" + dayOfMonth;
                         Date theDateAfterParse = new Date();
                         try {
