@@ -14,6 +14,8 @@ import com.blackorangejuice.songguojizhang.R;
 import com.blackorangejuice.songguojizhang.bean.AccountBook;
 import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
 import com.blackorangejuice.songguojizhang.db.mapper.AccountBookMapper;
+import com.blackorangejuice.songguojizhang.db.mapper.AccountItemMapper;
+import com.blackorangejuice.songguojizhang.db.mapper.EventItemMapper;
 import com.blackorangejuice.songguojizhang.db.mapper.SettingInfoMapper;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
 import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
@@ -79,7 +81,11 @@ public class SwitchAccountBookAdapter extends RecyclerView.Adapter<SwitchAccount
                         accountBookMapper.deleteAccountBook(accountBook);
                         activity.refreshAccountBook();
                         // 删除该账本下的所有账单
+                        AccountItemMapper accountItemMapper = new AccountItemMapper(SongGuoDatabaseHelper.getSongGuoDatabaseHelper(activity));
+                        accountItemMapper.deleteAccountItemByBook(accountBook.getBid());
                         // 删除该账本下的所有记事
+                        EventItemMapper eventItemMapper = new EventItemMapper(SongGuoDatabaseHelper.getSongGuoDatabaseHelper(activity));
+                        eventItemMapper.deleteEventItemByBook(accountBook.getBid());
                     }
                 });
                 builder.setNegativeButton("取消",null);

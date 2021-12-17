@@ -3,7 +3,6 @@ package com.blackorangejuice.songguojizhang.db.mapper;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.blackorangejuice.songguojizhang.bean.AccountItem;
 import com.blackorangejuice.songguojizhang.bean.EventItem;
 import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
@@ -17,7 +16,7 @@ public class EventItemMapper {
             " values\n" +
             " (?,?,?,?)";
     public static final String SELECT_THE_NEW = "select * from t_event_item order by eid desc limit 1";
-    public static final String DELECT_EVENT_ITEM = "delete from t_event_item where eid = ?";
+    public static final String DELETE_EVENT_ITEM = "delete from t_event_item where eid = ?";
     public static final String UPDATE_EVENT_ITEM = "update t_event_item \n" +
             "set \n" +
             "event_title = ?,\n" +
@@ -27,6 +26,7 @@ public class EventItemMapper {
             "where eid = ?";
     public static final String SELECT_DESC_PAGE = "select * from t_event_item where bid = ? order by event_time desc limit ?,?";
     public static final String SELECT_BY_EID = "select * from t_event_item where eid = ?";
+    public static final String DELETE_BY_BOOK = "delete from t_event_item where bid = ?";
     SongGuoDatabaseHelper songGuoDatabaseHelper;
     SQLiteDatabase sqLiteDatabase;
 
@@ -71,7 +71,7 @@ public class EventItemMapper {
      * @param eventItem
      */
     public void deleteEventItem(EventItem eventItem){
-        sqLiteDatabase.execSQL(DELECT_EVENT_ITEM,new String[]{String.valueOf(eventItem.getEid())});
+        sqLiteDatabase.execSQL(DELETE_EVENT_ITEM,new String[]{String.valueOf(eventItem.getEid())});
     }
 
     /**
@@ -132,4 +132,13 @@ public class EventItemMapper {
         cursor.close();
         return eventItem;
     }
+
+    /**
+     * 删除某账本下的所有事件
+     * @param bid
+     */
+    public void deleteEventItemByBook(Integer bid){
+        sqLiteDatabase.execSQL(DELETE_BY_BOOK,new String[]{String.valueOf(bid)});
+    }
+
 }

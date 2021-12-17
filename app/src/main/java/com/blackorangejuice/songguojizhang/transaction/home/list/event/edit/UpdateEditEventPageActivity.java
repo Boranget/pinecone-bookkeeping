@@ -2,8 +2,10 @@ package com.blackorangejuice.songguojizhang.transaction.home.list.event.edit;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 import com.blackorangejuice.songguojizhang.R;
 import com.blackorangejuice.songguojizhang.bean.EventItem;
 import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
+import com.blackorangejuice.songguojizhang.db.mapper.AccountBookMapper;
 import com.blackorangejuice.songguojizhang.db.mapper.EventItemMapper;
 import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
@@ -138,6 +141,30 @@ public class UpdateEditEventPageActivity extends EditEventActivity {
                 eventItem = eventItemMapper.updateEventItem(UpdateEditEventPageActivity.this.eventItem);
                 SongGuoUtils.showOneToast(UpdateEditEventPageActivity.this, "修改成功");
                 UpdateEditEventPageActivity.this.finish();
+            }
+        });
+
+        // 更多按钮长按事件删除
+        moreLinearLayout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(UpdateEditEventPageActivity.this);
+                builder.setTitle("你确定要删除此事件吗");
+                builder.setMessage("删除后不可恢复");
+                builder.setCancelable(true);
+                builder.setPositiveButton("确认删除", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // 删除事件
+                        EventItemMapper eventItemMapper = new EventItemMapper(songGuoDatabaseHelper);
+                        eventItemMapper.deleteEventItem(eventItem);
+                        SongGuoUtils.showOneToast(UpdateEditEventPageActivity.this,"删除成功");
+                        UpdateEditEventPageActivity.this.finish();
+                    }
+                });
+                builder.setNegativeButton("取消",null);
+                builder.show();
+                return true;
             }
         });
     }

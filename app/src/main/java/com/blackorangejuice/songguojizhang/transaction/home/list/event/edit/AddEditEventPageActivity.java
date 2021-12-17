@@ -141,9 +141,20 @@ public class AddEditEventPageActivity extends EditEventActivity {
 
     private void getEventInfoToAccountItem() {
         // 标题
-        eventItem.setEventTitle(titleEditText.getText().toString());
+        String titleS = titleEditText.getText().toString();
+        if(SongGuoUtils.notEmptyString(titleS)){
+            eventItem.setEventTitle(titleS);
+        }else {
+            eventItem.setEventTitle(new SimpleDateFormat("yyyy年MM月dd日.记").format(eventItem.getEventTime()));
+        }
         // 正文
-        eventItem.setEventContent(contentEditText.getText().toString());
+        String contentS = contentEditText.getText().toString();
+        if(SongGuoUtils.notEmptyString(contentS)){
+            eventItem.setEventContent(contentS);
+        }else{
+            eventItem.setEventContent("无内容");
+        }
+
         // Bid
         eventItem.setBid(GlobalInfo.currentAccountBook.getBid());
         // 设置账本为当前全局账本

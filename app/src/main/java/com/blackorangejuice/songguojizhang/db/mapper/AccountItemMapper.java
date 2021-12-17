@@ -46,6 +46,7 @@ public class AccountItemMapper {
     public static final String SELECT_BY_AID = "select * from t_account_item where aid = ?";
     public static final String SELECT_DESC_PAGE = "select * from t_account_item where bid = ?  order by account_time desc limit ?,?";
     public static final String SELECT_DESC = "select * from t_account_item order by account_time desc";
+    public static final String DELETE_BY_BOOK = "delete from t_account_item where bid = ?";
 
     SongGuoDatabaseHelper songGuoDatabaseHelper;
     SQLiteDatabase sqLiteDatabase;
@@ -258,6 +259,13 @@ public class AccountItemMapper {
         cursor.close();
         return accountItems;
 
+    }
+    /**
+     * 删除某账本下的所有账单
+     * @param bid
+     */
+    public void deleteAccountItemByBook(Integer bid){
+        sqLiteDatabase.execSQL(DELETE_BY_BOOK,new String[]{String.valueOf(bid)});
     }
 
 }

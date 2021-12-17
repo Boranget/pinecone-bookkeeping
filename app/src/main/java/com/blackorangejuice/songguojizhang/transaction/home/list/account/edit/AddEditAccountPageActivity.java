@@ -66,9 +66,7 @@ public class AddEditAccountPageActivity extends EditAccountActivity {
 
 
         findView();
-
         init();
-
         setListener();
 
 
@@ -91,7 +89,6 @@ public class AddEditAccountPageActivity extends EditAccountActivity {
             remark = "无备注";
         }
         accountItem.setRemark(remark);
-
 
 
         // 设置是否借出借入
@@ -134,13 +131,11 @@ public class AddEditAccountPageActivity extends EditAccountActivity {
         recyclerView.setLayoutManager(layoutManager);
         TagMapper tagMapper = new TagMapper(songGuoDatabaseHelper);
         List<Tag> tags = tagMapper.selectAll();
-        recyclerView.setAdapter(new
-
-                TagGridAdapter(tags, this));
+        recyclerView.setAdapter(new TagGridAdapter(tags, this));
         // 设置默认tag
         accountItem.setTag(tags.get(0));
-
         setTagNameAndImg(tags.get(0));
+        accountItem.setTid(tags.get(0).getTid());
 
         // 支出还是收入text View处理
         // 默认为支出记账

@@ -40,7 +40,7 @@ public class ShowOverviewPageFragment extends BasicFragment {
 
     @Override
     public void init() {
-        // 初始化标签名
+
         currentAccountBookNameTextView.setText(GlobalInfo.currentAccountBook.getAccountBookName());
     }
 
