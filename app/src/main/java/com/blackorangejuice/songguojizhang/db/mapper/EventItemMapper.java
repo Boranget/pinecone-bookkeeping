@@ -75,6 +75,18 @@ public class EventItemMapper {
     }
 
     /**
+     * 更新事件
+     * @param eventItem
+     * @return
+     */
+    public EventItem updateEventItem(EventItem eventItem){
+        sqLiteDatabase.execSQL(UPDATE_EVENT_ITEM,new String[]{
+                eventItem.getEventTitle(),eventItem.getEventContent(),
+                String.valueOf(eventItem.getEventTime()), String.valueOf(eventItem.getBid()),
+                String.valueOf(eventItem.getEid())});
+        return selectByEid(eventItem.getEid());
+    }
+    /**
      * 分页查找事件
      * @param page
      * @param size

@@ -55,8 +55,7 @@ public class SwitchAccountBookAdapter extends RecyclerView.Adapter<SwitchAccount
                         new SettingInfoMapper(SongGuoDatabaseHelper.getSongGuoDatabaseHelper(viewGroup.getContext()));
                 settingInfoMapper.updateBySid(GlobalInfo.settingInfo);
                 SongGuoUtils.showOneToast(activity,"切换成功,当前帐本为《"+accountBook.getAccountBookName()+"》");
-//                activity.finish();
-
+                activity.finish();
             }
         });
         accountBookViewHolder.thisView.setOnLongClickListener(new View.OnLongClickListener() {

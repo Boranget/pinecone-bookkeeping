@@ -79,7 +79,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="添加新的账本"
+                    android:text="使用新的账本"
                     android:textSize="18sp" />
 
             </LinearLayout>
