@@ -3,11 +3,13 @@ package com.blackorangejuice.songguojizhang.db.mapper;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.blackorangejuice.songguojizhang.bean.AccountBook;
 import com.blackorangejuice.songguojizhang.bean.AccountItem;
 import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class AccountItemMapper {
@@ -47,6 +49,7 @@ public class AccountItemMapper {
     public static final String SELECT_DESC_PAGE = "select * from t_account_item where bid = ?  order by account_time desc limit ?,?";
     public static final String SELECT_DESC = "select * from t_account_item order by account_time desc";
     public static final String DELETE_BY_BOOK = "delete from t_account_item where bid = ?";
+    public static final String CALCULATE_ACCOUNT_ITEM_SUM = "select sum (sum) sum_accoumt from t_account_item where income_or_expenditure = ? and bid = ? and  account_time between ? and ?";
 
     SongGuoDatabaseHelper songGuoDatabaseHelper;
     SQLiteDatabase sqLiteDatabase;
@@ -260,12 +263,35 @@ public class AccountItemMapper {
         return accountItems;
 
     }
+
     /**
      * 删除某账本下的所有账单
      * @param bid
      */
     public void deleteAccountItemByBook(Integer bid){
         sqLiteDatabase.execSQL(DELETE_BY_BOOK,new String[]{String.valueOf(bid)});
+    }
+
+    /**
+     * 计算某时间段内收入或者支出的总额
+     * @param incomeOrExpenditure
+     * @param d0
+     * @param d1
+     * @return
+     */
+    public Double calculateAccountItemSum(String incomeOrExpenditure,Date d0, Date d1){
+        Long date0 = d0.getTime();
+        Long date1 = d1.getTime() + 1;
+        Cursor cursor = sqLiteDatabase.rawQuery(CALCULATE_ACCOUNT_ITEM_SUM, new String[]{
+                incomeOrExpenditure, String.valueOf(GlobalInfo.currentAccountBook.getBid()),
+                String.valueOf(date0), String.valueOf(date1)
+        });
+        Double sum = 0.0;
+        if (cursor.moveToFirst()){
+            sum = cursor.getDouble(cursor.getColumnIndex("sum_accoumt"));
+        }
+        cursor.close();
+        return sum;
     }
 
 }

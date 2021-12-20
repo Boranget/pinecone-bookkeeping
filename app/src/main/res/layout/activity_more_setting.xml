@@ -54,7 +54,7 @@
 
 
             <LinearLayout
-                android:id="@+id/activity_more_setting_change_password_layout"
+                android:id="@+id/activity_more_setting_timing_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/list_click_color"
@@ -65,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
 
-                    android:text="修改密码"
+                    android:text="定时记账"
                     android:textSize="18sp" />
 
                 <TextView

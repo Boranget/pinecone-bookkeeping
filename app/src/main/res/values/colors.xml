@@ -11,6 +11,7 @@
     <color name="after_list_click_color">#ff999999</color>
     <color name="background_gray">#ffededed</color>
     <color name="line_gray">#55ededed</color>
+    <color name="line_dark_gray">#ffdedede</color>
     <color name="background_white">#ffffffff</color>
 
 </resources>

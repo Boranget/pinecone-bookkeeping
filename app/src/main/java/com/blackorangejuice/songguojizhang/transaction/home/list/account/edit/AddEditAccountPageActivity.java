@@ -81,7 +81,8 @@ public class AddEditAccountPageActivity extends EditAccountActivity {
         }
 
         accountItem.setSum(Double.valueOf(sum));
-
+        // 设置tagId
+        accountItem.setTid(accountItem.getTag().getTid());
         // 获取备注
 
         String remark = "";
