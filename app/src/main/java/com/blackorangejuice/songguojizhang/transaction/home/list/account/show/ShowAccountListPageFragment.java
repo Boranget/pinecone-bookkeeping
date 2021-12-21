@@ -74,11 +74,7 @@ public class ShowAccountListPageFragment extends BasicFragment {
     @Override
     public void onResume() {
         super.onResume();
-        currentPage = 1;
-        // blocks初始化
-        blocks = new ArrayList<>();
-        // 第一次填充blocks
-        refreshGlobleBlocks(true);
+
 
 
 //        if (!blocks.isEmpty()) {
@@ -224,6 +220,12 @@ public class ShowAccountListPageFragment extends BasicFragment {
 
     @Override
     public void init() {
+        currentPage = 1;
+        // blocks初始化
+        blocks = new ArrayList<>();
+        // 第一次填充blocks
+        refreshGlobleBlocks(true);
+
         blockRecycleViewAdapter = new BlockRecycleViewAdapter(this, blocks);
         recyclerView.setAdapter(blockRecycleViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
@@ -252,4 +254,5 @@ public class ShowAccountListPageFragment extends BasicFragment {
         };
         recyclerView.addOnScrollListener(onScrollListener);
     }
+
 }

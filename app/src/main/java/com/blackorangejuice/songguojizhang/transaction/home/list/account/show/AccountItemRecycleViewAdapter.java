@@ -1,5 +1,7 @@
 package com.blackorangejuice.songguojizhang.transaction.home.list.account.show;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.blackorangejuice.songguojizhang.R;
 import com.blackorangejuice.songguojizhang.bean.AccountItem;
+import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
+import com.blackorangejuice.songguojizhang.db.mapper.AccountItemMapper;
 import com.blackorangejuice.songguojizhang.transaction.home.list.account.edit.UpdateEditAccountPageActivity;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
 import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
@@ -20,6 +24,9 @@ import java.util.List;
 
 public class AccountItemRecycleViewAdapter extends RecyclerView.Adapter<AccountItemRecycleViewAdapter.AccountItemViewHolder> {
     private List<AccountItem> accountItems;
+    ShowAccountListPageFragment showAccountListPageFragment;
+    BlockRecycleViewAdapter blockRecycleViewAdapter;
+    int blockRecycleViewAdapterPosition;
 
     static class AccountItemViewHolder extends RecyclerView.ViewHolder {
         View accountItemView;
@@ -42,8 +49,11 @@ public class AccountItemRecycleViewAdapter extends RecyclerView.Adapter<AccountI
 
     }
 
-    public AccountItemRecycleViewAdapter(List<AccountItem> accountItems) {
+    public AccountItemRecycleViewAdapter(BlockRecycleViewAdapter blockAdapter,int postation, ShowAccountListPageFragment fragment,List<AccountItem> accountItems) {
         this.accountItems = accountItems;
+        this.showAccountListPageFragment = fragment;
+        this.blockRecycleViewAdapter = blockAdapter;
+        this.blockRecycleViewAdapterPosition = postation;
     }
 
     @NonNull
@@ -63,7 +73,42 @@ public class AccountItemRecycleViewAdapter extends RecyclerView.Adapter<AccountI
 
             }
         });
-        return  accountItemViewHolder;
+        accountItemViewHolder.accountItemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                int adapterPosition = accountItemViewHolder.getAdapterPosition();
+                AccountItem accountItem = accountItems.get(adapterPosition);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(showAccountListPageFragment.getContext());
+                builder.setTitle("你确定要删除此账单吗");
+                builder.setMessage("删除后不可恢复");
+                builder.setCancelable(true);
+                builder.setPositiveButton("确认删除", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        // 删除该账单
+                        AccountItemMapper accountItemMapper = new AccountItemMapper(SongGuoDatabaseHelper.getSongGuoDatabaseHelper(showAccountListPageFragment.getContext()));
+                        accountItemMapper.deleteAccountItem(accountItem);
+                        // 删除小列表中的账单
+                        accountItems.remove(adapterPosition);
+                        // 小列表刷新
+                        AccountItemRecycleViewAdapter.this.notifyItemRemoved(adapterPosition);
+                        // 若当前小列表中已经没有账单,则删除当前block
+                        if(accountItems.isEmpty()){
+                            blockRecycleViewAdapter.removeFromBlockList(blockRecycleViewAdapterPosition);
+                            blockRecycleViewAdapter.notifyItemRemoved(blockRecycleViewAdapterPosition);
+                        }
+
+                    }
+                });
+                builder.setNegativeButton("取消", null);
+                builder.show();
+
+                return true;
+            }
+        });
+        return accountItemViewHolder;
     }
 
 
@@ -80,9 +125,9 @@ public class AccountItemRecycleViewAdapter extends RecyclerView.Adapter<AccountI
 
         // 计算金额
         StringBuilder sum = new StringBuilder("");
-        if(AccountItem.INCOME.equals(accountItem.getIncomeOrExpenditure())){
+        if (AccountItem.INCOME.equals(accountItem.getIncomeOrExpenditure())) {
             sum.append("+");
-        }else{
+        } else {
             sum.append("-");
         }
 

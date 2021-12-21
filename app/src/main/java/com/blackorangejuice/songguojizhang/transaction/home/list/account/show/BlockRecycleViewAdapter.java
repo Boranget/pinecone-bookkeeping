@@ -39,7 +39,7 @@ public class BlockRecycleViewAdapter extends RecyclerView.Adapter<BlockRecycleVi
 
     }
 
-    public BlockRecycleViewAdapter(ShowAccountListPageFragment fragment,List<Block> blockList) {
+    public BlockRecycleViewAdapter(ShowAccountListPageFragment fragment, List<Block> blockList) {
         showAccountListPageFragment = fragment;
         // 传入时间列表列表
         this.blockList = blockList;
@@ -63,13 +63,13 @@ public class BlockRecycleViewAdapter extends RecyclerView.Adapter<BlockRecycleVi
         View blockItem = holder.blockItem;
         // 绑定一个RV
         RecyclerView recyclerView = blockItem.findViewById(R.id.account_item_recycle_view);
-        
+
 //        LinearLayoutManager layoutManager = new LinearLayoutManager(SelfApplication.getContext());
         LinearLayoutManager layoutManager = new LinearLayoutManager(blockItem.getContext());
-        
+
         recyclerView.setLayoutManager(layoutManager);
         // 绑定adapter
-        AccountItemRecycleViewAdapter adapter = new AccountItemRecycleViewAdapter(block.getThatDayAccountItems());
+        AccountItemRecycleViewAdapter adapter = new AccountItemRecycleViewAdapter(this, position, showAccountListPageFragment, block.getThatDayAccountItems());
 
         recyclerView.setAdapter(adapter);
         holder.recyclerView = recyclerView;
@@ -85,9 +85,7 @@ public class BlockRecycleViewAdapter extends RecyclerView.Adapter<BlockRecycleVi
         return blockList.size();
     }
 
-
-
-
-
-
+    public void removeFromBlockList(int position){
+        blockList.remove(position);
+    }
 }

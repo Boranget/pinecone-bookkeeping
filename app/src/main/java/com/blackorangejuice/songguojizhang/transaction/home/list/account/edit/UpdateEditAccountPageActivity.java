@@ -14,14 +14,18 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blackorangejuice.songguojizhang.R;
 import com.blackorangejuice.songguojizhang.bean.AccountItem;
+import com.blackorangejuice.songguojizhang.bean.EventItem;
 import com.blackorangejuice.songguojizhang.bean.Tag;
 import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
 import com.blackorangejuice.songguojizhang.db.mapper.AccountItemMapper;
+import com.blackorangejuice.songguojizhang.db.mapper.EventItemMapper;
 import com.blackorangejuice.songguojizhang.db.mapper.TagMapper;
+import com.blackorangejuice.songguojizhang.transaction.home.list.account.choose.ChooseEventPageActivity;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
 import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
 import com.blackorangejuice.songguojizhang.utils.inputfilter.CashierInputFilter;
@@ -44,6 +48,8 @@ public class UpdateEditAccountPageActivity extends EditAccountActivity {
     TextView timeTextView;
     TextView deleteTextView;
     TextView saveTextView;
+    LinearLayout bindEventLinearLayout;
+    TextView bindEventTitleTextView;
 
 
     AccountItem accountItem;
@@ -52,8 +58,8 @@ public class UpdateEditAccountPageActivity extends EditAccountActivity {
 
 
     /**
-     *
      * 启动此活动
+     *
      * @param context
      */
     public static void startThisActivity(Context context) {
@@ -102,6 +108,16 @@ public class UpdateEditAccountPageActivity extends EditAccountActivity {
 
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        // 若通过eid能查找出event，则进行事件名显示
+        EventItemMapper eventItemMapper = new EventItemMapper(songGuoDatabaseHelper);
+        EventItem eventItem = eventItemMapper.selectByEid(accountItem.getEid());
+        if (eventItem != null) {
+            bindEventTitleTextView.setText(eventItem.getEventTitle());
+        }
+    }
 
     @Override
     public void init() {
@@ -150,6 +166,12 @@ public class UpdateEditAccountPageActivity extends EditAccountActivity {
                 incomeTextView.setTextColor(0xff808080);
                 break;
         }
+        EventItemMapper eventItemMapper = new EventItemMapper(songGuoDatabaseHelper);
+        EventItem eventItem = eventItemMapper.selectByEid(accountItem.getEid());
+        if (eventItem != null) {
+            bindEventTitleTextView.setText(eventItem.getEventTitle());
+        }
+
     }
 
     @Override
@@ -175,6 +197,9 @@ public class UpdateEditAccountPageActivity extends EditAccountActivity {
         saveTextView = findViewById(R.id.activity_update_edit_account_page_save);
         // 删除
         deleteTextView = findViewById(R.id.activity_update_edit_account_page_delete);
+
+        bindEventLinearLayout = findViewById(R.id.activity_update_edit_account_page_bind_event);
+        bindEventTitleTextView = findViewById(R.id.activity_update_edit_account_page_bind_event_title);
 
     }
 
@@ -270,6 +295,34 @@ public class UpdateEditAccountPageActivity extends EditAccountActivity {
                 accountItem = accountItemMapper.updateAccountItem(UpdateEditAccountPageActivity.this.accountItem);
                 SongGuoUtils.showOneToast(UpdateEditAccountPageActivity.this, "修改成功");
                 UpdateEditAccountPageActivity.this.finish();
+            }
+        });
+        // 绑定按钮
+        bindEventLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GlobalInfo.lastAddAccount = UpdateEditAccountPageActivity.this.accountItem;
+                ChooseEventPageActivity.startThisActivity(UpdateEditAccountPageActivity.this);
+            }
+        });
+        bindEventLinearLayout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(UpdateEditAccountPageActivity.this);
+                builder.setTitle("你确定要解除绑定吗");
+//                builder.setMessage("删除后不可恢复");
+                builder.setCancelable(true);
+                builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        accountItem.setEid(0);
+                        bindEventTitleTextView.setText("");
+                    }
+                });
+                builder.setNegativeButton("取消", null);
+                builder.show();
+                return true;
+
             }
         });
     }

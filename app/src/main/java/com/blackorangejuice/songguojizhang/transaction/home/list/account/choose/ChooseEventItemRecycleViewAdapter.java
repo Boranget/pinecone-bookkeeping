@@ -1,10 +1,9 @@
-package com.blackorangejuice.songguojizhang.transaction.home.list.event.show;
+package com.blackorangejuice.songguojizhang.transaction.home.list.account.choose;
 
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,16 +15,16 @@ import com.blackorangejuice.songguojizhang.bean.EventItem;
 import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
 import com.blackorangejuice.songguojizhang.db.mapper.EventItemMapper;
 import com.blackorangejuice.songguojizhang.transaction.home.list.event.edit.UpdateEditEventPageActivity;
-import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
+import com.blackorangejuice.songguojizhang.transaction.home.list.event.show.ShowEventListPageFragment;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-public class EventItemRecycleViewAdapter extends RecyclerView.Adapter<EventItemRecycleViewAdapter.EventItemViewHolder> {
+public class ChooseEventItemRecycleViewAdapter extends RecyclerView.Adapter<ChooseEventItemRecycleViewAdapter.EventItemViewHolder> {
 
     private List<EventItem> eventItems;
-    private ShowEventListPageFragment showEventListPageFragment;
+    ChooseEventPageActivity chooseEventPageActivity;
 
     static class EventItemViewHolder extends RecyclerView.ViewHolder {
         View eventItemView;
@@ -44,9 +43,9 @@ public class EventItemRecycleViewAdapter extends RecyclerView.Adapter<EventItemR
 
     }
 
-    public EventItemRecycleViewAdapter(ShowEventListPageFragment fragment,List<EventItem> eventItems) {
+    public ChooseEventItemRecycleViewAdapter(ChooseEventPageActivity activity, List<EventItem> eventItems) {
         this.eventItems = eventItems;
-        this.showEventListPageFragment = fragment;
+        this.chooseEventPageActivity = activity;
     }
 
     @NonNull
@@ -62,37 +61,11 @@ public class EventItemRecycleViewAdapter extends RecyclerView.Adapter<EventItemR
                 int adapterPosition = eventItemViewHolder.getAdapterPosition();
                 EventItem eventItem = eventItems.get(adapterPosition);
                 // 将该事件项存入全局
-                GlobalInfo.lastAddEvent = eventItem;
-                UpdateEditEventPageActivity.startThisActivity(parent.getContext());
-
+                GlobalInfo.lastAddAccount.setEid(eventItem.getEid());
+                chooseEventPageActivity.finish();
             }
         });
-        eventItemViewHolder.eventItemView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                int adapterPosition = eventItemViewHolder.getAdapterPosition();
-                EventItem eventItem = eventItems.get(adapterPosition);
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(showEventListPageFragment.getContext());
-                builder.setTitle("你确定要删除此事件吗");
-                builder.setMessage("删除后不可恢复");
-                builder.setCancelable(true);
-                builder.setPositiveButton("确认删除", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // 删除该记事
-                        EventItemMapper eventItemMapper = new EventItemMapper(SongGuoDatabaseHelper.getSongGuoDatabaseHelper(showEventListPageFragment.getContext()));
-                        eventItemMapper.deleteEventItem(eventItem);
-                        eventItems.remove(adapterPosition);
-                        EventItemRecycleViewAdapter.this.notifyItemRemoved(adapterPosition);
-                    }
-                });
-                builder.setNegativeButton("取消",null);
-                builder.show();
-
-                return true;
-            }
-        });
         return eventItemViewHolder;
     }
 

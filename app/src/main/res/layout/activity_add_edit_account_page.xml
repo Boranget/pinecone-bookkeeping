@@ -196,6 +196,7 @@
                 android:textSize="15sp" />
 
             <LinearLayout
+                android:id="@+id/activity_add_edit_account_page_bind_event"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/rounded_corner"
@@ -213,6 +214,7 @@
                     android:textSize="20sp" />
 
                 <TextView
+                    android:id="@+id/activity_add_edit_account_page_bind_event_title"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="3"

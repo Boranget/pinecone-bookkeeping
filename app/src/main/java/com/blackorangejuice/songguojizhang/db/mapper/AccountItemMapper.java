@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.blackorangejuice.songguojizhang.bean.AccountBook;
 import com.blackorangejuice.songguojizhang.bean.AccountItem;
+import com.blackorangejuice.songguojizhang.bean.EventItem;
 import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
 
@@ -50,7 +51,7 @@ public class AccountItemMapper {
     public static final String SELECT_DESC = "select * from t_account_item order by account_time desc";
     public static final String DELETE_BY_BOOK = "delete from t_account_item where bid = ?";
     public static final String CALCULATE_ACCOUNT_ITEM_SUM = "select sum (sum) sum_accoumt from t_account_item where income_or_expenditure = ? and bid = ? and  account_time between ? and ?";
-
+    public static final String SELECT_BY_EID = "select * from t_account_item where eid = ?";
     SongGuoDatabaseHelper songGuoDatabaseHelper;
     SQLiteDatabase sqLiteDatabase;
 
@@ -108,6 +109,7 @@ public class AccountItemMapper {
 
     /**
      * 更新账目
+     *
      * @param accountItem
      * @return
      */
@@ -126,13 +128,14 @@ public class AccountItemMapper {
 
     /**
      * 通过aid查账目
+     *
      * @param aid
      * @return
      */
     public AccountItem selectByAid(Integer aid) {
         Cursor cursor = sqLiteDatabase.rawQuery(SELECT_BY_AID, new String[]{String.valueOf(aid)});
         AccountItem accountItem = new AccountItem();
-        if(cursor.moveToFirst()){
+        if (cursor.moveToFirst()) {
             aid =
                     cursor.getInt(cursor.getColumnIndex("aid"));
             String incomeOrExpenditure =
@@ -168,19 +171,20 @@ public class AccountItemMapper {
 
     /**
      * 倒叙查找页面
+     *
      * @param page
      * @param size
      * @return
      */
-    public List<AccountItem> selectDescPage(Integer page, Integer size){
+    public List<AccountItem> selectDescPage(Integer page, Integer size) {
         // 页面转指针
         int index = (page - 1) * size;
 
-        Cursor cursor = sqLiteDatabase.rawQuery(SELECT_DESC_PAGE,new String[]{String.valueOf(GlobalInfo.currentAccountBook.getBid()),String.valueOf(index), String.valueOf(size)});
+        Cursor cursor = sqLiteDatabase.rawQuery(SELECT_DESC_PAGE, new String[]{String.valueOf(GlobalInfo.currentAccountBook.getBid()), String.valueOf(index), String.valueOf(size)});
         List<AccountItem> accountItems = new ArrayList<>();
-        if(cursor.moveToFirst()){
+        if (cursor.moveToFirst()) {
 
-            do{
+            do {
                 AccountItem accountItem = new AccountItem();
                 Integer aid =
                         cursor.getInt(cursor.getColumnIndex("aid"));
@@ -210,24 +214,25 @@ public class AccountItemMapper {
                 accountItem.setBid(bid);
                 accountItem.setEid(eid);
                 accountItems.add(accountItem);
-            }while (cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
         cursor.close();
         return accountItems;
 
     }
+
     /**
      * 倒叙查找
      *
      * @return
      */
-    public List<AccountItem> selectDesc(){
+    public List<AccountItem> selectDesc() {
 
-        Cursor cursor = sqLiteDatabase.rawQuery(SELECT_DESC,null);
+        Cursor cursor = sqLiteDatabase.rawQuery(SELECT_DESC, null);
         List<AccountItem> accountItems = new ArrayList<>();
-        if(cursor.moveToFirst()){
+        if (cursor.moveToFirst()) {
 
-            do{
+            do {
                 AccountItem accountItem = new AccountItem();
                 Integer aid =
                         cursor.getInt(cursor.getColumnIndex("aid"));
@@ -257,7 +262,7 @@ public class AccountItemMapper {
                 accountItem.setBid(bid);
                 accountItem.setEid(eid);
                 accountItems.add(accountItem);
-            }while (cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
         cursor.close();
         return accountItems;
@@ -266,20 +271,22 @@ public class AccountItemMapper {
 
     /**
      * 删除某账本下的所有账单
+     *
      * @param bid
      */
-    public void deleteAccountItemByBook(Integer bid){
-        sqLiteDatabase.execSQL(DELETE_BY_BOOK,new String[]{String.valueOf(bid)});
+    public void deleteAccountItemByBook(Integer bid) {
+        sqLiteDatabase.execSQL(DELETE_BY_BOOK, new String[]{String.valueOf(bid)});
     }
 
     /**
      * 计算某时间段内收入或者支出的总额
+     *
      * @param incomeOrExpenditure
      * @param d0
      * @param d1
      * @return
      */
-    public Double calculateAccountItemSum(String incomeOrExpenditure,Date d0, Date d1){
+    public Double calculateAccountItemSum(String incomeOrExpenditure, Date d0, Date d1) {
         Long date0 = d0.getTime();
         Long date1 = d1.getTime() + 1;
         Cursor cursor = sqLiteDatabase.rawQuery(CALCULATE_ACCOUNT_ITEM_SUM, new String[]{
@@ -287,11 +294,61 @@ public class AccountItemMapper {
                 String.valueOf(date0), String.valueOf(date1)
         });
         Double sum = 0.0;
-        if (cursor.moveToFirst()){
+        if (cursor.moveToFirst()) {
             sum = cursor.getDouble(cursor.getColumnIndex("sum_accoumt"));
         }
         cursor.close();
         return sum;
+    }
+
+    /**
+     * 按照eid查找
+     *
+     * @param eventItem
+     * @return
+     */
+    public List<AccountItem> selectByEid(EventItem eventItem) {
+
+
+        Cursor cursor = sqLiteDatabase.rawQuery(SELECT_BY_EID, new String[]{String.valueOf(eventItem.getEid())});
+        List<AccountItem> accountItems = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+
+            do {
+                AccountItem accountItem = new AccountItem();
+                Integer aid =
+                        cursor.getInt(cursor.getColumnIndex("aid"));
+                String incomeOrExpenditure =
+                        cursor.getString(cursor.getColumnIndex("income_or_expenditure"));
+                Integer tid =
+                        cursor.getInt(cursor.getColumnIndex("tid"));
+                Double sum =
+                        cursor.getDouble(cursor.getColumnIndex("sum"));
+                String remark =
+                        cursor.getString(cursor.getColumnIndex("remark"));
+                Long accountTime =
+                        cursor.getLong(cursor.getColumnIndex("account_time"));
+                String ifBorrowOrLend =
+                        cursor.getString(cursor.getColumnIndex("if_borrow_or_lend"));
+                Integer bid =
+                        cursor.getInt(cursor.getColumnIndex("bid"));
+                Integer eid =
+                        cursor.getInt(cursor.getColumnIndex("eid"));
+                accountItem.setAid(aid);
+                accountItem.setIncomeOrExpenditure(incomeOrExpenditure);
+                accountItem.setTid(tid);
+                accountItem.setSum(sum);
+                accountItem.setRemark(remark);
+                accountItem.setAccountTime(accountTime);
+                accountItem.setIfBorrowOrLend(ifBorrowOrLend);
+                accountItem.setBid(bid);
+                accountItem.setEid(eid);
+                accountItems.add(accountItem);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return accountItems;
+
     }
 
 }

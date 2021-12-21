@@ -1,7 +1,9 @@
 package com.blackorangejuice.songguojizhang.transaction.home.list.account.edit;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,10 +20,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.blackorangejuice.songguojizhang.R;
 import com.blackorangejuice.songguojizhang.bean.AccountItem;
+import com.blackorangejuice.songguojizhang.bean.EventItem;
 import com.blackorangejuice.songguojizhang.bean.Tag;
 import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
 import com.blackorangejuice.songguojizhang.db.mapper.AccountItemMapper;
+import com.blackorangejuice.songguojizhang.db.mapper.EventItemMapper;
 import com.blackorangejuice.songguojizhang.db.mapper.TagMapper;
+import com.blackorangejuice.songguojizhang.transaction.home.list.account.choose.ChooseEventPageActivity;
+import com.blackorangejuice.songguojizhang.transaction.home.list.account.show.AccountItemRecycleViewAdapter;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
 import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
 import com.blackorangejuice.songguojizhang.utils.inputfilter.CashierInputFilter;
@@ -43,6 +50,8 @@ public class AddEditAccountPageActivity extends EditAccountActivity {
     TextView timeTextView;
     TextView deleteTextView;
     TextView saveTextView;
+    LinearLayout bindEventLinearLayout;
+    TextView bindEventTitleTextView;
 
 
     AccountItem accountItem;
@@ -64,12 +73,22 @@ public class AddEditAccountPageActivity extends EditAccountActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_account_page);
 
-
         findView();
         init();
         setListener();
 
 
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        // 若通过eid能查找出event，则进行事件名显示
+        EventItemMapper eventItemMapper = new EventItemMapper(songGuoDatabaseHelper);
+        EventItem eventItem = eventItemMapper.selectByEid(accountItem.getEid());
+        if (eventItem != null) {
+            bindEventTitleTextView.setText(eventItem.getEventTitle());
+        }
     }
 
     public void getAccountInfoToAccountItem() {
@@ -102,8 +121,6 @@ public class AddEditAccountPageActivity extends EditAccountActivity {
         // 设置账本为当前全局账本
         accountItem.setAccountBook(GlobalInfo.currentAccountBook);
 
-        // event 暂时设置0
-        accountItem.setEid(0);
 
     }
 
@@ -112,11 +129,9 @@ public class AddEditAccountPageActivity extends EditAccountActivity {
     public void init() {
         songGuoDatabaseHelper = SongGuoDatabaseHelper.getSongGuoDatabaseHelper(this);
         // 初始化记账项对象,若是从其他界面返回需要保存信息
-        if (GlobalInfo.lastAddAccount == null) {
-            accountItem = new AccountItem();
-        } else {
-            accountItem = GlobalInfo.lastAddAccount;
-        }
+        accountItem = new AccountItem();
+        GlobalInfo.lastAddAccount = accountItem;
+
 
         // 时间设为当前时间
         Date date = new Date();
@@ -143,6 +158,12 @@ public class AddEditAccountPageActivity extends EditAccountActivity {
         accountItem.setIncomeOrExpenditure(AccountItem.EXPENDITURE);
         expenditureTextView.setTextColor(0xff323232);
 
+        // 若通过eid能查找出event，则进行事件名显示
+        EventItemMapper eventItemMapper = new EventItemMapper(songGuoDatabaseHelper);
+        EventItem eventItem = eventItemMapper.selectByEid(accountItem.getEid());
+        if (eventItem != null) {
+            bindEventTitleTextView.setText(eventItem.getEventTitle());
+        }
 
     }
 
@@ -167,6 +188,10 @@ public class AddEditAccountPageActivity extends EditAccountActivity {
         timeTextView = findViewById(R.id.activity_add_edit_account_page_time);
         // 保存
         saveTextView = findViewById(R.id.activity_add_edit_account_page_save);
+        // 绑定事件
+        bindEventLinearLayout = findViewById(R.id.activity_add_edit_account_page_bind_event);
+        // 绑定事件标题
+        bindEventTitleTextView = findViewById(R.id.activity_add_edit_account_page_bind_event_title);
 
     }
 
@@ -238,6 +263,35 @@ public class AddEditAccountPageActivity extends EditAccountActivity {
                 accountItem = accountItemMapper.insertAccountItem(AddEditAccountPageActivity.this.accountItem);
                 SongGuoUtils.showOneToast(AddEditAccountPageActivity.this, "保存成功");
                 AddEditAccountPageActivity.this.finish();
+            }
+        });
+        // 绑定按钮
+        bindEventLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GlobalInfo.lastAddAccount = AddEditAccountPageActivity.this.accountItem;
+                ChooseEventPageActivity.startThisActivity(AddEditAccountPageActivity.this);
+            }
+        });
+        bindEventLinearLayout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(AddEditAccountPageActivity.this);
+                builder.setTitle("你确定要解除绑定吗");
+//                builder.setMessage("删除后不可恢复");
+                builder.setCancelable(true);
+                builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        accountItem.setEid(0);
+                        bindEventTitleTextView.setText("");
+
+                    }
+                });
+                builder.setNegativeButton("取消", null);
+                builder.show();
+                return true;
+
             }
         });
     }

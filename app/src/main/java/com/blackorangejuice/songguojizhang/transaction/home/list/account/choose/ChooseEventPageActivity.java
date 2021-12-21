@@ -1,54 +1,47 @@
-package com.blackorangejuice.songguojizhang.transaction.home.list.event.show;
-
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+package com.blackorangejuice.songguojizhang.transaction.home.list.account.choose;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+
 import com.blackorangejuice.songguojizhang.R;
-import com.blackorangejuice.songguojizhang.bean.AccountItem;
-import com.blackorangejuice.songguojizhang.bean.Block;
 import com.blackorangejuice.songguojizhang.bean.EventItem;
 import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
-import com.blackorangejuice.songguojizhang.db.mapper.AccountItemMapper;
 import com.blackorangejuice.songguojizhang.db.mapper.EventItemMapper;
-import com.blackorangejuice.songguojizhang.db.mapper.TagMapper;
-import com.blackorangejuice.songguojizhang.utils.basic.BasicFragment;
+import com.blackorangejuice.songguojizhang.transaction.home.list.event.edit.AddEditEventPageActivity;
+import com.blackorangejuice.songguojizhang.transaction.home.list.event.show.EventItemRecycleViewAdapter;
+import com.blackorangejuice.songguojizhang.utils.basic.BasicActivity;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalConstant;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Objects;
-import java.util.Random;
 
-public class ShowEventListPageFragment extends BasicFragment {
-    private View thisView;
-    private Activity activity;
+public class ChooseEventPageActivity extends BasicActivity {
+    RecyclerView recyclerView;
+    private TextView backTextView;
+    private TextView addEventTextView;
+
+
     private List<EventItem> eventItems;
     private Integer currentPage;
-
-    RecyclerView recyclerView;
     SongGuoDatabaseHelper songGuoDatabaseHelper;
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        thisView = inflater.inflate(R.layout.fragment_show_event_list, container, false);
-        return thisView;
+    public static void startThisActivity(Context context) {
+        Intent intent = new Intent(context, ChooseEventPageActivity.class);
+        context.startActivity(intent);
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        activity = getActivity();
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_choose_event_page);
     }
 
     /**
@@ -61,8 +54,6 @@ public class ShowEventListPageFragment extends BasicFragment {
         findView();
         init();
         setListener();
-
-
     }
 
 
@@ -78,12 +69,6 @@ public class ShowEventListPageFragment extends BasicFragment {
     }
 
 
-    public String getFormatDate(Long dateLong) {
-        Date date = new Date(dateLong);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        return simpleDateFormat.format(date);
-    }
-
     public void extendBlocks() {
         // 不是第一次填充,而是扩充
         refreshEventItems();
@@ -92,20 +77,22 @@ public class ShowEventListPageFragment extends BasicFragment {
 
     @Override
     public void init() {
-        songGuoDatabaseHelper = SongGuoDatabaseHelper.getSongGuoDatabaseHelper(activity);
+        songGuoDatabaseHelper = SongGuoDatabaseHelper.getSongGuoDatabaseHelper(this);
         currentPage = 1;
         // eventItems初始化
         eventItems = new ArrayList<>();
         // 填充eventItems
         refreshEventItems();
-        recyclerView.setLayoutManager(new LinearLayoutManager(activity));
-        EventItemRecycleViewAdapter eventItemRecycleViewAdapter = new EventItemRecycleViewAdapter(this,eventItems);
-        recyclerView.setAdapter(eventItemRecycleViewAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        ChooseEventItemRecycleViewAdapter chooseEventItemRecycleViewAdapter = new ChooseEventItemRecycleViewAdapter(this, eventItems);
+        recyclerView.setAdapter(chooseEventItemRecycleViewAdapter);
     }
 
     @Override
     public void findView() {
-        recyclerView = activity.findViewById(R.id.fragment_show_event_list_recycle_view);
+        recyclerView = findViewById(R.id.activity_choose_event_page_show_event_list_recycle_view);
+        backTextView = findViewById(R.id.activity_choose_event_page_back_textview);
+        addEventTextView = findViewById(R.id.activity_choose_event_page_add_event);
     }
 
     @Override
@@ -126,5 +113,17 @@ public class ShowEventListPageFragment extends BasicFragment {
             }
         };
         recyclerView.addOnScrollListener(onScrollListener);
+        backTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ChooseEventPageActivity.this.finish();
+            }
+        });
+        addEventTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddEditEventPageActivity.startThisActivity(ChooseEventPageActivity.this);
+            }
+        });
     }
 }
