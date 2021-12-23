@@ -80,7 +80,7 @@ public class ShowChosenAccountPageActivity extends BasicActivity {
         addTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ChooseShowAccountListPageActivity.startThisActivity(ShowChosenAccountPageActivity.this);
             }
         });
     }

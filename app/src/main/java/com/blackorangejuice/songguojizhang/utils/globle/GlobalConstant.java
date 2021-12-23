@@ -10,6 +10,7 @@ public class GlobalConstant {
     public static final String ADD_PAGE_EVENT = "ADD_PAGE_EVENT";
     public static final Integer PAGE_SIZE = 20;
     public static final String SID = "SID";
+    public static final String DISABLE_BIND = "disableBind";
 //    public static final String
 //    public static final String
 //    public static final String

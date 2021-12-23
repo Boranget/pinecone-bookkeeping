@@ -25,6 +25,9 @@
             android:name=".transaction.home.list.event.edit.AddEditEventPageActivity"
             android:exported="false" />
         <activity
+            android:name=".transaction.home.list.event.choose.ChooseShowAccountListPageActivity"
+            android:exported="false" />
+        <activity
             android:name=".transaction.home.myinfo.MoreSettingActivity"
             android:exported="false" />
         <activity

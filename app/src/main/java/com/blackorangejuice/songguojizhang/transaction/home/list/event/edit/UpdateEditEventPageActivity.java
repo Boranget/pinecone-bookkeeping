@@ -41,8 +41,8 @@ public class UpdateEditEventPageActivity extends EditEventActivity {
     SimpleDateFormat simpleDateFormat;
     EventItem eventItem;
 
-    public static void startThisActivity(Context context){
-        Intent intent = new Intent(context,UpdateEditEventPageActivity.class);
+    public static void startThisActivity(Context context) {
+        Intent intent = new Intent(context, UpdateEditEventPageActivity.class);
         context.startActivity(intent);
 
     }
@@ -67,11 +67,8 @@ public class UpdateEditEventPageActivity extends EditEventActivity {
         songGuoDatabaseHelper = SongGuoDatabaseHelper.getSongGuoDatabaseHelper(this);
         simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
         // 初始化事件项对象,若是从其他界面返回需要保存信息
-        if (GlobalInfo.lastAddEvent == null) {
-            eventItem = new EventItem();
-        } else {
-            eventItem = GlobalInfo.lastAddEvent;
-        }
+
+        eventItem = GlobalInfo.lastAddEvent;
         // 从eventItem中获取信息
         // 时间
         timeTextView.setText(simpleDateFormat.format(new Date(eventItem.getEventTime())));
@@ -85,11 +82,11 @@ public class UpdateEditEventPageActivity extends EditEventActivity {
     @Override
     public void findView() {
         backTextView = findViewById(R.id.activity_update_edit_event_page_back_textview);
-        timeTextView= findViewById(R.id.activity_update_edit_event_page_time);
-        saveTextView= findViewById(R.id.activity_update_edit_event_page_save);
-        titleEditText= findViewById(R.id.activity_update_edit_event_page_event_title);
-        contentEditText= findViewById(R.id.activity_update_edit_event_page_event_content);
-        moreLinearLayout= findViewById(R.id.activity_update_edit_event_page_more);
+        timeTextView = findViewById(R.id.activity_update_edit_event_page_time);
+        saveTextView = findViewById(R.id.activity_update_edit_event_page_save);
+        titleEditText = findViewById(R.id.activity_update_edit_event_page_event_title);
+        contentEditText = findViewById(R.id.activity_update_edit_event_page_event_content);
+        moreLinearLayout = findViewById(R.id.activity_update_edit_event_page_more);
     }
 
     @Override
@@ -159,11 +156,11 @@ public class UpdateEditEventPageActivity extends EditEventActivity {
                         // 删除事件
                         EventItemMapper eventItemMapper = new EventItemMapper(songGuoDatabaseHelper);
                         eventItemMapper.deleteEventItem(eventItem);
-                        SongGuoUtils.showOneToast(UpdateEditEventPageActivity.this,"删除成功");
+                        SongGuoUtils.showOneToast(UpdateEditEventPageActivity.this, "删除成功");
                         UpdateEditEventPageActivity.this.finish();
                     }
                 });
-                builder.setNegativeButton("取消",null);
+                builder.setNegativeButton("取消", null);
                 builder.show();
                 return true;
             }

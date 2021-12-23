@@ -29,6 +29,7 @@ import com.blackorangejuice.songguojizhang.db.mapper.TagMapper;
 import com.blackorangejuice.songguojizhang.transaction.home.list.account.choose.ChooseEventPageActivity;
 import com.blackorangejuice.songguojizhang.transaction.home.list.account.choose.ShowChosenEventPageActivity;
 import com.blackorangejuice.songguojizhang.transaction.home.list.account.show.AccountItemRecycleViewAdapter;
+import com.blackorangejuice.songguojizhang.utils.globle.GlobalConstant;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
 import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
 import com.blackorangejuice.songguojizhang.utils.inputfilter.CashierInputFilter;
@@ -40,6 +41,7 @@ import java.util.Date;
 import java.util.List;
 
 public class AddEditAccountPageActivity extends EditAccountActivity {
+    public static final String ARG = "arg";
     EditText sumEditText;
     RecyclerView recyclerView;
     TextView backTextView;
@@ -59,13 +61,16 @@ public class AddEditAccountPageActivity extends EditAccountActivity {
     SongGuoDatabaseHelper songGuoDatabaseHelper;
     SimpleDateFormat simpleDateFormat;
 
+
+
     /**
-     * 启动此活动
-     *
+     * 带参数的启动
      * @param context
+     * @param arg
      */
-    public static void startThisActivity(Context context) {
+    public static void startThisActivity(Context context,String arg){
         Intent intent = new Intent(context, AddEditAccountPageActivity.class);
+        intent.putExtra(ARG,arg);
         context.startActivity(intent);
     }
 
@@ -128,6 +133,13 @@ public class AddEditAccountPageActivity extends EditAccountActivity {
 
     @Override
     public void init() {
+        Intent intent = getIntent();
+        String stringExtra = intent.getStringExtra(ARG);
+        switch (stringExtra){
+            case GlobalConstant.DISABLE_BIND:
+                bindEventLinearLayout.setEnabled(false);
+                break;
+        }
         songGuoDatabaseHelper = SongGuoDatabaseHelper.getSongGuoDatabaseHelper(this);
         // 初始化记账项对象,若是从其他界面返回需要保存信息
         accountItem = new AccountItem();
@@ -279,7 +291,6 @@ public class AddEditAccountPageActivity extends EditAccountActivity {
             public boolean onLongClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(AddEditAccountPageActivity.this);
                 builder.setTitle("你确定要解除绑定吗");
-//                builder.setMessage("删除后不可恢复");
                 builder.setCancelable(true);
                 builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                     @Override

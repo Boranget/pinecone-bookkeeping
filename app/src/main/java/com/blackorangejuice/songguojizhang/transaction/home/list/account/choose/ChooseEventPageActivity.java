@@ -122,7 +122,7 @@ public class ChooseEventPageActivity extends BasicActivity {
         addEventTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddEditEventPageActivity.startThisActivity(ChooseEventPageActivity.this);
+                AddEditEventPageActivity.startThisActivity(ChooseEventPageActivity.this,GlobalConstant.DISABLE_BIND);
             }
         });
     }

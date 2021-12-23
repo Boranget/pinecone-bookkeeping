@@ -107,11 +107,11 @@ public class ShowAddListPageFragment extends BasicFragment {
                 switch (GlobalInfo.currentAddPage) {
                     case GlobalConstant.ADD_PAGE_ACCOUNT:
                         // 跳到新增账本界面
-                        AddEditAccountPageActivity.startThisActivity(getActivity());
+                        AddEditAccountPageActivity.startThisActivity(getActivity(),"");
                         break;
                     case GlobalConstant.ADD_PAGE_EVENT:
                         // 跳到新增事件界面
-                        AddEditEventPageActivity.startThisActivity(getActivity());
+                        AddEditEventPageActivity.startThisActivity(getActivity(),"");
                         break;
                 }
             }
