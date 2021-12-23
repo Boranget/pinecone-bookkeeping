@@ -38,6 +38,7 @@ public class EventItemMapper {
 
     /**
      * 插入一条事件
+     *
      * @param eventItem
      * @return
      */
@@ -50,12 +51,13 @@ public class EventItemMapper {
 
     /**
      * 寻找刚插入的事件
+     *
      * @return
      */
     private EventItem selectTheNew() {
         Cursor cursor = sqLiteDatabase.rawQuery(SELECT_THE_NEW, null);
         EventItem eventItem = new EventItem();
-        if(cursor.moveToFirst()){
+        if (cursor.moveToFirst()) {
             eventItem.setEid(cursor.getInt(cursor.getColumnIndex("eid")));
             eventItem.setEventTitle(cursor.getString(cursor.getColumnIndex("event_title")));
             eventItem.setEventContent(cursor.getString(cursor.getColumnIndex("event_content")));
@@ -68,37 +70,41 @@ public class EventItemMapper {
 
     /**
      * 删除事件
+     *
      * @param eventItem
      */
-    public void deleteEventItem(EventItem eventItem){
-        sqLiteDatabase.execSQL(DELETE_EVENT_ITEM,new String[]{String.valueOf(eventItem.getEid())});
+    public void deleteEventItem(EventItem eventItem) {
+        sqLiteDatabase.execSQL(DELETE_EVENT_ITEM, new String[]{String.valueOf(eventItem.getEid())});
     }
 
     /**
      * 更新事件
+     *
      * @param eventItem
      * @return
      */
-    public EventItem updateEventItem(EventItem eventItem){
-        sqLiteDatabase.execSQL(UPDATE_EVENT_ITEM,new String[]{
-                eventItem.getEventTitle(),eventItem.getEventContent(),
+    public EventItem updateEventItem(EventItem eventItem) {
+        sqLiteDatabase.execSQL(UPDATE_EVENT_ITEM, new String[]{
+                eventItem.getEventTitle(), eventItem.getEventContent(),
                 String.valueOf(eventItem.getEventTime()), String.valueOf(eventItem.getBid()),
                 String.valueOf(eventItem.getEid())});
         return selectByEid(eventItem.getEid());
     }
+
     /**
      * 分页查找事件
+     *
      * @param page
      * @param size
      * @return
      */
-    public List<EventItem> selectDescPage(Integer page, Integer size){
+    public List<EventItem> selectDescPage(Integer page, Integer size) {
         // 页面转指针
         int index = (page - 1) * size;
         Cursor cursor = sqLiteDatabase.rawQuery(SELECT_DESC_PAGE, new String[]{String.valueOf(GlobalInfo.currentAccountBook.getBid()), String.valueOf(index), String.valueOf(size)});
         List<EventItem> eventItems = new ArrayList<>();
-        if(cursor.moveToFirst()){
-            do{
+        if (cursor.moveToFirst()) {
+            do {
                 EventItem eventItem = new EventItem();
                 eventItem.setEid(cursor.getInt(cursor.getColumnIndex("eid")));
                 eventItem.setEventTitle(cursor.getString(cursor.getColumnIndex("event_title")));
@@ -106,7 +112,7 @@ public class EventItemMapper {
                 eventItem.setEventTime(cursor.getLong(cursor.getColumnIndex("event_time")));
                 eventItem.setBid(cursor.getInt(cursor.getColumnIndex("bid")));
                 eventItems.add(eventItem);
-            }while (cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
 
 
@@ -116,13 +122,15 @@ public class EventItemMapper {
 
     /**
      * 通过eid查找事件
+     *
      * @param eid
      * @return
      */
-    public EventItem selectByEid(Integer eid){
+    public EventItem selectByEid(Integer eid) {
         Cursor cursor = sqLiteDatabase.rawQuery(SELECT_BY_EID, new String[]{String.valueOf(eid)});
-        EventItem eventItem = new EventItem();
-        if(cursor.moveToFirst()){
+        EventItem eventItem = null;
+        if (cursor.moveToFirst()) {
+            eventItem = new EventItem();
             eventItem.setEid(cursor.getInt(cursor.getColumnIndex("eid")));
             eventItem.setEventTitle(cursor.getString(cursor.getColumnIndex("event_title")));
             eventItem.setEventContent(cursor.getString(cursor.getColumnIndex("event_content")));
@@ -135,10 +143,11 @@ public class EventItemMapper {
 
     /**
      * 删除某账本下的所有事件
+     *
      * @param bid
      */
-    public void deleteEventItemByBook(Integer bid){
-        sqLiteDatabase.execSQL(DELETE_BY_BOOK,new String[]{String.valueOf(bid)});
+    public void deleteEventItemByBook(Integer bid) {
+        sqLiteDatabase.execSQL(DELETE_BY_BOOK, new String[]{String.valueOf(bid)});
     }
 
 }

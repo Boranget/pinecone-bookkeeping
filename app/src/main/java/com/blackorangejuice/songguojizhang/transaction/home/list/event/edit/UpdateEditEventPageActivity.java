@@ -19,6 +19,7 @@ import com.blackorangejuice.songguojizhang.bean.EventItem;
 import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
 import com.blackorangejuice.songguojizhang.db.mapper.AccountBookMapper;
 import com.blackorangejuice.songguojizhang.db.mapper.EventItemMapper;
+import com.blackorangejuice.songguojizhang.transaction.home.list.event.choose.ShowChosenAccountPageActivity;
 import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
 
@@ -165,6 +166,13 @@ public class UpdateEditEventPageActivity extends EditEventActivity {
                 builder.setNegativeButton("取消",null);
                 builder.show();
                 return true;
+            }
+        });
+        // 展示绑定的账单
+        moreLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShowChosenAccountPageActivity.startThisActivity(UpdateEditEventPageActivity.this);
             }
         });
     }

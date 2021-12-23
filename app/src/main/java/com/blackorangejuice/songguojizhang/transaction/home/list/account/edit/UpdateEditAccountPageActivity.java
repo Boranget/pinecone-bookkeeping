@@ -26,6 +26,7 @@ import com.blackorangejuice.songguojizhang.db.mapper.AccountItemMapper;
 import com.blackorangejuice.songguojizhang.db.mapper.EventItemMapper;
 import com.blackorangejuice.songguojizhang.db.mapper.TagMapper;
 import com.blackorangejuice.songguojizhang.transaction.home.list.account.choose.ChooseEventPageActivity;
+import com.blackorangejuice.songguojizhang.transaction.home.list.account.choose.ShowChosenEventPageActivity;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
 import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
 import com.blackorangejuice.songguojizhang.utils.inputfilter.CashierInputFilter;
@@ -302,7 +303,7 @@ public class UpdateEditAccountPageActivity extends EditAccountActivity {
             @Override
             public void onClick(View v) {
                 GlobalInfo.lastAddAccount = UpdateEditAccountPageActivity.this.accountItem;
-                ChooseEventPageActivity.startThisActivity(UpdateEditAccountPageActivity.this);
+                ShowChosenEventPageActivity.startThisActivity(UpdateEditAccountPageActivity.this);
             }
         });
         bindEventLinearLayout.setOnLongClickListener(new View.OnLongClickListener() {

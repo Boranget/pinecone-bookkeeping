@@ -307,7 +307,7 @@ public class AccountItemMapper {
      * @param eventItem
      * @return
      */
-    public List<AccountItem> selectByEid(EventItem eventItem) {
+    public List<AccountItem> selectByEvent(EventItem eventItem) {
 
 
         Cursor cursor = sqLiteDatabase.rawQuery(SELECT_BY_EID, new String[]{String.valueOf(eventItem.getEid())});

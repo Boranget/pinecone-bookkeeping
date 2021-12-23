@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SongGuoJiZhang">
         <activity
+            android:name=".transaction.home.list.account.choose.ShowChosenEventPageActivity"
+            android:exported="false" />
+        <activity
             android:name=".transaction.home.list.event.choose.ShowChosenAccountPageActivity"
             android:exported="false" />
         <activity
