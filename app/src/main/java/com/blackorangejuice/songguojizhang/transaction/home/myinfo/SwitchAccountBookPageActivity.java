@@ -15,8 +15,10 @@ import android.widget.TextView;
 
 import com.blackorangejuice.songguojizhang.R;
 import com.blackorangejuice.songguojizhang.bean.AccountBook;
+import com.blackorangejuice.songguojizhang.bean.SettingInfo;
 import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
 import com.blackorangejuice.songguojizhang.db.mapper.AccountBookMapper;
+import com.blackorangejuice.songguojizhang.db.mapper.SettingInfoMapper;
 import com.blackorangejuice.songguojizhang.utils.basic.BasicActivity;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
 import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
@@ -109,6 +111,11 @@ public class SwitchAccountBookPageActivity extends BasicActivity {
                                     accountBook.setAccountBookName(editText.getText().toString());
                                     accountBook = accountBookMapper.insertAccountBook(accountBook);
                                     GlobalInfo.currentAccountBook = accountBook;
+                                    // 更新设置
+                                    SettingInfo settingInfo = GlobalInfo.settingInfo;
+                                    settingInfo.setCurrentAccountBookBid(accountBook.getBid());
+                                    SettingInfoMapper settingInfoMapper = new SettingInfoMapper(SongGuoDatabaseHelper.getSongGuoDatabaseHelper(SwitchAccountBookPageActivity.this));
+                                    settingInfoMapper.updateBySid(settingInfo);
                                     refreshAccountBook();
                                     SongGuoUtils.showOneToast(SwitchAccountBookPageActivity.this,"添加成功,当前帐本为《"+accountBook.getAccountBookName()+"》");
                                     SwitchAccountBookPageActivity.this.finish();

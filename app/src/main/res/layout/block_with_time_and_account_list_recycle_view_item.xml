@@ -6,7 +6,8 @@
     <TextView
         android:id="@+id/big_block_time"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:padding="5dp"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/account_item_recycle_view"
         android:layout_width="match_parent"

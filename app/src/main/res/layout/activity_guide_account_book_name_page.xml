@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
         android:text="松果记账"
-        android:textSize="40sp"
+        android:textSize="@dimen/guide_top_text_size"
         android:textColor="#000000"
         />
 
@@ -35,14 +35,14 @@
                 android:gravity="center"
                 android:text="请输入你的第一个账本的名称"
                 android:textColor="#000000"
-                android:textSize="25sp" />
+                android:textSize="@dimen/guide_text_size" />
 
             <EditText
                 android:id="@+id/activity_guide_account_book_name_page_account_book_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:textSize="25sp"
+                android:textSize="@dimen/guide_text_size"
                 android:inputType="text"
                 android:lines="1"
                 />

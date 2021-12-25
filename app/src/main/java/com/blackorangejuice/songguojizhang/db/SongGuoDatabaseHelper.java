@@ -58,7 +58,14 @@ public class SongGuoDatabaseHelper extends SQLiteOpenHelper {
             "    current_account_book_bid integer\n" +
             "\n" +
             ")";
-
+    public static final String CREAT_TABLE_BORROW_LEND = "create table t_borrow_lend(\n" +
+            "    men text not null,\n" +
+            "    sum real not null,\n" +
+            "    borrow_time integer not null,\n" +
+            "    return_time integer,\n" +
+            "    remark text not null,\n" +
+            "    bid integer not null\n" +
+            ")";
     private SongGuoDatabaseHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
         myContext = context;
@@ -71,6 +78,7 @@ public class SongGuoDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREAT_TABLE_EVENT_ITEM);
         db.execSQL(CREAT_TABLE_ACCOUNT_ITEM);
         db.execSQL(CREAT_TABLE_SETTING_INFO);
+        db.execSQL(CREAT_TABLE_BORROW_LEND);
 
     }
 

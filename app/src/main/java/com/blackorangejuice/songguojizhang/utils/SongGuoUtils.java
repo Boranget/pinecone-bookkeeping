@@ -9,6 +9,9 @@ import android.widget.Toast;
 
 import com.blackorangejuice.songguojizhang.utils.other.SelfApplication;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -72,6 +75,19 @@ public class SongGuoUtils {
             e.printStackTrace();
         }
         return bitmap;
+    }
+
+    /**
+     * 备份数据库
+     */
+    public static void getPrivateFile(){
+        String path = "/data/data/com.blackorangejuice.songguojizhang/databases/songguojizhang.db";
+        try {
+            FileInputStream fileInputStream = new FileInputStream(path);
+            //
+        }catch (Exception e){
+
+        }
     }
 
 
