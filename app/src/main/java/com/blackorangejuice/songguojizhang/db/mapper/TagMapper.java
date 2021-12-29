@@ -50,6 +50,7 @@ public class TagMapper {
                 {"洗澡","xizao"},
                 {"学习","xuexi"},
                 {"微信","weixin"},
+                {"支付宝","zhifubao"},
                 {"工资","gongzi"},
                 {"投资","touzi"},
                 {"奖金","jiangjin"},

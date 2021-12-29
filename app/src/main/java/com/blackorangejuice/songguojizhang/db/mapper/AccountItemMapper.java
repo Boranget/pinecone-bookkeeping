@@ -143,7 +143,7 @@ public class AccountItemMapper {
             Integer tid =
                     cursor.getInt(cursor.getColumnIndex("tid"));
             Double sum =
-                    cursor.getDouble(cursor.getColumnIndex("sum"));
+                    Double.valueOf(cursor.getString(cursor.getColumnIndex("sum")));
             String remark =
                     cursor.getString(cursor.getColumnIndex("remark"));
             Long accountTime =
@@ -193,7 +193,7 @@ public class AccountItemMapper {
                 Integer tid =
                         cursor.getInt(cursor.getColumnIndex("tid"));
                 Double sum =
-                        cursor.getDouble(cursor.getColumnIndex("sum"));
+                        Double.valueOf(cursor.getString(cursor.getColumnIndex("sum")));
                 String remark =
                         cursor.getString(cursor.getColumnIndex("remark"));
                 Long accountTime =
@@ -241,7 +241,7 @@ public class AccountItemMapper {
                 Integer tid =
                         cursor.getInt(cursor.getColumnIndex("tid"));
                 Double sum =
-                        cursor.getDouble(cursor.getColumnIndex("sum"));
+                        Double.valueOf(cursor.getString(cursor.getColumnIndex("sum")));
                 String remark =
                         cursor.getString(cursor.getColumnIndex("remark"));
                 Long accountTime =
@@ -295,7 +295,8 @@ public class AccountItemMapper {
         });
         Double sum = 0.0;
         if (cursor.moveToFirst()) {
-            sum = cursor.getDouble(cursor.getColumnIndex("sum_accoumt"));
+            // 这里直接cursor。getDouble()会出现误差
+            sum = Double.valueOf(cursor.getString(cursor.getColumnIndex("sum_accoumt")));
         }
         cursor.close();
         return sum;
@@ -323,7 +324,7 @@ public class AccountItemMapper {
                 Integer tid =
                         cursor.getInt(cursor.getColumnIndex("tid"));
                 Double sum =
-                        cursor.getDouble(cursor.getColumnIndex("sum"));
+                        Double.valueOf(cursor.getString(cursor.getColumnIndex("sum")));
                 String remark =
                         cursor.getString(cursor.getColumnIndex("remark"));
                 Long accountTime =

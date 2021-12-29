@@ -31,6 +31,8 @@
         <activity
             android:name=".transaction.home.myinfo.MoreSettingActivity"
             android:exported="false" />
+        <activity android:name=".transaction.home.myinfo.moresetting.ImportsActivity"
+            android:exported="false"/>
         <activity
             android:name=".transaction.home.myinfo.AboutPageActivity"
             android:exported="false" />
