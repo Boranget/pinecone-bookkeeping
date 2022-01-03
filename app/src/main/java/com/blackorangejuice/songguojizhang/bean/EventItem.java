@@ -7,7 +7,7 @@ public class EventItem {
     private Integer eid;
     // 事件标题
     private String eventTitle;
-    // 时间内容
+    // 事件内容
     private String eventContent;
     // 事件时间,存时间戳
     private Long eventTime;

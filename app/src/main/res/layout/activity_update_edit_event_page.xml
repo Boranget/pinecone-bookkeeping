@@ -50,7 +50,7 @@
         <EditText
             android:id="@+id/activity_update_edit_event_page_event_title"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:background="@color/background_white"
             android:gravity="center_vertical|left"
             android:hint="标题"

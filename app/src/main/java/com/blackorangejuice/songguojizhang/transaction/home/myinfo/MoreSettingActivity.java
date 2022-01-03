@@ -1,41 +1,15 @@
 package com.blackorangejuice.songguojizhang.transaction.home.myinfo;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.annotation.Nullable;
 
 import com.blackorangejuice.songguojizhang.R;
-import com.blackorangejuice.songguojizhang.bean.AccountItem;
-import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
-import com.blackorangejuice.songguojizhang.db.mapper.AccountItemMapper;
-import com.blackorangejuice.songguojizhang.db.mapper.TagMapper;
-import com.blackorangejuice.songguojizhang.transaction.home.myinfo.moresetting.ImportsActivity;
-import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
+import com.blackorangejuice.songguojizhang.transaction.home.myinfo.moresetting.imports.ImportsActivity;
 import com.blackorangejuice.songguojizhang.utils.basic.BasicActivity;
-import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Stream;
-
-import me.rosuh.filepicker.config.FilePickerManager;
 
 public class MoreSettingActivity extends BasicActivity {
     TextView backTextView;

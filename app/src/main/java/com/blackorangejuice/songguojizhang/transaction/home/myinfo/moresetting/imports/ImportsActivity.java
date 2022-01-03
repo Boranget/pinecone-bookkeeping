@@ -1,4 +1,4 @@
-package com.blackorangejuice.songguojizhang.transaction.home.myinfo.moresetting;
+package com.blackorangejuice.songguojizhang.transaction.home.myinfo.moresetting.imports;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,16 +6,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
 import com.blackorangejuice.songguojizhang.R;
 import com.blackorangejuice.songguojizhang.bean.AccountItem;
+import com.blackorangejuice.songguojizhang.bean.EventItem;
 import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
 import com.blackorangejuice.songguojizhang.db.mapper.AccountItemMapper;
+import com.blackorangejuice.songguojizhang.db.mapper.EventItemMapper;
 import com.blackorangejuice.songguojizhang.db.mapper.TagMapper;
-import com.blackorangejuice.songguojizhang.transaction.home.myinfo.MoreSettingActivity;
 import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
 import com.blackorangejuice.songguojizhang.utils.basic.BasicActivity;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
@@ -23,7 +25,6 @@ import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.ParseException;
@@ -44,6 +45,7 @@ public class ImportsActivity extends BasicActivity {
     SongGuoDatabaseHelper songGuoDatabaseHelper;
     TagMapper tagMapper;
     AccountItemMapper accountItemMapper;
+    EventItemMapper eventItemMapper;
 
     /**
      * 启动此活动
@@ -69,6 +71,7 @@ public class ImportsActivity extends BasicActivity {
         songGuoDatabaseHelper = SongGuoDatabaseHelper.getSongGuoDatabaseHelper(ImportsActivity.this);
         tagMapper = new TagMapper(songGuoDatabaseHelper);
         accountItemMapper = new AccountItemMapper(songGuoDatabaseHelper);
+        eventItemMapper = new EventItemMapper(songGuoDatabaseHelper);
     }
 
     @Override
@@ -115,6 +118,13 @@ public class ImportsActivity extends BasicActivity {
         });
     }
 
+    /**
+     * 返回选择的文件后的处理
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -127,11 +137,11 @@ public class ImportsActivity extends BasicActivity {
                     // 将文件中的内容按行存储到list中，供之后使用
                     List<String> fileContent = new ArrayList<>();
                     String currentCharset = "UTF-8";
-                    if(currentImport == ALIPAY){
+                    if (currentImport == ALIPAY) {
                         currentCharset = "GB2312";
                     }
                     BufferedReader bufferedReader = new BufferedReader(
-                            new InputStreamReader(new FileInputStream(fileName),currentCharset)
+                            new InputStreamReader(new FileInputStream(fileName), currentCharset)
                     );
                     String everyLine = "";
                     while (null != (everyLine = bufferedReader.readLine())) {
@@ -144,6 +154,7 @@ public class ImportsActivity extends BasicActivity {
                     int incomeNum = 0;
                     int expenditureNum = 0;
                     StringBuilder stringBuilder = new StringBuilder();
+                    StringBuilder eventBuilder = new StringBuilder();
                     switch (ImportsActivity.currentImport) {
                         case WECHAT:
                             wechatfor:
@@ -152,6 +163,12 @@ public class ImportsActivity extends BasicActivity {
                                     isAccount = true;
                                     continue;
                                 }
+                                // 记事
+                                if (!isAccount) {
+                                    eventBuilder.append(SongGuoUtils.subtractLineFromString(s));
+                                    eventBuilder.append("\n");
+                                }
+                                // 记账
                                 if (isAccount) {
                                     // 只解析账单部分,账单以上的部分跳过
                                     AccountItem accountItem = new AccountItem();
@@ -185,6 +202,8 @@ public class ImportsActivity extends BasicActivity {
                                             break;
                                         default:
                                             otherNum++;
+                                            eventBuilder.append(SongGuoUtils.subtractLineFromString(s));
+                                            eventBuilder.append("\n");
                                             continue wechatfor;
                                     }
                                     // 5 金额(元),
@@ -211,8 +230,8 @@ public class ImportsActivity extends BasicActivity {
                                     // 保存账本
                                     accountItemMapper.insertAccountItem(accountItem);
                                 }
-
                             }
+
                             stringBuilder.append("成功从微信账单文件导入[");
                             stringBuilder.append(incomeNum + expenditureNum);
                             stringBuilder.append("]条账单,其中有[");
@@ -223,6 +242,8 @@ public class ImportsActivity extends BasicActivity {
                             stringBuilder.append(otherNum);
                             stringBuilder.append("]条不支持的账单类型");
                             SongGuoUtils.showOneToast(ImportsActivity.this, stringBuilder.toString());
+                            eventBuilder.append(stringBuilder);
+                            autoCreatEvent("微信",eventBuilder.toString());
 
 
                             break;
@@ -234,9 +255,14 @@ public class ImportsActivity extends BasicActivity {
                                     isAccount = true;
                                     continue;
                                 }
-                                if(s.startsWith("----------------------------")){
+                                if (s.startsWith("----------------------------")) {
                                     isAccount = false;
                                     break;
+                                }
+                                // 记事
+                                if (!isAccount) {
+                                    eventBuilder.append(SongGuoUtils.subtractLineFromString(s));
+                                    eventBuilder.append("\n");
                                 }
                                 if (isAccount) {
                                     // 只解析账单部分,账单以上的部分跳过
@@ -255,6 +281,8 @@ public class ImportsActivity extends BasicActivity {
                                             break;
                                         default:
                                             otherNum++;
+                                            eventBuilder.append(SongGuoUtils.subtractLineFromString(s));
+                                            eventBuilder.append("\n");
                                             continue alipayfor;
                                     }
                                     // 1 交易对方
@@ -310,7 +338,10 @@ public class ImportsActivity extends BasicActivity {
                             stringBuilder.append(otherNum);
                             stringBuilder.append("]条不支持的账单类型");
                             SongGuoUtils.showOneToast(ImportsActivity.this, stringBuilder.toString());
+                            eventBuilder.append(stringBuilder);
+                            autoCreatEvent("支付宝",eventBuilder.toString());
                             break;
+
                         default:
                             SongGuoUtils.showOneToast(ImportsActivity.this, "异常");
                             break;
@@ -328,4 +359,42 @@ public class ImportsActivity extends BasicActivity {
         }
 
     }
+
+    /**
+     * 记录事件
+     * private Integer eid;
+     * // 事件标题
+     * private String eventTitle;
+     * // 时间内容
+     * private String eventContent;
+     * // 事件时间,存时间戳
+     * private Long eventTime;
+     * // 绑定的记账列表
+     * private List<AccountItem> accountItemList;
+     * // 对应账本id
+     * private Integer bid;
+     * // 对应账本
+     * private AccountBook accountBook;
+     */
+    private void autoCreatEvent(String importType, String content) {
+        EventItem eventItem = new EventItem();
+        // 获取当前时间
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日");
+        // 标题自动生成，类型传入：时间+微信/支付宝+账单自动导入
+        StringBuilder title = new StringBuilder();
+        title.append(simpleDateFormat.format(date));
+        title.append(importType);
+        title.append("账单自动导入");
+        eventItem.setEventTitle(title.toString());
+        // 内容传入
+        eventItem.setEventContent(content);
+        // 事件时间，取当前时间
+        eventItem.setEventTime(date.getTime());
+        // 对应的账本id，取当前账本
+        eventItem.setBid(GlobalInfo.currentAccountBook.getBid());
+        // 保存事件
+        eventItemMapper.insertEventItem(eventItem);
+    }
+
 }

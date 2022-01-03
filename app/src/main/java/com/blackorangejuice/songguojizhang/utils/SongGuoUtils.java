@@ -91,7 +91,14 @@ public class SongGuoUtils {
     }
 
 
-
+    public static String subtractLineFromString (String originalString){
+        // 若起始与结束都没有-,不做处理
+        if (!(originalString.startsWith("-")||originalString.endsWith("-"))){
+            return originalString;
+        }
+        String regex = "^-*|-*$";
+        return originalString.replaceAll(regex, "");
+    }
 
 
 }

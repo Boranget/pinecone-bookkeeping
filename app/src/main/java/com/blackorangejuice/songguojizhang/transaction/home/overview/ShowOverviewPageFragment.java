@@ -110,91 +110,104 @@ public class ShowOverviewPageFragment extends BasicFragment {
 
     private String getExpenditure(String type) {
         // 获取今天的日期
-        Date date = new Date();
+        Date todayDate = new Date();
         Double result = 0.0;
         try {
             switch (type) {
                 case Year:
                     SimpleDateFormat simpleDateFormatYear = new SimpleDateFormat("yyyy");
 
-                    String currentYear = simpleDateFormatYear.format(date);
+                    String currentYear = simpleDateFormatYear.format(todayDate);
                     // 获取今年年份
                     Date parseYear = simpleDateFormatYear.parse(currentYear);
                     result = accountItemMapper.calculateAccountItemSum(
-                            AccountItem.EXPENDITURE, parseYear, date
+                            AccountItem.EXPENDITURE, parseYear, todayDate
                     );
                     break;
                 case Month:
                     SimpleDateFormat simpleDateFormatMonth = new SimpleDateFormat("yyyy,MM");
 
-                    String currentMonth = simpleDateFormatMonth.format(date);
+                    String currentMonth = simpleDateFormatMonth.format(todayDate);
                     // 获取当前月
                     Date parseMonth = simpleDateFormatMonth.parse(currentMonth);
-                    result =  accountItemMapper.calculateAccountItemSum(
-                            AccountItem.EXPENDITURE, parseMonth, date
+                    result = accountItemMapper.calculateAccountItemSum(
+                            AccountItem.EXPENDITURE, parseMonth, todayDate
                     );
                     break;
                 case Week:
                     SimpleDateFormat simpleDateFormatWeek = new SimpleDateFormat("yyyy,MM,W");
 
-                    String currentWeek = simpleDateFormatWeek.format(date);
-                    // 获取当前周,国外以周日为第一天,若按星期一为第一天,需要加一天的时间
+
+                    String currentWeek = simpleDateFormatWeek.format(todayDate);
+                    // 但如果今天是周日，则当前周的时间为减去六天的时间
                     Date parseWeek = simpleDateFormatWeek.parse(currentWeek);
-                    Long trueWeekTime = parseWeek.getTime() + (24 * 60 * 60 * 1000);
+                    Long trueWeekTime = 0l;
+                    if ("1".equals(new SimpleDateFormat("F").format(todayDate))) {
+                        trueWeekTime = parseWeek.getTime() - 6 * (24 * 60 * 60 * 1000);
+                    } else {
+                        trueWeekTime = parseWeek.getTime() + (24 * 60 * 60 * 1000);
+                    }
                     Date trueWeek = new Date(trueWeekTime);
-                    result =  accountItemMapper.calculateAccountItemSum(
-                            AccountItem.EXPENDITURE, trueWeek, date
+                    result = accountItemMapper.calculateAccountItemSum(
+                            AccountItem.EXPENDITURE, trueWeek, todayDate
                     );
                     break;
             }
         } catch (Exception e) {
         }
 
-        return "-"+String.valueOf(result);
+        return "-" + String.valueOf(result);
     }
 
     private String getIncome(String type) {
         // 获取今天的日期
-        Date date = new Date();
+        Date todayDate = new Date();
         Double result = 0.0;
         try {
             switch (type) {
                 case Year:
                     SimpleDateFormat simpleDateFormatYear = new SimpleDateFormat("yyyy");
 
-                    String currentYear = simpleDateFormatYear.format(date);
+                    String currentYear = simpleDateFormatYear.format(todayDate);
                     // 获取今年年份
                     Date parseYear = simpleDateFormatYear.parse(currentYear);
-                    result =  accountItemMapper.calculateAccountItemSum(
-                            AccountItem.INCOME, parseYear, date
+                    result = accountItemMapper.calculateAccountItemSum(
+                            AccountItem.INCOME, parseYear, todayDate
                     );
                     break;
                 case Month:
                     SimpleDateFormat simpleDateFormatMonth = new SimpleDateFormat("yyyy,MM");
 
-                    String currentMonth = simpleDateFormatMonth.format(date);
+                    String currentMonth = simpleDateFormatMonth.format(todayDate);
                     // 获取当前月
                     Date parseMonth = simpleDateFormatMonth.parse(currentMonth);
-                    result =  accountItemMapper.calculateAccountItemSum(
-                            AccountItem.INCOME, parseMonth, date
+                    result = accountItemMapper.calculateAccountItemSum(
+                            AccountItem.INCOME, parseMonth, todayDate
                     );
                     break;
                 case Week:
                     SimpleDateFormat simpleDateFormatWeek = new SimpleDateFormat("yyyy,MM,W");
 
-                    String currentWeek = simpleDateFormatWeek.format(date);
+                    String currentWeek = simpleDateFormatWeek.format(todayDate);
                     // 获取当前周,国外以周日为第一天,若按星期一为第一天,需要加一天的时间
+                    // 但如果今天是周日，则当前周的时间为减去六天的时间
                     Date parseWeek = simpleDateFormatWeek.parse(currentWeek);
-                    Long trueWeekTime = parseWeek.getTime() + (24 * 60 * 60 * 1000);
+                    Long trueWeekTime = 0l;
+                    if ("1".equals(new SimpleDateFormat("F").format(todayDate))) {
+                        trueWeekTime = parseWeek.getTime() - 6 * (24 * 60 * 60 * 1000);
+                    } else {
+                        trueWeekTime = parseWeek.getTime() + (24 * 60 * 60 * 1000);
+                    }
+
                     Date trueWeek = new Date(trueWeekTime);
-                    result =  accountItemMapper.calculateAccountItemSum(
-                            AccountItem.INCOME, trueWeek, date
+                    result = accountItemMapper.calculateAccountItemSum(
+                            AccountItem.INCOME, trueWeek, todayDate
                     );
                     break;
             }
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
-        return "+"+String.valueOf(result);
+        return "+" + String.valueOf(result);
     }
 }
