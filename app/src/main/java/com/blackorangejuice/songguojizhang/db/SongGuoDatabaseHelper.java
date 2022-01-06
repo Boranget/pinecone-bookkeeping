@@ -28,7 +28,12 @@ public class SongGuoDatabaseHelper extends SQLiteOpenHelper {
             ")";
     private static final String CREATE_TABLE_ACCOUNT_BOOK = "create table t_account_book(\n" +
             "    bid integer primary key autoincrement,\n" +
-            "    account_book_name text not null unique\n" +
+            "    account_book_name text not null unique,\n" +
+            "    budget_all real,\n" +
+            "    budget_year real,\n" +
+            "    budget_month real,\n" +
+            "    budget_week real,\n" +
+            "    overview_budget text\n" +
             ")";
     private static final String CREAT_TABLE_EVENT_ITEM= "create table t_event_item(\n" +
             "    eid integer primary key autoincrement,\n" +

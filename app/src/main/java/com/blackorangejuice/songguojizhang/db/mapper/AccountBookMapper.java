@@ -12,9 +12,9 @@ import java.util.List;
 
 public class AccountBookMapper {
     public static final String INSERT_ACCOUNT_BOOK = "insert into t_account_book \n" +
-            "(account_book_name)\n" +
+            "(account_book_name,budget_all, budget_year, budget_month, budget_week, overview_budget)\n" +
             "values\n" +
-            "(?)";
+            "(?,?,?,?,?,?)";
 
     public static final String UPDATE_ACCOUNT_BOOK_NAME = "update t_account_book\n" +
             "set account_book_name = ?\n" +
@@ -27,7 +27,14 @@ public class AccountBookMapper {
 
     public static final String SELETE_BY_ACCOUNT_BOOK_NAME = "select * from t_account_book where account_book_name = ?";
     public static final String SELETE_ALL = "select * from t_account_book";
-
+    public static final String UPDATE_ACCOUNT_BOOK_SETTING = "update t_account_book\n" +
+            "set account_book_name = ?,\n" +
+            "    budget_all = ?,\n" +
+            "    budget_year = ?, \n" +
+            "    budget_month = ?,\n" +
+            "    budget_week = ?, \n" +
+            "    overview_budget = ?\n" +
+            "where bid = ?;";
 
     SongGuoDatabaseHelper songGuoDatabaseHelper;
     SQLiteDatabase sqLiteDatabase;
@@ -46,7 +53,14 @@ public class AccountBookMapper {
      * @return
      */
     public AccountBook insertAccountBook(AccountBook accountBook){
-        sqLiteDatabase.execSQL(INSERT_ACCOUNT_BOOK,new String[]{accountBook.getAccountBookName()});
+        sqLiteDatabase.execSQL(INSERT_ACCOUNT_BOOK,new String[]{
+                accountBook.getAccountBookName(),
+                String.valueOf(0.0),
+                String.valueOf(0.0),
+                String.valueOf(0.0),
+                String.valueOf(0.0),
+                ""
+        });
         return selectByAccountBookName(accountBook.getAccountBookName());
     }
 
@@ -80,8 +94,13 @@ public class AccountBookMapper {
         AccountBook accountBook = new AccountBook();
         accountBook.setAccountBookName(accountBookName);
         if(cursor.moveToFirst()){
-            Integer bid = cursor.getInt(cursor.getColumnIndex("bid"));
-            accountBook.setBid(bid);
+            accountBook.setBid(cursor.getInt(cursor.getColumnIndex("bid")));
+            accountBook.setBudgetAll(Double.valueOf(cursor.getString(cursor.getColumnIndex("budget_all"))));
+            accountBook.setBudgetYear(Double.valueOf(cursor.getString(cursor.getColumnIndex("budget_year"))));
+            accountBook.setBudgetMonth(Double.valueOf(cursor.getString(cursor.getColumnIndex("budget_month"))));
+            accountBook.setBudgetWeek(Double.valueOf(cursor.getString(cursor.getColumnIndex("budget_week"))));
+            accountBook.setOverviewBudget(cursor.getString(cursor.getColumnIndex("overview_budget")));
+
         }
         cursor.close();
         return accountBook;
@@ -98,28 +117,61 @@ public class AccountBookMapper {
         accountBook.setBid(bid);
 
         if(cursor.moveToFirst()){
-            String accountBookName = cursor.getString(cursor.getColumnIndex("account_book_name"));
-            accountBook.setAccountBookName(accountBookName);
+            accountBook.setAccountBookName(cursor.getString(cursor.getColumnIndex("account_book_name")));
+            accountBook.setBudgetAll(Double.valueOf(cursor.getString(cursor.getColumnIndex("budget_all"))));
+            accountBook.setBudgetYear(Double.valueOf(cursor.getString(cursor.getColumnIndex("budget_year"))));
+            accountBook.setBudgetMonth(Double.valueOf(cursor.getString(cursor.getColumnIndex("budget_month"))));
+            accountBook.setBudgetWeek(Double.valueOf(cursor.getString(cursor.getColumnIndex("budget_week"))));
+            accountBook.setOverviewBudget(cursor.getString(cursor.getColumnIndex("overview_budget")));
+
         }
         cursor.close();
         return accountBook;
     }
+
+    /**
+     * 查询所有账本
+     * @return
+     */
     public List<AccountBook> selectAll(){
         List<AccountBook> accountBooks = new ArrayList<>();
         Cursor cursor = sqLiteDatabase.rawQuery(SELETE_ALL,null);
 
         if(cursor.moveToFirst()){
             do{
+
                 AccountBook accountBook = new AccountBook();
-                Integer bid = cursor.getInt(cursor.getColumnIndex("bid"));
-                String accountBookName = cursor.getString(cursor.getColumnIndex("account_book_name"));
-                accountBook.setAccountBookName(accountBookName);
-                accountBook.setBid(bid);
+                accountBook.setBid(cursor.getInt(cursor.getColumnIndex("bid")));
+                accountBook.setAccountBookName(cursor.getString(cursor.getColumnIndex("account_book_name")));
+                accountBook.setBudgetAll(Double.valueOf(cursor.getString(cursor.getColumnIndex("budget_all"))));
+                accountBook.setBudgetYear(Double.valueOf(cursor.getString(cursor.getColumnIndex("budget_year"))));
+                accountBook.setBudgetMonth(Double.valueOf(cursor.getString(cursor.getColumnIndex("budget_month"))));
+                accountBook.setBudgetWeek(Double.valueOf(cursor.getString(cursor.getColumnIndex("budget_week"))));
+                accountBook.setOverviewBudget(cursor.getString(cursor.getColumnIndex("overview_budget")));
+
                 accountBooks.add(accountBook);
             }while (cursor.moveToNext());
 
         }
         cursor.close();
         return accountBooks;
+    }
+
+    /**
+     * 更新账本设置
+     * @param accountBook
+     * @return
+     */
+    public AccountBook updateAccountBookSetting(AccountBook accountBook){
+        sqLiteDatabase.execSQL(UPDATE_ACCOUNT_BOOK_SETTING,new String[]{
+                accountBook.getAccountBookName(),
+                String.valueOf(accountBook.getBudgetAll()),
+                String.valueOf(accountBook.getBudgetYear()),
+                String.valueOf(accountBook.getBudgetMonth()),
+                String.valueOf(accountBook.getBudgetWeek()),
+                accountBook.getOverviewBudget(),
+                String.valueOf(accountBook.getBid())
+        });
+        return selectByBid(accountBook.getBid());
     }
 }

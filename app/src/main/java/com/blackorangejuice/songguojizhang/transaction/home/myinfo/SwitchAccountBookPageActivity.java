@@ -100,7 +100,6 @@ public class SwitchAccountBookPageActivity extends BasicActivity {
         // 弹窗输入框输入账本名
         EditText editText = new EditText(SwitchAccountBookPageActivity.this);
         new AlertDialog.Builder(SwitchAccountBookPageActivity.this).setTitle("请输入账本名")
-                .setIcon(android.R.drawable.sym_def_app_icon)
                 .setView(editText)
                 .setPositiveButton("添加", new DialogInterface.OnClickListener() {
                             @Override

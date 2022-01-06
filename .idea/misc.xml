@@ -26,10 +26,11 @@
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_imports.xml" value="0.2037037037037037" />
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_main.xml" value="0.25364583333333335" />
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_more_setting.xml" value="0.22546296296296298" />
+        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_setting_surplus.xml" value="0.2187214611872146" />
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_show_chosen_account_page.xml" value="0.1648148148148148" />
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_show_chosen_event_page.xml" value="0.14074074074074075" />
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_switch_account_book_page.xml" value="0.22546296296296298" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_update_edit_account_page.xml" value="0.264" />
+        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_update_edit_account_page.xml" value="0.23414634146341465" />
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_update_edit_event_page.xml" value="0.22546296296296298" />
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_update_password_page.xml" value="0.264" />
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_update_username_page.xml" value="0.176" />
@@ -49,7 +50,7 @@
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/password_check_page.xml" value="0.12708333333333333" />
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/recycle_view_item.xml" value="0.22546296296296298" />
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/show_add_list_page.xml" value="0.25364583333333335" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/show_overview_page.xml" value="0.1" />
+        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/show_overview_page.xml" value="0.264" />
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/tag_grid_item.xml" value="0.1439814814814815" />
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/testnavigation.xml" value="0.264" />
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/welcome_page.xml" value="0.12708333333333333" />

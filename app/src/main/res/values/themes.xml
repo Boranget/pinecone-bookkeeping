@@ -13,4 +13,8 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="activity_setting_budget_overview_sppinner" parent="@android:style/Widget.TextView.SpinnerItem">
+        <item name="android:textSize">20sp</item><!--可以按照自己的情况在里面设定-->
+    </style>
 </resources>

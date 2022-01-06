@@ -136,6 +136,7 @@ public class ImportsActivity extends BasicActivity {
                 try {
                     // 将文件中的内容按行存储到list中，供之后使用
                     List<String> fileContent = new ArrayList<>();
+                    // 判断文件编码，微信为utf-8，支付宝为GB2312
                     String currentCharset = "UTF-8";
                     if (currentImport == ALIPAY) {
                         currentCharset = "GB2312";
@@ -144,17 +145,24 @@ public class ImportsActivity extends BasicActivity {
                             new InputStreamReader(new FileInputStream(fileName), currentCharset)
                     );
                     String everyLine = "";
+                    // 读取
                     while (null != (everyLine = bufferedReader.readLine())) {
                         fileContent.add(everyLine);
                     }
                     // 开始解析
                     // 是否处于账本区域
                     boolean isAccount = false;
+                    // 统计数值
                     int otherNum = 0;
                     int incomeNum = 0;
                     int expenditureNum = 0;
+                    // 弹窗提示
                     StringBuilder stringBuilder = new StringBuilder();
+                    // 事件内容
                     StringBuilder eventBuilder = new StringBuilder();
+                    // 批量导入的帐单列表,由于最后要绑定一个事件,最后批量导入该列表
+                    // 另一种思路:先创建好事件后获取事件id,最后进行内容更新
+                    List<AccountItem> importsAccountList = new ArrayList<>();
                     switch (ImportsActivity.currentImport) {
                         case WECHAT:
                             wechatfor:
@@ -202,8 +210,8 @@ public class ImportsActivity extends BasicActivity {
                                             break;
                                         default:
                                             otherNum++;
-                                            eventBuilder.append(SongGuoUtils.subtractLineFromString(s));
-                                            eventBuilder.append("\n");
+//                                            eventBuilder.append(SongGuoUtils.subtractLineFromString(s));
+//                                            eventBuilder.append("\n不支持的账单类型:\n");
                                             continue wechatfor;
                                     }
                                     // 5 金额(元),
@@ -227,8 +235,8 @@ public class ImportsActivity extends BasicActivity {
                                     accountItem.setIfBorrowOrLend(AccountItem.IF_FALSE);
                                     // 关联事件
                                     accountItem.setEid(0);
-                                    // 保存账本
-                                    accountItemMapper.insertAccountItem(accountItem);
+                                    // 保存账本到列表
+                                    importsAccountList.add(accountItem);
                                 }
                             }
 
@@ -243,8 +251,11 @@ public class ImportsActivity extends BasicActivity {
                             stringBuilder.append("]条不支持的账单类型");
                             SongGuoUtils.showOneToast(ImportsActivity.this, stringBuilder.toString());
                             eventBuilder.append(stringBuilder);
-                            autoCreatEvent("微信",eventBuilder.toString());
-
+                            int eidWechat = autoCreatEvent("微信", eventBuilder.toString());
+                            for(AccountItem accountItem:importsAccountList){
+                                accountItem.setEid(eidWechat);
+                                accountItemMapper.insertAccountItem(accountItem);
+                            }
 
                             break;
                         case ALIPAY:
@@ -257,7 +268,7 @@ public class ImportsActivity extends BasicActivity {
                                 }
                                 if (s.startsWith("----------------------------")) {
                                     isAccount = false;
-                                    break;
+//                                    break;
                                 }
                                 // 记事
                                 if (!isAccount) {
@@ -281,8 +292,8 @@ public class ImportsActivity extends BasicActivity {
                                             break;
                                         default:
                                             otherNum++;
-                                            eventBuilder.append(SongGuoUtils.subtractLineFromString(s));
-                                            eventBuilder.append("\n");
+//                                            eventBuilder.append(SongGuoUtils.subtractLineFromString(s));
+//                                            eventBuilder.append("\n不支持的账单类型:\n");
                                             continue alipayfor;
                                     }
                                     // 1 交易对方
@@ -321,8 +332,8 @@ public class ImportsActivity extends BasicActivity {
                                     accountItem.setIfBorrowOrLend(AccountItem.IF_FALSE);
                                     // 关联事件
                                     accountItem.setEid(0);
-                                    // 保存账本
-                                    accountItemMapper.insertAccountItem(accountItem);
+                                    // 保存账本到列表
+                                    importsAccountList.add(accountItem);
 
                                 }
 
@@ -339,7 +350,12 @@ public class ImportsActivity extends BasicActivity {
                             stringBuilder.append("]条不支持的账单类型");
                             SongGuoUtils.showOneToast(ImportsActivity.this, stringBuilder.toString());
                             eventBuilder.append(stringBuilder);
-                            autoCreatEvent("支付宝",eventBuilder.toString());
+                            int eidAlipay = autoCreatEvent("支付宝", eventBuilder.toString());
+                            for(AccountItem accountItem:importsAccountList){
+                                accountItem.setEid(eidAlipay);
+                                accountItemMapper.insertAccountItem(accountItem);
+                            }
+
                             break;
 
                         default:
@@ -376,7 +392,7 @@ public class ImportsActivity extends BasicActivity {
      * // 对应账本
      * private AccountBook accountBook;
      */
-    private void autoCreatEvent(String importType, String content) {
+    private int autoCreatEvent(String importType, String content) {
         EventItem eventItem = new EventItem();
         // 获取当前时间
         Date date = new Date();
@@ -394,7 +410,8 @@ public class ImportsActivity extends BasicActivity {
         // 对应的账本id，取当前账本
         eventItem.setBid(GlobalInfo.currentAccountBook.getBid());
         // 保存事件
-        eventItemMapper.insertEventItem(eventItem);
+        EventItem eventItemSaved = eventItemMapper.insertEventItem(eventItem);
+        return eventItemSaved.getEid();
     }
 
 }

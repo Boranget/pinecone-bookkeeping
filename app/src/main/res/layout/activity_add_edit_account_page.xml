@@ -199,14 +199,14 @@
             <LinearLayout
                 android:id="@+id/activity_add_edit_account_page_bind_event"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:background="@drawable/rounded_corner"
                 android:orientation="horizontal"
                 android:padding="5dp">
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="40dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:paddingLeft="5dp"
@@ -217,8 +217,10 @@
                 <TextView
                     android:id="@+id/activity_add_edit_account_page_bind_event_title"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
                     android:layout_weight="3"
+                    android:layout_gravity="center"
                     android:gravity="center_vertical|right"
                     android:paddingRight="5dp"
                     android:text=" "
