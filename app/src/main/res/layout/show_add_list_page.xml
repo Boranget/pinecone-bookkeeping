@@ -68,7 +68,7 @@
 
         </FrameLayout>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <com.blackorangejuice.songguojizhang.utils.view.DragFloatActionButton
             android:id="@+id/show_add_list_page_add_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -76,7 +76,18 @@
             android:layout_margin="16dp"
             android:backgroundTint="@color/background_gray"
             android:src="@drawable/add"
-            app:backgroundTint="#808080" />
+            app:backgroundTint="#808080"
+
+            />
+        <!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+        <!--            android:id="@+id/show_add_list_page_add_button"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_gravity="bottom|right"-->
+        <!--            android:layout_margin="16dp"-->
+        <!--            android:backgroundTint="@color/background_gray"-->
+        <!--            android:src="@drawable/add"-->
+        <!--            app:backgroundTint="#808080" />-->
         <!--            src这里的图片是居中显示，并且应该是需要有透明区域，颜色无关-->
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
