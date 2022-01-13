@@ -15,6 +15,7 @@ import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
 import com.blackorangejuice.songguojizhang.db.mapper.AccountBookMapper;
 import com.blackorangejuice.songguojizhang.db.mapper.SettingInfoMapper;
 import com.blackorangejuice.songguojizhang.transaction.guide.GuideStartPageActivity;
+import com.blackorangejuice.songguojizhang.transaction.home.CheckPasswordActivity;
 import com.blackorangejuice.songguojizhang.transaction.home.HomePageActivity;
 import com.blackorangejuice.songguojizhang.transaction.home.list.account.edit.AddEditAccountPageActivity;
 import com.blackorangejuice.songguojizhang.transaction.home.list.event.edit.AddEditEventPageActivity;
@@ -76,20 +77,35 @@ public class WidgetJumpActivity extends BasicActivity {
             AccountBook accountBook = accountBookMapper.selectByBid(currentAccountBookBid);
             GlobalInfo.currentAccountBook = accountBook;
 
-            // 判断进入的页面
+            // 取出是否启用了密码检查
+            String ifEnablePasswordCheck = settingInfo.getIfEnablePasswordCheck();
             Intent intent = getIntent();
             Uri data = intent.getData();
             String stringExtra = data.toString();
-            System.out.println(stringExtra);
-            switch (stringExtra) {
-                case ACCOUNT_URI:
-                    AddEditAccountPageActivity.startThisActivity(this, "");
-                    break;
-                case EVENT_URI:
-                    AddEditEventPageActivity.startThisActivity(this, "");
-                    break;
+            if(String.valueOf(true).equals(ifEnablePasswordCheck)){
+                // 判断进入的页面
+                switch (stringExtra) {
+                    case ACCOUNT_URI:
+                        CheckPasswordActivity.startThisActivity(WidgetJumpActivity.this,CheckPasswordActivity.JUMP_ACCOUNT);
+                        break;
+                    case EVENT_URI:
+                        CheckPasswordActivity.startThisActivity(WidgetJumpActivity.this,CheckPasswordActivity.JUMP_EVENT);
+                        break;
 
+                }
+            }else {
+                // 判断进入的页面
+                switch (stringExtra) {
+                    case ACCOUNT_URI:
+                        AddEditAccountPageActivity.startThisActivity(this, "");
+                        break;
+                    case EVENT_URI:
+                        AddEditEventPageActivity.startThisActivity(this, "");
+                        break;
+
+                }
             }
+
 
         }
 

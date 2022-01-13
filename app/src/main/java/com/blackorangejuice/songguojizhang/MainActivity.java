@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.blackorangejuice.songguojizhang.transaction.guide.GuideStartPageActivity;
+import com.blackorangejuice.songguojizhang.transaction.home.CheckPasswordActivity;
 import com.blackorangejuice.songguojizhang.transaction.home.HomePageActivity;
 import com.blackorangejuice.songguojizhang.bean.AccountBook;
 import com.blackorangejuice.songguojizhang.bean.SettingInfo;
@@ -57,8 +58,16 @@ public class MainActivity extends BasicActivity {
                     AccountBook accountBook = accountBookMapper.selectByBid(currentAccountBookBid);
                     GlobalInfo.currentAccountBook = accountBook;
 
-                    // 进入主页
-                    HomePageActivity.startThisActivity(MainActivity.this);
+                    // 取出是否启用了密码检查
+                    String ifEnablePasswordCheck = settingInfo.getIfEnablePasswordCheck();
+                    if(String.valueOf(true).equals(ifEnablePasswordCheck)){
+                        CheckPasswordActivity.startThisActivity(MainActivity.this,"");
+                    }else {
+
+                        // 进入主页
+                        HomePageActivity.startThisActivity(MainActivity.this);
+                    }
+
 
                 }
 

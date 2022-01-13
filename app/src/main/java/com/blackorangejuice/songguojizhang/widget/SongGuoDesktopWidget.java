@@ -33,17 +33,22 @@ public class SongGuoDesktopWidget extends AppWidgetProvider {
         // 所以使用intent带一个data的uri，在跳转activity中再判断
 
 
+        Intent mainIntent = new Intent(context, MainActivity.class);
+        PendingIntent mainPendingIntent = PendingIntent.getActivity(context, 0, mainIntent, 0);
+        views.setOnClickPendingIntent(R.id.song_guo_desktop_widget_add_main, mainPendingIntent);
+
         Intent accountIntent = new Intent(context, WidgetJumpActivity.class);
         accountIntent.setData(Uri.parse(WidgetJumpActivity.ACCOUNT_URI));
-        PendingIntent accountPendingIntent = PendingIntent.getActivity(context, 0, accountIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent accountPendingIntent = PendingIntent.getActivity(context, 1, accountIntent, PendingIntent.FLAG_CANCEL_CURRENT);
         views.setOnClickPendingIntent(R.id.song_guo_desktop_widget_add_account, accountPendingIntent);
 
 
 
         Intent eventIntent = new Intent(context, WidgetJumpActivity.class);
         eventIntent.setData(Uri.parse(WidgetJumpActivity.EVENT_URI));
-        PendingIntent eventPendingIntent = PendingIntent.getActivity(context, 1, eventIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent eventPendingIntent = PendingIntent.getActivity(context, 2, eventIntent, PendingIntent.FLAG_CANCEL_CURRENT);
         views.setOnClickPendingIntent(R.id.song_guo_desktop_widget_add_event, eventPendingIntent);
+
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
