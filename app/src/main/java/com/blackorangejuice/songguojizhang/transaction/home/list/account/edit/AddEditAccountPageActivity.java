@@ -136,6 +136,7 @@ public class AddEditAccountPageActivity extends EditAccountActivity {
         Intent intent = getIntent();
         String stringExtra = intent.getStringExtra(ARG);
         switch (stringExtra){
+            // 如果是递归调用，禁用绑定按钮
             case GlobalConstant.DISABLE_BIND:
                 bindEventLinearLayout.setEnabled(false);
                 break;

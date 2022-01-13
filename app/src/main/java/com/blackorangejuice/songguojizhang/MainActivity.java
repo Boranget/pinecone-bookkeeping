@@ -1,5 +1,7 @@
 package com.blackorangejuice.songguojizhang;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -17,6 +19,10 @@ import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
 
 public class MainActivity extends BasicActivity {
 
+    public static void startThisActivity(Context context) {
+        Intent intent = new Intent(context, MainActivity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
