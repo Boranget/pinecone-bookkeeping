@@ -27,6 +27,9 @@ public class EventItemMapper {
     public static final String SELECT_DESC_PAGE = "select * from t_event_item where bid = ? order by event_time desc limit ?,?";
     public static final String SELECT_BY_EID = "select * from t_event_item where eid = ?";
     public static final String DELETE_BY_BOOK = "delete from t_event_item where bid = ?";
+    public static final String RESET_ACCOUNT_ITEM_EID = "update t_account_item\n" +
+            "set eid = 0\n" +
+            "where eid = ?";
     SongGuoDatabaseHelper songGuoDatabaseHelper;
     SQLiteDatabase sqLiteDatabase;
 
@@ -75,6 +78,8 @@ public class EventItemMapper {
      */
     public void deleteEventItem(EventItem eventItem) {
         sqLiteDatabase.execSQL(DELETE_EVENT_ITEM, new String[]{String.valueOf(eventItem.getEid())});
+        // 将所有事件id为本事件的id的账单的事件id设为0
+        sqLiteDatabase.execSQL(RESET_ACCOUNT_ITEM_EID,new String[]{String.valueOf(eventItem.getEid())});
     }
 
     /**
