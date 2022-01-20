@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="标题"
-                android:textSize="30sp" />
+                android:textSize="@dimen/item_event_list_title_size" />
 
             <LinearLayout
                 android:id="@+id/item_event_list_more"
@@ -61,6 +61,7 @@
             android:maxLines="6"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
+            android:textSize="@dimen/item_event_list_content_size"
             android:text="吃罢晚饭，夜晚即将来临，这是我最喜欢的时刻。推开窗户，便可看见对面潺潺流过的盘龙河水，朦胧之中我看到，柔和的柳条在流淌的河水
 吃罢晚饭，夜晚即将来临，这是我最喜欢的时刻。推开窗户，便可看见对面潺潺流过的盘龙河水，朦胧之中我看到，柔和的柳条在流淌的河水
 吃罢晚饭，夜晚即将来临，这是我最喜欢的时刻。推开窗户，便可看见对面潺潺流过的盘龙河水，朦胧之中我看到，柔和的柳条在流淌的河水
@@ -71,6 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical|left"
+            android:textSize="@dimen/item_event_list_time_size"
             android:text="2019/112/11" />
 
 

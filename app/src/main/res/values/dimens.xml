@@ -8,5 +8,8 @@
     <dimen name="widget_margin">0dp</dimen>
     <dimen name="song_guo_desktop_widget_text_size">15sp</dimen>
     <dimen name="activity_check_password_text_size">20sp</dimen>
+    <dimen name="item_event_list_title_size">25sp</dimen>
+    <dimen name="item_event_list_content_size">15sp</dimen>
+    <dimen name="item_event_list_time_size">15sp</dimen>
 
 </resources>

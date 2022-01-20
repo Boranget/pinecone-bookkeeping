@@ -11,6 +11,8 @@ public class GlobalConstant {
     public static final Integer PAGE_SIZE = 50;
     public static final String SID = "SID";
     public static final String DISABLE_BIND = "disableBind";
+    public static final String TRUE = "true";
+    public static final String FALSE = "false";
 //    public static final String
 //    public static final String
 //    public static final String

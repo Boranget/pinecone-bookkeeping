@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.blackorangejuice.songguojizhang.R;
 import com.blackorangejuice.songguojizhang.utils.basic.BasicActivity;
+import com.blackorangejuice.songguojizhang.utils.globle.GlobalConstant;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
 
 public class GuideEnablePasswordCheckPageActivity extends BasicActivity {
@@ -59,7 +60,16 @@ public class GuideEnablePasswordCheckPageActivity extends BasicActivity {
             public void onClick(View v) {
                 // 保存设置状态
                 GlobalInfo.guideInfo.setIfEnablePasswordCheck(String.valueOf(enableSwitch.isChecked()));
-                GuideAccountBookNamePageActivity.startThisActivity(GuideEnablePasswordCheckPageActivity.this);
+                switch (GlobalInfo.guideInfo.getIfEnablePasswordCheck()){
+                    // 启用密码检查则设置密码
+                    case GlobalConstant.TRUE:
+                        GuidePasswordPageActivity.startThisActivity(GuideEnablePasswordCheckPageActivity.this);
+                        break;
+                    // 否则密码设置为空，直接进入账本名
+                    case GlobalConstant.FALSE:
+                        GuideAccountBookNamePageActivity.startThisActivity(GuideEnablePasswordCheckPageActivity.this);
+                        break;
+                }
             }
         });
     }

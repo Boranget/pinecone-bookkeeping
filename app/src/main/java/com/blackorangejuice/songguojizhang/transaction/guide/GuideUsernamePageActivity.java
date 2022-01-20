@@ -69,7 +69,8 @@ public class GuideUsernamePageActivity extends BasicActivity {
                 // 保存用户名到全局类
                 GlobalInfo.guideInfo.setUsername(usernameEditText.getText().toString());
                 // 前往下一个页面
-                GuidePasswordPageActivity.startThisActivity(GuideUsernamePageActivity.this);
+//                GuidePasswordPageActivity.startThisActivity(GuideUsernamePageActivity.this);
+                GuideEnablePasswordCheckPageActivity.startThisActivity(GuideUsernamePageActivity.this);
             }
         });
     }

@@ -66,8 +66,8 @@ public class GuideRepasswordPageActivity extends BasicActivity {
                 String password2 = repasswordEditText.getText().toString();
                 String password1 = GlobalInfo.guideInfo.getPassword();
                 if (Objects.equals(password1, password2)) {
-                    //开启下一个活动
-                    GuideEnablePasswordCheckPageActivity.startThisActivity(GuideRepasswordPageActivity.this);
+                    //开启下一个活动:设置账本名
+                    GuideAccountBookNamePageActivity.startThisActivity(GuideRepasswordPageActivity.this);
                 } else {
                     Toast.makeText(GuideRepasswordPageActivity.this, "两次输入的密码不同", Toast.LENGTH_LONG).show();
                 }

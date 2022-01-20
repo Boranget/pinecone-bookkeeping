@@ -71,6 +71,22 @@ public class SongGuoDatabaseHelper extends SQLiteOpenHelper {
             "    remark text not null,\n" +
             "    bid integer not null\n" +
             ")";
+    public static final String GUIDE_CREATE_ACCOUNT_BOOK = "insert into t_account_book \n" +
+            "(bid, account_book_name,budget_all, budget_year, budget_month, budget_week, overview_budget)\n" +
+            "values\n" +
+            "(1,\"长按可删除该账本\",1000,1000,1000,1000,\"showMonth\")";
+    public static final String GUIDE_CREATE_EVENT= "insert into t_event_item\n" +
+            " (eid, event_title,event_content,event_time,bid)\n" +
+            " values\n" +
+            " (1,\"长按删除，点击编辑\",\"如果你在事件编辑界面，点击上方时间区域可以设置记事时间。点击下方灰色区域绑定账单，长按下方灰色区域可以删除当前事件。编辑结束点击右上角对勾保存\",0,2)";
+    public static final String GUIDE_CREATE_ACCOUNT_ONE= " insert into t_account_item \n" +
+            "(income_or_expenditure, tid, sum, remark, account_time, if_borrow_or_lend, bid, eid)\n" +
+            "values\n" +
+            "(\"income\",\"1\",\"10.24\",\"长按该条账单可删除\",0,\"false\",2,1)";
+    public static final String GUIDE_CREATE_ACCOUNT_TWO= "insert into t_account_item \n" +
+            "(income_or_expenditure, tid, sum, remark, account_time, if_borrow_or_lend, bid, eid)\n" +
+            "values\n" +
+            "(\"expenditure\",\"3\",\"84.21\",\"点击备注可进行编辑\",0,\"false\",2,1)";
     private SongGuoDatabaseHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
         myContext = context;
@@ -84,7 +100,11 @@ public class SongGuoDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREAT_TABLE_ACCOUNT_ITEM);
         db.execSQL(CREAT_TABLE_SETTING_INFO);
         db.execSQL(CREAT_TABLE_BORROW_LEND);
-
+        // 引导数据
+        db.execSQL(GUIDE_CREATE_ACCOUNT_BOOK);
+        db.execSQL(GUIDE_CREATE_EVENT);
+        db.execSQL(GUIDE_CREATE_ACCOUNT_ONE);
+        db.execSQL(GUIDE_CREATE_ACCOUNT_TWO);
     }
 
     @Override
