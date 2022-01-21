@@ -2,10 +2,13 @@ package com.blackorangejuice.songguojizhang.bean;
 
 public class AccountBook {
 
+    public static final String SHOW_NONE = "showNone";
     public static final String SHOW_ALL = "showAll";
     public static final String SHOW_YEAR = "showYear";
     public static final String SHOW_MONTH = "showMonth";
     public static final String SHOW_WEEK = "showWeek";
+
+
     private Integer bid;
 
     // 账本名

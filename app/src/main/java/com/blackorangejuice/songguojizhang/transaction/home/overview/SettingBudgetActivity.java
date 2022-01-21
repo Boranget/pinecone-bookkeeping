@@ -27,6 +27,9 @@ import com.blackorangejuice.songguojizhang.utils.basic.BasicActivity;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
 import com.blackorangejuice.songguojizhang.utils.inputfilter.CashierInputFilter;
 
+/**
+ * 设置预算的活动
+ */
 public class SettingBudgetActivity extends BasicActivity {
     public static final String All_BUDGET = "all_buget";
     public static final String YEAR_BUDGET = "year_buget";
@@ -68,7 +71,9 @@ public class SettingBudgetActivity extends BasicActivity {
     public void init() {
         songGuoDatabaseHelper = SongGuoDatabaseHelper.getSongGuoDatabaseHelper(SettingBudgetActivity.this);
         accountBookMapper = new AccountBookMapper(songGuoDatabaseHelper);
+        // 刷新结余
         refreshSurplusData();
+
         allBudgetTextView.setText(String.valueOf(GlobalInfo.currentAccountBook.getBudgetAll()));
         allSurplusTextView.setText(String.valueOf(GlobalInfo.currentAccountBook.getSurplusAll()));
         yearBudgetTextView.setText(String.valueOf(GlobalInfo.currentAccountBook.getBudgetYear()));
@@ -77,7 +82,7 @@ public class SettingBudgetActivity extends BasicActivity {
         monthSurplusTextView.setText(String.valueOf(GlobalInfo.currentAccountBook.getSurplusMonth()));
         weekBudgetTextView.setText(String.valueOf(GlobalInfo.currentAccountBook.getBudgetWeek()));
         weekSurplusTextView.setText(String.valueOf(GlobalInfo.currentAccountBook.getSurplusWeek()));
-
+        // 设置被选择的展示项
         setSellictionSpinner();
 
     }
@@ -134,13 +139,14 @@ public class SettingBudgetActivity extends BasicActivity {
             }
         });
 
+        // 下拉列表设置监听器
         overviewDisplaySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 AccountBook accountBook = GlobalInfo.currentAccountBook;
-                switch (position){
+                switch (position) {
                     case 0:
-                        accountBook.setOverviewBudget("");
+                        accountBook.setOverviewBudget(AccountBook.SHOW_NONE);
                         break;
                     case 1:
                         accountBook.setOverviewBudget(AccountBook.SHOW_ALL);
@@ -165,8 +171,9 @@ public class SettingBudgetActivity extends BasicActivity {
         });
 
     }
+
     /**
-     * 新建账本并作为当前账本
+     * 设置预算
      */
     private void setBudget(String setType) {
         // 弹窗输入框输入预算
@@ -183,7 +190,8 @@ public class SettingBudgetActivity extends BasicActivity {
                                     // 将全局账本中的预算设置为输入值
                                     AccountBook accountBook = GlobalInfo.currentAccountBook;
                                     AccountBookMapper accountBookMapper = new AccountBookMapper(SongGuoDatabaseHelper.getSongGuoDatabaseHelper(SettingBudgetActivity.this));
-                                    switch (setType){
+                                    // 判断当前实在设置哪个范围的预算
+                                    switch (setType) {
                                         case All_BUDGET:
                                             accountBook.setBudgetAll(budgetSum);
                                             break;
@@ -215,37 +223,43 @@ public class SettingBudgetActivity extends BasicActivity {
     /**
      * 更新当前页面数据
      */
-    public void refreshCurrentPage(){
+    public void refreshCurrentPage() {
         init();
     }
 
-    public static void refreshSurplusData(){
+    /**
+     * 刷新结余
+     */
+    public static void refreshSurplusData() {
         AccountBook accountBook = GlobalInfo.currentAccountBook;
         // 获取账本设置中的全部预算
         Double budgetAll = accountBook.getBudgetAll();
         // 获取已经消费的数目
         Double allExpenditure = accountBook.getExpenditureAll();
-        accountBook.setSurplusAll(budgetAll-allExpenditure);
+        accountBook.setSurplusAll(budgetAll - allExpenditure);
         // 获取账本设置中的年预算
         Double budgetYear = accountBook.getBudgetYear();
         // 获取已经消费的数目
         Double yearExpenditure = accountBook.getExpenditureYear();
-        accountBook.setSurplusYear(budgetYear-yearExpenditure);
+        accountBook.setSurplusYear(budgetYear - yearExpenditure);
         // 获取账本设置中的月预算
         Double budgetMonth = accountBook.getBudgetMonth();
         // 获取已经消费的数目
         Double monthExpenditure = accountBook.getExpenditureMonth();
-        accountBook.setSurplusMonth(budgetMonth-monthExpenditure);
+        accountBook.setSurplusMonth(budgetMonth - monthExpenditure);
         // 获取账本设置中的周预算
         Double budgetWeek = accountBook.getBudgetWeek();
         // 获取已经消费的数目
         Double weekExpenditure = accountBook.getExpenditureWeek();
-        accountBook.setSurplusWeek(budgetWeek-weekExpenditure);
+        accountBook.setSurplusWeek(budgetWeek - weekExpenditure);
     }
 
-    private void setSellictionSpinner(){
+    /**
+     * 设置overview界面展示哪一个范围
+     */
+    private void setSellictionSpinner() {
         String overviewBudget = GlobalInfo.currentAccountBook.getOverviewBudget();
-        switch (overviewBudget){
+        switch (overviewBudget) {
             case AccountBook.SHOW_ALL:
                 overviewDisplaySpinner.setSelection(1);
                 break;
@@ -258,7 +272,7 @@ public class SettingBudgetActivity extends BasicActivity {
             case AccountBook.SHOW_WEEK:
                 overviewDisplaySpinner.setSelection(4);
                 break;
-            default:
+            case AccountBook.SHOW_NONE:
                 overviewDisplaySpinner.setSelection(0);
                 break;
         }

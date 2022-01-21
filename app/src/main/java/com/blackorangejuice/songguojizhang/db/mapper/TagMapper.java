@@ -54,7 +54,8 @@ public class TagMapper {
                 {"工资","gongzi"},
                 {"投资","touzi"},
                 {"奖金","jiangjin"},
-                {"兼职","jianzhi"}
+                {"兼职","jianzhi"},
+                {"其他","qita"}
 
         };
         for(String s[]:strs){

@@ -103,7 +103,7 @@ public class ShowOverviewPageFragment extends BasicFragment {
                 case AccountBook.SHOW_WEEK:
                     surplusTypeTextView.setText("本周结余");
                     break;
-                default:
+                case AccountBook.SHOW_NONE:
                     surplusTypeTextView.setText("未设置");
                     break;
             }
@@ -138,6 +138,9 @@ public class ShowOverviewPageFragment extends BasicFragment {
                 // 获取已经消费的数目
                 Double weekExpenditure = Double.valueOf(getIncomeOrExpenditureSum(AccountItem.EXPENDITURE, ALL));
                 surplusSumTextView.setText(String.valueOf(surplusWeek - weekExpenditure));
+                break;
+            case AccountBook.SHOW_NONE:
+                surplusSumTextView.setText("点击设置");
                 break;
         }
 
