@@ -36,6 +36,8 @@ public class UpdatePasswordPageActivity extends BasicActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_password_page);
         findView();
+        init();
+        setListener();
     }
 
     @Override

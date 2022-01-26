@@ -20,6 +20,7 @@ import com.blackorangejuice.songguojizhang.transaction.home.myinfo.UpdatePasswor
 import com.blackorangejuice.songguojizhang.transaction.home.myinfo.UpdateUsernamePageActivity;
 import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
 import com.blackorangejuice.songguojizhang.db.mapper.SettingInfoMapper;
+import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
 import com.blackorangejuice.songguojizhang.utils.basic.BasicFragment;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
 
@@ -73,7 +74,6 @@ public class ShowMyInfoPageFragment extends BasicFragment {
     }
 
 
-
     @Override
     public void onResume() {
         super.onResume();
@@ -108,12 +108,32 @@ public class ShowMyInfoPageFragment extends BasicFragment {
         enablePasswordSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // 更新密码启用设置
-                SettingInfoMapper settingInfoMapper = new SettingInfoMapper(songGuoDatabaseHelper);
-                // 更新全局setting
-                GlobalInfo.settingInfo.setIfEnablePasswordCheck(String.valueOf(enablePasswordSwitch.isChecked()));
-                // 更新数据库
-                settingInfoMapper.updateBySid(GlobalInfo.settingInfo);
+
+                if (isChecked) {
+                    if (GlobalInfo.settingInfo.getPassword() != null &&
+                            SongGuoUtils.notEmptyString(GlobalInfo.settingInfo.getPassword())) {
+                        // 更新密码启用设置
+                        SettingInfoMapper settingInfoMapper = new SettingInfoMapper(songGuoDatabaseHelper);
+                        // 更新全局setting
+                        GlobalInfo.settingInfo.setIfEnablePasswordCheck(String.valueOf(enablePasswordSwitch.isChecked()));
+                        // 更新数据库
+                        settingInfoMapper.updateBySid(GlobalInfo.settingInfo);
+                        SongGuoUtils.showOneToast(getContext(), "开启密码验证");
+                    } else {
+                        // 如果没有设置密码，跳转到修改密码界面
+                        SongGuoUtils.showOneToast(getContext(), "您还没有设置密码，请先设置密码");
+                        UpdatePasswordPageActivity.startThisActivity(getActivity());
+                    }
+                } else {
+                    // 更新密码启用设置
+                    SettingInfoMapper settingInfoMapper = new SettingInfoMapper(songGuoDatabaseHelper);
+                    // 更新全局setting
+                    GlobalInfo.settingInfo.setIfEnablePasswordCheck(String.valueOf(enablePasswordSwitch.isChecked()));
+                    // 更新数据库
+                    settingInfoMapper.updateBySid(GlobalInfo.settingInfo);
+                    SongGuoUtils.showOneToast(getContext(), "关闭密码验证");
+                }
+
 
             }
         });
