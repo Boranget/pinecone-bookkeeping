@@ -13,7 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SongGuoJiZhang">
         <activity
-            android:name=".transaction.home.CheckPasswordActivity"
+            android:name=".transaction.home.myinfo.in.search.SearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".transaction.home.other.CheckPasswordActivity"
             android:exported="false" />
 
         <receiver
@@ -29,55 +32,55 @@
         </receiver>
 
         <activity
-            android:name=".transaction.home.overview.SettingBudgetActivity"
+            android:name=".transaction.home.overview.in.SettingBudgetActivity"
             android:exported="false" />
         <activity
-            android:name=".transaction.home.myinfo.moresetting.imports.ImportLogActivity"
+            android:name=".transaction.home.myinfo.in.moresetting.imports.ImportLogActivity"
             android:exported="false" />
         <activity
             android:name=".widget.WidgetJumpActivity"
             android:exported="false" />
         <activity
-            android:name=".transaction.home.list.account.choose.ShowChosenEventPageActivity"
+            android:name=".transaction.home.list.in.account.choose.ShowChosenEventPageActivity"
             android:exported="false" />
         <activity
-            android:name=".transaction.home.list.event.choose.ShowChosenAccountPageActivity"
+            android:name=".transaction.home.list.in.event.choose.ShowChosenAccountPageActivity"
             android:exported="false" />
         <activity
-            android:name=".transaction.home.list.account.choose.ChooseEventPageActivity"
+            android:name=".transaction.home.list.in.account.choose.ChooseEventPageActivity"
             android:exported="false" />
         <activity
-            android:name=".transaction.home.list.event.edit.UpdateEditEventPageActivity"
+            android:name=".transaction.home.list.in.event.edit.UpdateEditEventPageActivity"
             android:exported="false" />
         <activity
-            android:name=".transaction.home.list.event.edit.AddEditEventPageActivity"
+            android:name=".transaction.home.list.in.event.edit.AddEditEventPageActivity"
             android:exported="false" />
         <activity
-            android:name=".transaction.home.list.event.choose.ChooseShowAccountListPageActivity"
+            android:name=".transaction.home.list.in.event.choose.ChooseShowAccountListPageActivity"
             android:exported="false" />
         <activity
-            android:name=".transaction.home.myinfo.MoreSettingActivity"
+            android:name=".transaction.home.myinfo.in.moresetting.MoreSettingActivity"
             android:exported="false" />
         <activity
-            android:name=".transaction.home.myinfo.moresetting.imports.ImportsActivity"
+            android:name=".transaction.home.myinfo.in.moresetting.imports.ImportsActivity"
             android:exported="false" />
         <activity
-            android:name=".transaction.home.myinfo.AboutPageActivity"
+            android:name=".transaction.home.myinfo.in.AboutPageActivity"
             android:exported="false" />
         <activity
-            android:name=".transaction.home.myinfo.SwitchAccountBookPageActivity"
+            android:name=".transaction.home.myinfo.in.switchaccountbook.SwitchAccountBookPageActivity"
             android:exported="false" />
         <activity
-            android:name=".transaction.home.myinfo.UpdatePasswordPageActivity"
+            android:name=".transaction.home.myinfo.in.UpdatePasswordPageActivity"
             android:exported="false" />
         <activity
-            android:name=".transaction.home.myinfo.UpdateUsernamePageActivity"
+            android:name=".transaction.home.myinfo.in.UpdateUsernamePageActivity"
             android:exported="false" />
         <activity
-            android:name=".transaction.home.list.account.edit.UpdateEditAccountPageActivity"
+            android:name=".transaction.home.list.in.account.edit.UpdateEditAccountPageActivity"
             android:exported="false" />
         <activity
-            android:name=".transaction.home.list.account.edit.AddEditAccountPageActivity"
+            android:name=".transaction.home.list.in.account.edit.AddEditAccountPageActivity"
             android:exported="false" />
         <activity
             android:name=".transaction.guide.GuideAccountBookNamePageActivity"

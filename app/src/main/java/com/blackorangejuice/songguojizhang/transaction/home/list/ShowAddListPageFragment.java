@@ -13,10 +13,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.blackorangejuice.songguojizhang.R;
-import com.blackorangejuice.songguojizhang.transaction.home.list.account.edit.AddEditAccountPageActivity;
-import com.blackorangejuice.songguojizhang.transaction.home.list.account.show.ShowAccountListPageFragment;
-import com.blackorangejuice.songguojizhang.transaction.home.list.event.edit.AddEditEventPageActivity;
-import com.blackorangejuice.songguojizhang.transaction.home.list.event.show.ShowEventListPageFragment;
+import com.blackorangejuice.songguojizhang.transaction.home.list.in.account.edit.AddEditAccountPageActivity;
+import com.blackorangejuice.songguojizhang.transaction.home.list.in.account.show.ShowAccountListPageFragment;
+import com.blackorangejuice.songguojizhang.transaction.home.list.in.event.edit.AddEditEventPageActivity;
+import com.blackorangejuice.songguojizhang.transaction.home.list.in.event.show.ShowEventListPageFragment;
 import com.blackorangejuice.songguojizhang.utils.basic.BasicFragment;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalConstant;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;

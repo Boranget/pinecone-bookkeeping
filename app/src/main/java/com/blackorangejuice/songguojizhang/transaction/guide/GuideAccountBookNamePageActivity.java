@@ -122,7 +122,7 @@ public class GuideAccountBookNamePageActivity extends BasicActivity {
                 // 存储设置的id
                 editor.putInt(GlobalConstant.SID, settingInfo.getSid());
                 // 更改第一次使用标识
-                editor.putBoolean(GlobalConstant.isFirstUse, false);
+                editor.putBoolean(GlobalConstant.IS_FIRST_USE, false);
                 editor.apply();
                 // Tag初始化
                 TagMapper tagMapper = new TagMapper(songGuoDatabaseHelper);

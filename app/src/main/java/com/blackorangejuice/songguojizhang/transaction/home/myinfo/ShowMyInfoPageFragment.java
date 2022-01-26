@@ -13,11 +13,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.blackorangejuice.songguojizhang.R;
-import com.blackorangejuice.songguojizhang.transaction.home.myinfo.AboutPageActivity;
-import com.blackorangejuice.songguojizhang.transaction.home.myinfo.MoreSettingActivity;
-import com.blackorangejuice.songguojizhang.transaction.home.myinfo.SwitchAccountBookPageActivity;
-import com.blackorangejuice.songguojizhang.transaction.home.myinfo.UpdatePasswordPageActivity;
-import com.blackorangejuice.songguojizhang.transaction.home.myinfo.UpdateUsernamePageActivity;
+import com.blackorangejuice.songguojizhang.transaction.home.myinfo.in.AboutPageActivity;
+import com.blackorangejuice.songguojizhang.transaction.home.myinfo.in.moresetting.MoreSettingActivity;
+import com.blackorangejuice.songguojizhang.transaction.home.myinfo.in.UpdatePasswordPageActivity;
+import com.blackorangejuice.songguojizhang.transaction.home.myinfo.in.UpdateUsernamePageActivity;
+import com.blackorangejuice.songguojizhang.transaction.home.myinfo.in.search.SearchActivity;
+import com.blackorangejuice.songguojizhang.transaction.home.myinfo.in.switchaccountbook.SwitchAccountBookPageActivity;
 import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
 import com.blackorangejuice.songguojizhang.db.mapper.SettingInfoMapper;
 import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
@@ -32,6 +33,7 @@ public class ShowMyInfoPageFragment extends BasicFragment {
     private Switch enablePasswordSwitch;
     private LinearLayout changePasswordLayout;
     private LinearLayout switchAccountBookLayout;
+    private LinearLayout searchLayout;
     private LinearLayout aboutLayout;
     private LinearLayout moreLayout;
 
@@ -69,6 +71,7 @@ public class ShowMyInfoPageFragment extends BasicFragment {
         enablePasswordSwitch = thisView.findViewById(R.id.my_info_page_enable_password_switch);
         changePasswordLayout = thisView.findViewById(R.id.my_info_page_change_password_layout);
         switchAccountBookLayout = thisView.findViewById(R.id.my_info_page_switch_account_book_layout);
+        searchLayout = thisView.findViewById(R.id.my_info_page_search);
         aboutLayout = thisView.findViewById(R.id.my_info_page_about_layout);
         moreLayout = thisView.findViewById(R.id.my_info_page_more_setting_layout);
     }
@@ -150,6 +153,12 @@ public class ShowMyInfoPageFragment extends BasicFragment {
             public void onClick(View v) {
                 SwitchAccountBookPageActivity.startThisActivity(getActivity());
                 // 切换账本页面
+            }
+        });
+        searchLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SearchActivity.startThisActivity(getActivity());
             }
         });
         aboutLayout.setOnClickListener(new View.OnClickListener() {

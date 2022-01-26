@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.blackorangejuice.songguojizhang.transaction.guide.GuideStartPageActivity;
-import com.blackorangejuice.songguojizhang.transaction.home.CheckPasswordActivity;
+import com.blackorangejuice.songguojizhang.transaction.home.other.CheckPasswordActivity;
 import com.blackorangejuice.songguojizhang.transaction.home.HomePageActivity;
 import com.blackorangejuice.songguojizhang.bean.AccountBook;
 import com.blackorangejuice.songguojizhang.bean.SettingInfo;
@@ -37,7 +37,7 @@ public class MainActivity extends BasicActivity {
                 // preferences 存储 第一次使用的标志
                 SharedPreferences songguoPreferences = SongGuoUtils.getSongGuoSharedPreferences();
                 // 如果没有该值,则为第一次启动
-                boolean isFirstUse = songguoPreferences.getBoolean(GlobalConstant.isFirstUse,true);
+                boolean isFirstUse = songguoPreferences.getBoolean(GlobalConstant.IS_FIRST_USE,true);
                 if(isFirstUse){
                     // 如果为第一次启动,则进入引导界面,引导流程结束后再更改标识
                     GuideStartPageActivity.startThisActivity(MainActivity.this);

@@ -1,6 +1,5 @@
 package com.blackorangejuice.songguojizhang.widget;
 
-import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -11,9 +10,6 @@ import android.widget.RemoteViews;
 
 import com.blackorangejuice.songguojizhang.MainActivity;
 import com.blackorangejuice.songguojizhang.R;
-import com.blackorangejuice.songguojizhang.transaction.home.list.account.edit.AddEditAccountPageActivity;
-import com.blackorangejuice.songguojizhang.transaction.home.list.event.edit.AddEditEventPageActivity;
-import com.blackorangejuice.songguojizhang.utils.other.SelfApplication;
 
 /**
  * Implementation of App Widget functionality.

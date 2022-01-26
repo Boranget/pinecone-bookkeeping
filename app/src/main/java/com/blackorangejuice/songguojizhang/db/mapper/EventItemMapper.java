@@ -3,8 +3,11 @@ package com.blackorangejuice.songguojizhang.db.mapper;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.blackorangejuice.songguojizhang.bean.AccountItem;
 import com.blackorangejuice.songguojizhang.bean.EventItem;
+import com.blackorangejuice.songguojizhang.bean.SearchItem;
 import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
+import com.blackorangejuice.songguojizhang.utils.globle.GlobalConstant;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
 
 import java.util.ArrayList;
@@ -30,6 +33,7 @@ public class EventItemMapper {
     public static final String RESET_ACCOUNT_ITEM_EID = "update t_account_item\n" +
             "set eid = 0\n" +
             "where eid = ?";
+    public static final String SELECT_BY_KEY_WORD = "select * from t_event_item where event_title like ? or event_content like ?";
     SongGuoDatabaseHelper songGuoDatabaseHelper;
     SQLiteDatabase sqLiteDatabase;
 
@@ -79,7 +83,7 @@ public class EventItemMapper {
     public void deleteEventItem(EventItem eventItem) {
         sqLiteDatabase.execSQL(DELETE_EVENT_ITEM, new String[]{String.valueOf(eventItem.getEid())});
         // 将所有事件id为本事件的id的账单的事件id设为0
-        sqLiteDatabase.execSQL(RESET_ACCOUNT_ITEM_EID,new String[]{String.valueOf(eventItem.getEid())});
+        sqLiteDatabase.execSQL(RESET_ACCOUNT_ITEM_EID, new String[]{String.valueOf(eventItem.getEid())});
     }
 
     /**
@@ -153,6 +157,33 @@ public class EventItemMapper {
      */
     public void deleteEventItemByBook(Integer bid) {
         sqLiteDatabase.execSQL(DELETE_BY_BOOK, new String[]{String.valueOf(bid)});
+    }
+
+    /**
+     * 关键词查找
+     *
+     * @param keyWord
+     * @return
+     */
+    public List<SearchItem> selectByKeyWord(String keyWord) {
+
+        Cursor cursor = sqLiteDatabase.rawQuery(SELECT_BY_KEY_WORD, new String[]{"%" + keyWord + "%","%" + keyWord + "%"});
+        List<SearchItem> searchItems = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            do {
+                SearchItem searchItem = new SearchItem();
+                searchItem.setId(cursor.getInt(cursor.getColumnIndex("eid")));
+                searchItem.setSum("");
+                searchItem.setRemarkOrEventContent(cursor.getString(cursor.getColumnIndex("event_content")));
+                searchItem.setTime(cursor.getLong(cursor.getColumnIndex("event_time")));
+                searchItem.setType(GlobalConstant.EVENT);
+                TagMapper tagMapper = new TagMapper(songGuoDatabaseHelper);
+                searchItem.setTagNameOrEventTitle(cursor.getString(cursor.getColumnIndex("event_title")));
+                searchItems.add(searchItem);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return searchItems;
     }
 
 }

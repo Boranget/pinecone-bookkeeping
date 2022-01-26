@@ -29,6 +29,7 @@
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_imports.xml" value="0.2037037037037037" />
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_main.xml" value="0.25364583333333335" />
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_more_setting.xml" value="0.22546296296296298" />
+        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_search.xml" value="0.2" />
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_setting_surplus.xml" value="0.2187214611872146" />
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_show_chosen_account_page.xml" value="0.1648148148148148" />
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_show_chosen_event_page.xml" value="0.14074074074074075" />
@@ -45,6 +46,7 @@
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/item_choose_account_list.xml" value="0.176" />
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/item_event_list.xml" value="0.22546296296296298" />
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/item_event_list_choose.xml" value="0.22237442922374429" />
+        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/item_search_result.xml" value="0.264" />
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/item_show_chosen_account_list.xml" value="0.1648148148148148" />
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/item_switch_account_book.xml" value="0.22546296296296298" />
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/item_tag_grid.xml" value="0.13055555555555556" />

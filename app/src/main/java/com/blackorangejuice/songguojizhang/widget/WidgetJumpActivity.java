@@ -14,17 +14,13 @@ import com.blackorangejuice.songguojizhang.bean.SettingInfo;
 import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
 import com.blackorangejuice.songguojizhang.db.mapper.AccountBookMapper;
 import com.blackorangejuice.songguojizhang.db.mapper.SettingInfoMapper;
-import com.blackorangejuice.songguojizhang.transaction.guide.GuideStartPageActivity;
-import com.blackorangejuice.songguojizhang.transaction.home.CheckPasswordActivity;
-import com.blackorangejuice.songguojizhang.transaction.home.HomePageActivity;
-import com.blackorangejuice.songguojizhang.transaction.home.list.account.edit.AddEditAccountPageActivity;
-import com.blackorangejuice.songguojizhang.transaction.home.list.event.edit.AddEditEventPageActivity;
+import com.blackorangejuice.songguojizhang.transaction.home.other.CheckPasswordActivity;
+import com.blackorangejuice.songguojizhang.transaction.home.list.in.account.edit.AddEditAccountPageActivity;
+import com.blackorangejuice.songguojizhang.transaction.home.list.in.event.edit.AddEditEventPageActivity;
 import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
 import com.blackorangejuice.songguojizhang.utils.basic.BasicActivity;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalConstant;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
-
-import java.net.URI;
 
 /**
  * 由于几记账和记事的活动打开前需要初始化
@@ -54,7 +50,7 @@ public class WidgetJumpActivity extends BasicActivity {
         // preferences 存储 第一次使用的标志
         SharedPreferences songguoPreferences = SongGuoUtils.getSongGuoSharedPreferences();
         // 如果没有该值,则为第一次启动
-        boolean isFirstUse = songguoPreferences.getBoolean(GlobalConstant.isFirstUse, true);
+        boolean isFirstUse = songguoPreferences.getBoolean(GlobalConstant.IS_FIRST_USE, true);
         System.out.println("有反应");
         if (isFirstUse) {
             // 如果为第一次启动,则进入引导界面,引导流程结束后再更改标识
