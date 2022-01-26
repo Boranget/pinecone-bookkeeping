@@ -1,15 +1,19 @@
 package com.blackorangejuice.songguojizhang.transaction.home.overview;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 
 import com.blackorangejuice.songguojizhang.R;
 import com.blackorangejuice.songguojizhang.bean.AccountBook;
@@ -20,6 +24,7 @@ import com.blackorangejuice.songguojizhang.db.mapper.AccountItemMapper;
 import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
 import com.blackorangejuice.songguojizhang.utils.basic.BasicFragment;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
+import com.blackorangejuice.songguojizhang.utils.inputfilter.CashierInputFilter;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -199,6 +204,31 @@ public class ShowOverviewPageFragment extends BasicFragment {
             @Override
             public void onClick(View v) {
                 SettingBudgetActivity.startThisActivity(getContext());
+            }
+        });
+        // 修改账本名
+        currentAccountBookNameTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText editText = new EditText(getContext());
+                editText.setSingleLine(true);
+                new AlertDialog.Builder(getContext()).setTitle("修改账本名")
+                        .setView(editText)
+                        .setPositiveButton("修改", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        String afterName = editText.getText().toString();
+                                        if(SongGuoUtils.notEmptyString(afterName)){
+                                            GlobalInfo.currentAccountBook.setAccountBookName(afterName);
+                                            accountBookMapper.updateAccountBookSetting(GlobalInfo.currentAccountBook);
+                                            currentAccountBookNameTextView.setText(afterName);
+                                        }else {
+                                            SongGuoUtils.showOneToast(getContext(),"账本名不能为空");
+                                        }
+
+                                    }
+                                }
+                        ).setNegativeButton("取消", null).show();
             }
         });
     }

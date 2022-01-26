@@ -23,10 +23,11 @@ public class SongGuoUtils {
      * @return
      */
     public static boolean notEmptyString(String s) {
-        if (s.trim().isEmpty()) {
+        // 先判断是否为空，否则会出现空指针异常
+        if (s == null) {
             return false;
         }
-        if (s == null) {
+        if (s.trim().isEmpty()) {
             return false;
         }
         return true;
