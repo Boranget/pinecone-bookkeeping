@@ -11,6 +11,7 @@ import com.blackorangejuice.songguojizhang.utils.globle.GlobalConstant;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class EventItemMapper {
@@ -34,6 +35,7 @@ public class EventItemMapper {
             "set eid = 0\n" +
             "where eid = ?";
     public static final String SELECT_BY_KEY_WORD = "select * from t_event_item where event_title like ? or event_content like ?";
+    public static final String SELECT_BY_TIME = "select * from t_event_item where bid = ? and event_time between ? and ?";
     SongGuoDatabaseHelper songGuoDatabaseHelper;
     SQLiteDatabase sqLiteDatabase;
 
@@ -168,6 +170,40 @@ public class EventItemMapper {
     public List<SearchItem> selectByKeyWord(String keyWord) {
 
         Cursor cursor = sqLiteDatabase.rawQuery(SELECT_BY_KEY_WORD, new String[]{"%" + keyWord + "%","%" + keyWord + "%"});
+        List<SearchItem> searchItems = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            do {
+                SearchItem searchItem = new SearchItem();
+                searchItem.setId(cursor.getInt(cursor.getColumnIndex("eid")));
+                searchItem.setSum("");
+                searchItem.setRemarkOrEventContent(cursor.getString(cursor.getColumnIndex("event_content")));
+                searchItem.setTime(cursor.getLong(cursor.getColumnIndex("event_time")));
+                searchItem.setType(GlobalConstant.EVENT);
+                TagMapper tagMapper = new TagMapper(songGuoDatabaseHelper);
+                searchItem.setTagNameOrEventTitle(cursor.getString(cursor.getColumnIndex("event_title")));
+                searchItems.add(searchItem);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return searchItems;
+    }
+
+    /**
+     * 按照时间查找
+     * @param d0
+     * @param d1
+     * @return
+     */
+    public List<SearchItem> selectByTime(Date d0, Date d1) {
+
+        Long date0 = d0.getTime();
+        // 这里为啥要加一来着，忘了
+        Long date1 = d1.getTime() + 1;
+        Cursor cursor = sqLiteDatabase.rawQuery(SELECT_BY_TIME, new String[]{
+                String.valueOf(GlobalInfo.currentAccountBook.getBid()),
+                String.valueOf(date0), String.valueOf(date1)
+        });
+
         List<SearchItem> searchItems = new ArrayList<>();
         if (cursor.moveToFirst()) {
             do {

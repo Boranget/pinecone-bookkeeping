@@ -269,6 +269,7 @@ public class UpdateEditAccountPageActivity extends EditAccountActivity {
                         , cale1.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
+        // 收入
         incomeTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -277,6 +278,7 @@ public class UpdateEditAccountPageActivity extends EditAccountActivity {
                 expenditureTextView.setTextColor(0xff808080);
             }
         });
+        // 支出
         expenditureTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

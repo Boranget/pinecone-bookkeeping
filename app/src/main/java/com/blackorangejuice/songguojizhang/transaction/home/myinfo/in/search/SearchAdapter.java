@@ -117,7 +117,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
                 searchViewHolder.sum.setText(String.valueOf(searchItems.get(i).getSum()));
                 break;
             case GlobalConstant.EVENT:
-                searchViewHolder.sum.setText("");
+                searchViewHolder.sum.setText("事件");
                 break;
         }
         searchViewHolder.remarkOrEventContent.setText(searchItems.get(i).getRemarkOrEventContent());

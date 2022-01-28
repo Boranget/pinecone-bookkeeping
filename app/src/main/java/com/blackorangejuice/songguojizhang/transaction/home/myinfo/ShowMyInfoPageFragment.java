@@ -17,7 +17,7 @@ import com.blackorangejuice.songguojizhang.transaction.home.myinfo.in.AboutPageA
 import com.blackorangejuice.songguojizhang.transaction.home.myinfo.in.moresetting.MoreSettingActivity;
 import com.blackorangejuice.songguojizhang.transaction.home.myinfo.in.UpdatePasswordPageActivity;
 import com.blackorangejuice.songguojizhang.transaction.home.myinfo.in.UpdateUsernamePageActivity;
-import com.blackorangejuice.songguojizhang.transaction.home.myinfo.in.search.SearchActivity;
+import com.blackorangejuice.songguojizhang.transaction.home.myinfo.in.search.SearchsActivity;
 import com.blackorangejuice.songguojizhang.transaction.home.myinfo.in.switchaccountbook.SwitchAccountBookPageActivity;
 import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
 import com.blackorangejuice.songguojizhang.db.mapper.SettingInfoMapper;
@@ -158,7 +158,10 @@ public class ShowMyInfoPageFragment extends BasicFragment {
         searchLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SearchActivity.startThisActivity(getActivity());
+                // 搜索分类
+//                SearchActivity.startThisActivity(getActivity());
+                SearchsActivity.startThisActivity(getActivity());
+
             }
         });
         aboutLayout.setOnClickListener(new View.OnClickListener() {

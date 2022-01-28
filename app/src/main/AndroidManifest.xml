@@ -13,7 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SongGuoJiZhang">
         <activity
-            android:name=".transaction.home.myinfo.in.search.SearchActivity"
+            android:name=".transaction.home.myinfo.in.search.SearchByTimeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".transaction.home.myinfo.in.search.SearchsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".transaction.home.myinfo.in.search.SearchByKeywordActivity"
             android:exported="false" />
         <activity
             android:name=".transaction.home.other.CheckPasswordActivity"

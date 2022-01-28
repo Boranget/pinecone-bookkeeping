@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class SearchActivity extends BasicActivity {
+public class SearchByKeywordActivity extends BasicActivity {
     TextView backTextView;
     Button searchButton;
     EditText searchEditText;
@@ -39,14 +39,14 @@ public class SearchActivity extends BasicActivity {
      * @param context
      */
     public static void startThisActivity(Context context) {
-        Intent intent = new Intent(context, SearchActivity.class);
+        Intent intent = new Intent(context, SearchByKeywordActivity.class);
         context.startActivity(intent);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_page);
+        setContentView(R.layout.activity_search_by_keyword_page);
         findView();
         init();
         setListener();
@@ -62,10 +62,10 @@ public class SearchActivity extends BasicActivity {
 
     @Override
     public void findView() {
-        backTextView = findViewById(R.id.activity_search_page_back_textview);
-        searchEditText = findViewById(R.id.activity_search_page_edittext);
-        searchButton = findViewById(R.id.activity_search_page_Search_button);
-        searchRecyclerView = findViewById(R.id.activity_search_page_show_result_recycle_view);
+        backTextView = findViewById(R.id.activity_search_by_keyword_page_back_textview);
+        searchEditText = findViewById(R.id.activity_search_by_keyword_page_edittext);
+        searchButton = findViewById(R.id.activity_search_by_keyword_page_Search_button);
+        searchRecyclerView = findViewById(R.id.activity_search_by_keyword_page_show_result_recycle_view);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class SearchActivity extends BasicActivity {
         backTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SearchActivity.this.finish();
+                SearchByKeywordActivity.this.finish();
             }
         });
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -102,8 +102,8 @@ public class SearchActivity extends BasicActivity {
                     });
                 }
                 // 提交给recyclerView
-                searchRecyclerView.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
-                searchRecyclerView.setAdapter(new SearchAdapter(SearchActivity.this,searchItemsAll));
+                searchRecyclerView.setLayoutManager(new LinearLayoutManager(SearchByKeywordActivity.this));
+                searchRecyclerView.setAdapter(new SearchAdapter(SearchByKeywordActivity.this,searchItemsAll));
 
             }
         });

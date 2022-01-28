@@ -55,6 +55,7 @@ public class AccountItemMapper {
     public static final String CALCULATE_ACCOUNT_ITEM_SUM = "select sum (sum) sum_accoumt from t_account_item where income_or_expenditure = ? and bid = ? and  account_time between ? and ?";
     public static final String SELECT_BY_EID = "select * from t_account_item where eid = ?";
     public static final String SELECT_BY_KEY_WORD = "select * from t_account_item where sum like ? or remark like ? ";
+    public static final String SELECT_BY_TIME = "select * from t_account_item where bid = ? and account_time between ? and ? ";
     SongGuoDatabaseHelper songGuoDatabaseHelper;
     SQLiteDatabase sqLiteDatabase;
 
@@ -291,6 +292,7 @@ public class AccountItemMapper {
      */
     public Double calculateAccountItemSum(String incomeOrExpenditure, Date d0, Date d1) {
         Long date0 = d0.getTime();
+        // 这里为啥要加一来着，忘了
         Long date1 = d1.getTime() + 1;
         Cursor cursor = sqLiteDatabase.rawQuery(CALCULATE_ACCOUNT_ITEM_SUM, new String[]{
                 incomeOrExpenditure, String.valueOf(GlobalInfo.currentAccountBook.getBid()),
@@ -298,7 +300,7 @@ public class AccountItemMapper {
         });
         Double sum = 0.0;
         if (cursor.moveToFirst()) {
-            // 这里直接cursor。getDouble()会出现误差
+            // 这里直接cursor.getDouble()会出现误差
             sum = Double.valueOf(cursor.getString(cursor.getColumnIndex("sum_accoumt")));
         }
         cursor.close();
@@ -362,6 +364,64 @@ public class AccountItemMapper {
     public List<SearchItem> selectByKeyWord(String keyWord) {
 
         Cursor cursor = sqLiteDatabase.rawQuery(SELECT_BY_KEY_WORD, new String[]{"%" + keyWord + "%","%" + keyWord + "%"});
+        List<SearchItem> searchItems = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            do {
+                SearchItem searchItem = new SearchItem();
+                Integer aid =
+                        cursor.getInt(cursor.getColumnIndex("aid"));
+                String incomeOrExpenditure =
+                        cursor.getString(cursor.getColumnIndex("income_or_expenditure"));
+                Integer tid =
+                        cursor.getInt(cursor.getColumnIndex("tid"));
+                Double sum =
+                        Double.valueOf(cursor.getString(cursor.getColumnIndex("sum")));
+                String remark =
+                        cursor.getString(cursor.getColumnIndex("remark"));
+                Long accountTime =
+                        cursor.getLong(cursor.getColumnIndex("account_time"));
+                String ifBorrowOrLend =
+                        cursor.getString(cursor.getColumnIndex("if_borrow_or_lend"));
+                Integer bid =
+                        cursor.getInt(cursor.getColumnIndex("bid"));
+                Integer eid =
+                        cursor.getInt(cursor.getColumnIndex("eid"));
+                searchItem.setId(aid);
+                switch (incomeOrExpenditure) {
+                    case AccountItem.INCOME:
+                        searchItem.setSum("+" + sum);
+                        break;
+                    case AccountItem.EXPENDITURE:
+                        searchItem.setSum("-" + sum);
+                }
+                searchItem.setRemarkOrEventContent(remark);
+                searchItem.setTime(accountTime);
+                searchItem.setType(GlobalConstant.ACCOUNT);
+                TagMapper tagMapper = new TagMapper(songGuoDatabaseHelper);
+                searchItem.setTagNameOrEventTitle(tagMapper.selectByTid(tid).getTagName());
+                searchItems.add(searchItem);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return searchItems;
+    }
+
+    /**
+     * 按照时间查找
+     * @param d0
+     * @param d1
+     * @return
+     */
+    public List<SearchItem> selectByTime(Date d0, Date d1) {
+
+        Long date0 = d0.getTime();
+        // 这里为啥要加一来着，忘了
+        Long date1 = d1.getTime() + 1;
+        Cursor cursor = sqLiteDatabase.rawQuery(SELECT_BY_TIME, new String[]{
+                String.valueOf(GlobalInfo.currentAccountBook.getBid()),
+                String.valueOf(date0), String.valueOf(date1)
+        });
+
         List<SearchItem> searchItems = new ArrayList<>();
         if (cursor.moveToFirst()) {
             do {
