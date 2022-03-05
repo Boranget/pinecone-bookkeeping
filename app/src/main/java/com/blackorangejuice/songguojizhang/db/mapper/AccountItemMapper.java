@@ -10,6 +10,7 @@ import com.blackorangejuice.songguojizhang.bean.SearchItem;
 import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalConstant;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
+import com.github.mikephil.charting.data.PieEntry;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -56,6 +57,7 @@ public class AccountItemMapper {
     public static final String SELECT_BY_EID = "select * from t_account_item where eid = ?";
     public static final String SELECT_BY_KEY_WORD = "select * from t_account_item where sum like ? or remark like ? ";
     public static final String SELECT_BY_TIME = "select * from t_account_item where bid = ? and account_time between ? and ? ";
+    public static final String SELECT_CLASSIFIED_PIE = "select tag_name, SUM(sum) sum_pie from t_account_item left outer join t_tag on t_tag.tid = t_account_item.tid group by tag_name having income_or_expenditure = ? and bid = ?;";
     SongGuoDatabaseHelper songGuoDatabaseHelper;
     SQLiteDatabase sqLiteDatabase;
 
@@ -356,14 +358,16 @@ public class AccountItemMapper {
         return accountItems;
 
     }
+
     /**
      * 关键词查找
+     *
      * @param keyWord
      * @return
      */
     public List<SearchItem> selectByKeyWord(String keyWord) {
 
-        Cursor cursor = sqLiteDatabase.rawQuery(SELECT_BY_KEY_WORD, new String[]{"%" + keyWord + "%","%" + keyWord + "%"});
+        Cursor cursor = sqLiteDatabase.rawQuery(SELECT_BY_KEY_WORD, new String[]{"%" + keyWord + "%", "%" + keyWord + "%"});
         List<SearchItem> searchItems = new ArrayList<>();
         if (cursor.moveToFirst()) {
             do {
@@ -408,6 +412,7 @@ public class AccountItemMapper {
 
     /**
      * 按照时间查找
+     *
      * @param d0
      * @param d1
      * @return
@@ -462,6 +467,29 @@ public class AccountItemMapper {
         }
         cursor.close();
         return searchItems;
+    }
+
+    public List<PieEntry> selectClassifiedPie(String incomeOrExpenditure) {
+
+
+        Cursor cursor = sqLiteDatabase.rawQuery(SELECT_CLASSIFIED_PIE, new String[]{
+                incomeOrExpenditure, String.valueOf(GlobalInfo.currentAccountBook.getBid()),
+        });
+        // 饼图展示的数据集
+        List<PieEntry> entries = new ArrayList<>();
+        // 向数据集中添加数据
+
+        if (cursor.moveToFirst()) {
+            do {
+                Double sum =
+                        Double.valueOf(cursor.getString(cursor.getColumnIndex("sum_pie")));
+                String tagName = cursor.getString(cursor.getColumnIndex("tag_name"));
+                // 加入饼图的数据集
+                entries.add(new PieEntry(sum.floatValue(), tagName));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return entries;
     }
 
 }

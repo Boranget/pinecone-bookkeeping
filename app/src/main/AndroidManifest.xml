@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SongGuoJiZhang">
         <activity
+            android:name=".transaction.home.overview.in.classify.ClassifiedStatisticActivity"
+            android:exported="false" />
+        <activity
             android:name=".transaction.home.myinfo.in.search.SearchByTimeActivity"
             android:exported="false" />
         <activity

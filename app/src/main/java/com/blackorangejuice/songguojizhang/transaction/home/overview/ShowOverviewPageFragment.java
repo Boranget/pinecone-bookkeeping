@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -20,7 +21,10 @@ import com.blackorangejuice.songguojizhang.bean.AccountItem;
 import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
 import com.blackorangejuice.songguojizhang.db.mapper.AccountBookMapper;
 import com.blackorangejuice.songguojizhang.db.mapper.AccountItemMapper;
+import com.blackorangejuice.songguojizhang.transaction.home.myinfo.in.search.SearchsActivity;
+import com.blackorangejuice.songguojizhang.transaction.home.myinfo.in.switchaccountbook.SwitchAccountBookPageActivity;
 import com.blackorangejuice.songguojizhang.transaction.home.overview.in.SettingBudgetActivity;
+import com.blackorangejuice.songguojizhang.transaction.home.overview.in.classify.ClassifiedStatisticActivity;
 import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
 import com.blackorangejuice.songguojizhang.utils.basic.BasicFragment;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
@@ -40,8 +44,10 @@ public class ShowOverviewPageFragment extends BasicFragment {
     AccountItemMapper accountItemMapper;
     AccountBookMapper accountBookMapper;
 
-
+    ImageView classifyImageView;
     TextView currentAccountBookNameTextView;
+    ImageView searchImageView;
+    ImageView switchBookImageView;
 
     LinearLayout surplusLinearLayout;
     TextView surplusTypeTextView;
@@ -177,7 +183,10 @@ public class ShowOverviewPageFragment extends BasicFragment {
 
     @Override
     public void findView() {
+        classifyImageView = thisView.findViewById(R.id.show_overview_page_classify);
         currentAccountBookNameTextView = thisView.findViewById(R.id.show_overview_page_current_account_book_name);
+        searchImageView = thisView.findViewById(R.id.show_overview_page_search);
+        switchBookImageView = thisView.findViewById(R.id.show_overview_page_switch_book);
 
         surplusLinearLayout = thisView.findViewById(R.id.show_overview_page_surplus_layout);
         surplusTypeTextView = thisView.findViewById(R.id.show_overview_page_surplus_tpye_textview);
@@ -210,6 +219,8 @@ public class ShowOverviewPageFragment extends BasicFragment {
             @Override
             public void onClick(View v) {
                 EditText editText = new EditText(getContext());
+                // 编辑框显示当前账本名
+                editText.setText(GlobalInfo.currentAccountBook.getAccountBookName());
                 editText.setSingleLine(true);
                 new AlertDialog.Builder(getContext()).setTitle("修改账本名")
                         .setView(editText)
@@ -228,6 +239,27 @@ public class ShowOverviewPageFragment extends BasicFragment {
                                     }
                                 }
                         ).setNegativeButton("取消", null).show();
+            }
+        });
+        // 分类统计
+        classifyImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClassifiedStatisticActivity.startThisActivity(getActivity());
+            }
+        });
+        // 搜索
+        searchImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SearchsActivity.startThisActivity(getActivity());
+            }
+        });
+        // 切换账本
+        switchBookImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SwitchAccountBookPageActivity.startThisActivity(getActivity());
             }
         });
     }

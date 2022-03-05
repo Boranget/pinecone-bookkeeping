@@ -3,6 +3,7 @@ package com.blackorangejuice.songguojizhang.transaction.home.myinfo.in;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.webkit.WebView;
 import android.widget.TextView;
 
@@ -28,6 +29,7 @@ public class AboutPageActivity extends BasicActivity {
         setContentView(R.layout.activity_about_page);
         findView();
         init();
+        setListener();
     }
 
     public void init() {
@@ -41,6 +43,11 @@ public class AboutPageActivity extends BasicActivity {
 
     @Override
     public void setListener() {
-
+        backTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AboutPageActivity.this.finish();
+            }
+        });
     }
 }

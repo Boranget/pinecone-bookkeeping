@@ -15,4 +15,7 @@ public class GlobalConstant {
     public static final String DISABLE_BIND = "disableBind";
     public static final String TRUE = "true";
     public static final String FALSE = "false";
+    public static final String INCOME= "income";
+    public static final String EXPENDITURE= "expenditure";
+
 }
