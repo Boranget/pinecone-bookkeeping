@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.blackorangejuice.songguojizhang.transaction.guide.GuideStartPageActivity;
-import com.blackorangejuice.songguojizhang.transaction.home.other.CheckPasswordActivity;
+import com.blackorangejuice.songguojizhang.transaction.other.CheckPasswordActivity;
 import com.blackorangejuice.songguojizhang.transaction.home.HomePageActivity;
 import com.blackorangejuice.songguojizhang.bean.AccountBook;
 import com.blackorangejuice.songguojizhang.bean.SettingInfo;

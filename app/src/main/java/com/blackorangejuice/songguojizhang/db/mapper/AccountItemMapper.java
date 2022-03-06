@@ -6,12 +6,14 @@ import android.database.sqlite.SQLiteDatabase;
 import com.blackorangejuice.songguojizhang.bean.AccountBook;
 import com.blackorangejuice.songguojizhang.bean.AccountItem;
 import com.blackorangejuice.songguojizhang.bean.EventItem;
+import com.blackorangejuice.songguojizhang.bean.ExportItem;
 import com.blackorangejuice.songguojizhang.bean.SearchItem;
 import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalConstant;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
 import com.github.mikephil.charting.data.PieEntry;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -55,9 +57,10 @@ public class AccountItemMapper {
     public static final String DELETE_BY_BOOK = "delete from t_account_item where bid = ?";
     public static final String CALCULATE_ACCOUNT_ITEM_SUM = "select sum (sum) sum_accoumt from t_account_item where income_or_expenditure = ? and bid = ? and  account_time between ? and ?";
     public static final String SELECT_BY_EID = "select * from t_account_item where eid = ?";
-    public static final String SELECT_BY_KEY_WORD = "select * from t_account_item where sum like ? or remark like ? ";
+    public static final String SELECT_BY_KEY_WORD = "select * from t_account_item where  bid = ? and sum like ? or remark like ? ";
     public static final String SELECT_BY_TIME = "select * from t_account_item where bid = ? and account_time between ? and ? ";
-    public static final String SELECT_CLASSIFIED_PIE = "select tag_name, SUM(sum) sum_pie from t_account_item left outer join t_tag on t_tag.tid = t_account_item.tid group by tag_name having income_or_expenditure = ? and bid = ?;";
+    public static final String SELECT_CLASSIFIED_PIE = "select tag_name, SUM(sum) sum_pie from t_account_item left outer join t_tag on t_tag.tid = t_account_item.tid where income_or_expenditure = ? and bid = ? group by tag_name ;";
+    public static final String EXPORT_TO_EXCEL = "select * from t_account_item where bid = ?";
     SongGuoDatabaseHelper songGuoDatabaseHelper;
     SQLiteDatabase sqLiteDatabase;
 
@@ -367,7 +370,7 @@ public class AccountItemMapper {
      */
     public List<SearchItem> selectByKeyWord(String keyWord) {
 
-        Cursor cursor = sqLiteDatabase.rawQuery(SELECT_BY_KEY_WORD, new String[]{"%" + keyWord + "%", "%" + keyWord + "%"});
+        Cursor cursor = sqLiteDatabase.rawQuery(SELECT_BY_KEY_WORD, new String[]{String.valueOf(GlobalInfo.currentAccountBook.getBid()), "%" + keyWord + "%", "%" + keyWord + "%"});
         List<SearchItem> searchItems = new ArrayList<>();
         if (cursor.moveToFirst()) {
             do {
@@ -469,6 +472,12 @@ public class AccountItemMapper {
         return searchItems;
     }
 
+    /**
+     * 分类生生饼图所需数据
+     * 注意where 和 having的区别
+     * @param incomeOrExpenditure
+     * @return
+     */
     public List<PieEntry> selectClassifiedPie(String incomeOrExpenditure) {
 
 
@@ -490,6 +499,55 @@ public class AccountItemMapper {
         }
         cursor.close();
         return entries;
+    }
+
+    /**
+     * 关键词查找
+     *
+     * @return
+     */
+    public List<ExportItem> exportToExcel() {
+
+        Cursor cursor = sqLiteDatabase.rawQuery(EXPORT_TO_EXCEL, new String[]{String.valueOf(GlobalInfo.currentAccountBook.getBid())});
+        List<ExportItem> exportItems = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            do {
+                ExportItem exportItem = new ExportItem();
+                Integer aid =
+                        cursor.getInt(cursor.getColumnIndex("aid"));
+                String incomeOrExpenditure =
+                        cursor.getString(cursor.getColumnIndex("income_or_expenditure"));
+                Integer tid =
+                        cursor.getInt(cursor.getColumnIndex("tid"));
+                Double sum =
+                        Double.valueOf(cursor.getString(cursor.getColumnIndex("sum")));
+                String remark =
+                        cursor.getString(cursor.getColumnIndex("remark"));
+                Long accountTime =
+                        cursor.getLong(cursor.getColumnIndex("account_time"));
+                String ifBorrowOrLend =
+                        cursor.getString(cursor.getColumnIndex("if_borrow_or_lend"));
+                Integer bid =
+                        cursor.getInt(cursor.getColumnIndex("bid"));
+                Integer eid =
+                        cursor.getInt(cursor.getColumnIndex("eid"));
+
+                exportItem.setIncomeOrExpenditure(incomeOrExpenditure);
+                exportItem.setSum(sum);
+                TagMapper tagMapper = new TagMapper(songGuoDatabaseHelper);
+                exportItem.setTagName(tagMapper.selectByTid(tid).getTagName());
+                exportItem.setRemark(remark);
+                exportItem.setTime(new SimpleDateFormat("yyyy年MM月dd日HH时mm分ss秒").format(new Date(accountTime)));
+                EventItemMapper eventItemMapper = new EventItemMapper(songGuoDatabaseHelper);
+                EventItem eventItem = null;
+                if((eventItem = eventItemMapper.selectByEid(eid)) != null){
+                    exportItem.setEventItemTitle(eventItem.getEventTitle());
+                }
+                exportItems.add(exportItem);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return exportItems;
     }
 
 }

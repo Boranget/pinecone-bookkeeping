@@ -1,11 +1,17 @@
 package com.blackorangejuice.songguojizhang.utils;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.blackorangejuice.songguojizhang.utils.other.SelfApplication;
 
@@ -81,24 +87,43 @@ public class SongGuoUtils {
     /**
      * 备份数据库
      */
-    public static void getPrivateFile(){
+    public static void getPrivateFile() {
         String path = "/data/data/com.blackorangejuice.songguojizhang/databases/songguojizhang.db";
         try {
             FileInputStream fileInputStream = new FileInputStream(path);
             //
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
 
-
-    public static String subtractLineFromString (String originalString){
+    /**
+     * 解析表格时去掉横线的方法
+     *
+     * @param originalString
+     * @return
+     */
+    public static String subtractLineFromString(String originalString) {
         // 若起始与结束都没有-,不做处理
-        if (!(originalString.startsWith("-")||originalString.endsWith("-"))){
+        if (!(originalString.startsWith("-") || originalString.endsWith("-"))) {
             return originalString;
         }
         String regex = "^-*|-*$";
         return originalString.replaceAll(regex, "");
+    }
+
+    /**
+     * 动态申请权限
+     */
+    public static void requestPower(Activity activity, String permission) {
+        //判断是否已经赋予权限
+        if (ContextCompat.checkSelfPermission(activity, permission)
+                != PackageManager.PERMISSION_GRANTED) {
+            //申请权限，字符串数组内是一个或多个要申请的权限，1是申请权限结果的返回参数，在onRequestPermissionsResult可以得知申请结果
+            ActivityCompat.requestPermissions(activity,
+                    new String[]{permission,}, 1);
+
+        }
     }
 
 

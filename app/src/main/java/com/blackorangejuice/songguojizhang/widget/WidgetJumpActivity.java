@@ -14,7 +14,7 @@ import com.blackorangejuice.songguojizhang.bean.SettingInfo;
 import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
 import com.blackorangejuice.songguojizhang.db.mapper.AccountBookMapper;
 import com.blackorangejuice.songguojizhang.db.mapper.SettingInfoMapper;
-import com.blackorangejuice.songguojizhang.transaction.home.other.CheckPasswordActivity;
+import com.blackorangejuice.songguojizhang.transaction.other.CheckPasswordActivity;
 import com.blackorangejuice.songguojizhang.transaction.home.list.in.account.edit.AddEditAccountPageActivity;
 import com.blackorangejuice.songguojizhang.transaction.home.list.in.event.edit.AddEditEventPageActivity;
 import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;

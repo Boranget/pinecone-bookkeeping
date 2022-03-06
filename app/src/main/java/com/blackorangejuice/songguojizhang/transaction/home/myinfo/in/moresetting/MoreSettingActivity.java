@@ -8,12 +8,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blackorangejuice.songguojizhang.R;
+import com.blackorangejuice.songguojizhang.transaction.home.myinfo.in.moresetting.exports.ExportsActivity;
 import com.blackorangejuice.songguojizhang.transaction.home.myinfo.in.moresetting.imports.ImportsActivity;
 import com.blackorangejuice.songguojizhang.utils.basic.BasicActivity;
 
 public class MoreSettingActivity extends BasicActivity {
     TextView backTextView;
     LinearLayout importLinerLayout;
+    LinearLayout exportLinerLayout;
 
     /**
      * 启动此活动
@@ -43,6 +45,7 @@ public class MoreSettingActivity extends BasicActivity {
     public void findView() {
         backTextView = findViewById(R.id.activity_more_setting_back_textview);
         importLinerLayout = findViewById(R.id.activity_more_setting_import_layout);
+        exportLinerLayout = findViewById(R.id.activity_more_setting_export_layout);
     }
 
     @Override
@@ -57,6 +60,12 @@ public class MoreSettingActivity extends BasicActivity {
             @Override
             public void onClick(View v) {
                 ImportsActivity.startThisActivity(MoreSettingActivity.this);
+            }
+        });
+        exportLinerLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ExportsActivity.startThisActivity(MoreSettingActivity.this);
             }
         });
     }

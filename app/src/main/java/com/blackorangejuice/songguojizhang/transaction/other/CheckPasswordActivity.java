@@ -1,4 +1,4 @@
-package com.blackorangejuice.songguojizhang.transaction.home.other;
+package com.blackorangejuice.songguojizhang.transaction.other;
 
 import android.content.Context;
 import android.content.Intent;

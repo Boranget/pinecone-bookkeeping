@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.blackorangejuice.songguojizhang">
+    xmlns:tools="http://schemas.android.com/tools"
+
+    package="com.blackorangejuice.songguojizhang" >
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
+
         android:name=".utils.other.SelfApplication"
         android:allowBackup="true"
+        android:requestLegacyExternalStorage="true"
         android:icon="@drawable/app"
         android:label="@string/app_name_cn"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SongGuoJiZhang">
+        android:theme="@style/Theme.SongGuoJiZhang" >
+        <activity
+            android:name=".transaction.home.myinfo.in.moresetting.exports.ExportsActivity"
+            android:exported="false" />
         <activity
             android:name=".transaction.home.overview.in.classify.ClassifiedStatisticActivity"
             android:exported="false" />
@@ -25,12 +32,12 @@
             android:name=".transaction.home.myinfo.in.search.SearchByKeywordActivity"
             android:exported="false" />
         <activity
-            android:name=".transaction.home.other.CheckPasswordActivity"
+            android:name=".transaction.other.CheckPasswordActivity"
             android:exported="false" />
 
         <receiver
             android:name=".widget.SongGuoDesktopWidget"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -42,9 +49,6 @@
 
         <activity
             android:name=".transaction.home.overview.in.SettingBudgetActivity"
-            android:exported="false" />
-        <activity
-            android:name=".transaction.home.myinfo.in.moresetting.imports.ImportLogActivity"
             android:exported="false" />
         <activity
             android:name=".widget.WidgetJumpActivity"
@@ -114,7 +118,7 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

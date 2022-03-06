@@ -7,6 +7,7 @@ public class SearchItem {
     String type = "";
     // id
     Integer id = 0;
+    // 标签名
     String tagNameOrEventTitle;
     // 账单金额
     String sum;

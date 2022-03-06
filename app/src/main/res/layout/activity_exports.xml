@@ -15,7 +15,7 @@
         android:padding="10dp">
 
         <TextView
-            android:id="@+id/activity_more_setting_back_textview"
+            android:id="@+id/activity_exports_back_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="更多设置"
+            android:text="导出账单"
             android:textSize="18sp" />
 
         <TextView
@@ -54,7 +54,7 @@
 
 
             <LinearLayout
-                android:id="@+id/activity_more_setting_import_layout"
+                android:id="@+id/activity_exports_excel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/list_click_color"
@@ -64,8 +64,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-
-                    android:text="导入账单"
+                    android:text="导出到excel表格"
                     android:textSize="18sp" />
 
                 <TextView
@@ -75,28 +74,15 @@
                     android:textSize="18sp" />
 
             </LinearLayout>
-            <LinearLayout
-                android:id="@+id/activity_more_setting_export_layout"
-                android:layout_width="match_parent"
+            
+            <TextView
+                android:padding="20dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/list_click_color"
-                android:padding="20dp">
+                android:text=""
+                android:textColor="#FF0000"
+                android:gravity=""/>
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-
-                    android:text="导出账单"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=">"
-                    android:textSize="18sp" />
-
-            </LinearLayout>
 
         </LinearLayout>
 
