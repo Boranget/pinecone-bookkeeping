@@ -14,7 +14,7 @@ import com.blackorangejuice.songguojizhang.transaction.home.list.in.event.edit.A
 import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
 import com.blackorangejuice.songguojizhang.utils.basic.BasicActivity;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
-import com.blackorangejuice.songguojizhang.utils.other.ActivityController;
+import com.blackorangejuice.songguojizhang.utils.other.SongGuoActivityController;
 
 import java.util.Objects;
 
@@ -36,7 +36,7 @@ public class CheckPasswordActivity extends BasicActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // 先清空所有之前打开未销毁的活动
-        ActivityController.finishAll();
+        SongGuoActivityController.finishAll();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_password);
         findView();

@@ -5,7 +5,7 @@ import android.app.Activity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActivityController {
+public class SongGuoActivityController {
     // 存放所有打开的Activity
     private static List<Activity> activities = new ArrayList<>();
 

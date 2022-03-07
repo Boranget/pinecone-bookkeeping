@@ -49,4 +49,6 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     // jxl 表格
     implementation group: 'net.sourceforge.jexcelapi', name: 'jxl', version: '2.6.12'
+    // 申请权限
+    implementation 'pub.devrel:easypermissions:3.0.0'
 }

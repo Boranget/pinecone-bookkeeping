@@ -1,11 +1,8 @@
 package com.blackorangejuice.songguojizhang.utils.other;
 
 import android.content.Context;
-import android.widget.Toast;
 
-import com.blackorangejuice.songguojizhang.bean.AccountItem;
 import com.blackorangejuice.songguojizhang.bean.ExportItem;
-import com.blackorangejuice.songguojizhang.bean.SearchItem;
 import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalConstant;
 
@@ -98,7 +95,8 @@ public class ExcelUtil {
             sheet.setRowView(0, 340);
             workbook.write();
         } catch (Exception e) {
-            e.printStackTrace();
+            SongGuoUtils.showOneToast(SongGuoApplication.getContext(),"出现未知问题，请退出应用重试");
+            SongGuoActivityController.finishAll();
         } finally {
             if (workbook != null) {
                 try {
@@ -172,7 +170,7 @@ public class ExcelUtil {
                 }
 
                 writebook.write();
-                SongGuoUtils.showOneToast(c,"导出成功");
+                SongGuoUtils.showOneToast(c,"导出成功，请前往/手机内部存储根目录/SongGuoExportExcel/下查看");
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {

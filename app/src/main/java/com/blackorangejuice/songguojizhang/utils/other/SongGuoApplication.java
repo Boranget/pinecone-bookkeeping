@@ -8,7 +8,7 @@ import org.litepal.LitePal;
 /**
  * 全局获取context，并初始化litepal框架
  */
-public class SelfApplication extends Application {
+public class SongGuoApplication extends Application {
     private static Context context;
 
     @Override

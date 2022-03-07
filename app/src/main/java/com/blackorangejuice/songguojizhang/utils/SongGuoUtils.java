@@ -1,6 +1,5 @@
 package com.blackorangejuice.songguojizhang.utils;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -13,11 +12,9 @@ import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.blackorangejuice.songguojizhang.utils.other.SelfApplication;
+import com.blackorangejuice.songguojizhang.utils.other.SongGuoApplication;
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -56,7 +53,7 @@ public class SongGuoUtils {
      */
     public static SharedPreferences getSongGuoSharedPreferences() {
         SharedPreferences defaultSharedPreferences =
-                PreferenceManager.getDefaultSharedPreferences(SelfApplication.getContext());
+                PreferenceManager.getDefaultSharedPreferences(SongGuoApplication.getContext());
         return defaultSharedPreferences;
 
     }
@@ -115,15 +112,18 @@ public class SongGuoUtils {
     /**
      * 动态申请权限
      */
-    public static void requestPower(Activity activity, String permission) {
-        //判断是否已经赋予权限
-        if (ContextCompat.checkSelfPermission(activity, permission)
-                != PackageManager.PERMISSION_GRANTED) {
-            //申请权限，字符串数组内是一个或多个要申请的权限，1是申请权限结果的返回参数，在onRequestPermissionsResult可以得知申请结果
-            ActivityCompat.requestPermissions(activity,
-                    new String[]{permission,}, 1);
-
+    public static boolean requestPower(Activity activity, String[] permission) {
+        // flag为真说明有未申请的权限
+        boolean flag = false;
+        for(String everyPermission:permission){
+            if (ContextCompat.checkSelfPermission(activity,everyPermission)!= PackageManager.PERMISSION_GRANTED){
+                flag = true;
+            }
         }
+        if (flag){
+            ActivityCompat.requestPermissions(activity, permission, 1);
+        }
+        return flag;
     }
 
 

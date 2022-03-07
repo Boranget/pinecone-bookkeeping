@@ -8,7 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.blackorangejuice.songguojizhang.R;
-import com.blackorangejuice.songguojizhang.utils.other.ActivityController;
+import com.blackorangejuice.songguojizhang.utils.other.SongGuoActivityController;
 import com.blackorangejuice.songguojizhang.utils.basic.BasicActivity;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
 import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
@@ -56,7 +56,7 @@ public class GuideUsernamePageActivity extends BasicActivity {
         exitTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityController.finishAll();
+                SongGuoActivityController.finishAll();
             }
         });
         continueTextView.setOnClickListener(new View.OnClickListener() {

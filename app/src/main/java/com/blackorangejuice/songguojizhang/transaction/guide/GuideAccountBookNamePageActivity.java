@@ -17,7 +17,7 @@ import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
 import com.blackorangejuice.songguojizhang.db.mapper.AccountBookMapper;
 import com.blackorangejuice.songguojizhang.db.mapper.SettingInfoMapper;
 import com.blackorangejuice.songguojizhang.db.mapper.TagMapper;
-import com.blackorangejuice.songguojizhang.utils.other.ActivityController;
+import com.blackorangejuice.songguojizhang.utils.other.SongGuoActivityController;
 import com.blackorangejuice.songguojizhang.utils.basic.BasicActivity;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalConstant;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
@@ -136,7 +136,7 @@ public class GuideAccountBookNamePageActivity extends BasicActivity {
 
                 // bug:进入主界面还能返回引导界面
                 // 解决:结束之前所有活动,防止用户返回
-                ActivityController.finishAll();
+                SongGuoActivityController.finishAll();
 
                 // 跳转到home界面
                 HomePageActivity.startThisActivity(GuideAccountBookNamePageActivity.this);

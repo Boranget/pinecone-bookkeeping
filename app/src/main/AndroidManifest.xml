@@ -9,7 +9,7 @@
 
     <application
 
-        android:name=".utils.other.SelfApplication"
+        android:name=".utils.other.SongGuoApplication"
         android:allowBackup="true"
         android:requestLegacyExternalStorage="true"
         android:icon="@drawable/app"

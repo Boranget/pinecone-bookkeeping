@@ -9,7 +9,7 @@ import android.view.Window;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.blackorangejuice.songguojizhang.utils.other.ActivityController;
+import com.blackorangejuice.songguojizhang.utils.other.SongGuoActivityController;
 
 public abstract class BasicActivity extends AppCompatActivity {
     @Override
@@ -21,7 +21,7 @@ public abstract class BasicActivity extends AppCompatActivity {
         // 日志输出
         Log.d("BasicActivity", getClass().getSimpleName());
         // AC管理添加
-        ActivityController.addActivity(this);
+        SongGuoActivityController.addActivity(this);
         // 全面屏应用
         Window window = this.getWindow();
         window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR | View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
@@ -37,7 +37,7 @@ public abstract class BasicActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         // AC管理移除
-        ActivityController.removeActivity(this);
+        SongGuoActivityController.removeActivity(this);
     }
 
     public abstract void init();
