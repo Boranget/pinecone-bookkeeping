@@ -109,22 +109,7 @@ public class SongGuoUtils {
         return originalString.replaceAll(regex, "");
     }
 
-    /**
-     * 动态申请权限
-     */
-    public static boolean requestPower(Activity activity, String[] permission) {
-        // flag为真说明有未申请的权限
-        boolean flag = false;
-        for(String everyPermission:permission){
-            if (ContextCompat.checkSelfPermission(activity,everyPermission)!= PackageManager.PERMISSION_GRANTED){
-                flag = true;
-            }
-        }
-        if (flag){
-            ActivityCompat.requestPermissions(activity, permission, 1);
-        }
-        return flag;
-    }
+
 
 
 }

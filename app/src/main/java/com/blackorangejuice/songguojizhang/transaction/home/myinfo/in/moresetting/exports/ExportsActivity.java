@@ -81,9 +81,7 @@ public class ExportsActivity extends BasicActivity {
         exportExcelLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (!requestReadAndWritePower()) {
-//                    export();
-//                }
+
                 useEasyPermission();
 
 
@@ -91,13 +89,6 @@ public class ExportsActivity extends BasicActivity {
         });
     }
 
-    public boolean requestReadAndWritePower() {
-        return SongGuoUtils.requestPower(this,
-                new String[]{
-                        Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE
-                });
-    }
 
     @AfterPermissionGranted(REQUEST_PERMISSIONS_CODE)
     public void export() {
@@ -146,17 +137,7 @@ public class ExportsActivity extends BasicActivity {
      */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        switch (requestCode) {
-//            case 1:
-//                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-//                    export();
-//                }else {
-//                    SongGuoUtils.showOneToast(this,"由于您拒绝了读写文件的权限，导出失败！");
-//                }
-//                break;
-//            default:
-//
-//        }
+
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         // Forward results to EasyPermissions
