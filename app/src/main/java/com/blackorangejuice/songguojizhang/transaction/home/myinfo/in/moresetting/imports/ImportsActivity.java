@@ -184,7 +184,7 @@ public class ImportsActivity extends BasicActivity {
                                     String[] accountContent = s.split(",");
                                     // 0 交易时间,2021-12-14 11:59:58
                                     String timeStr = accountContent[0];
-                                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
                                     Date parse = simpleDateFormat.parse(timeStr);
                                     accountItem.setAccountTime(parse.getTime());
                                     // 1 交易类型,扫二维码付款,添加到备注
@@ -318,7 +318,7 @@ public class ImportsActivity extends BasicActivity {
                                     // 9 商家订单号
                                     // 10 交易时间
                                     String timeStr = accountContent[10];
-                                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+                                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                                     Date parse = simpleDateFormat.parse(timeStr);
                                     accountItem.setAccountTime(parse.getTime());
                                     // remark
