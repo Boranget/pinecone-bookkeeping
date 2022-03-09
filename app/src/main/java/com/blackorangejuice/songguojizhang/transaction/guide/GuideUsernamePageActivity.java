@@ -63,7 +63,7 @@ public class GuideUsernamePageActivity extends BasicActivity {
             @Override
             public void onClick(View v) {
                 if(!SongGuoUtils.notEmptyString(usernameEditText.getText().toString())){
-                    SongGuoUtils.showOneToast(GuideUsernamePageActivity.this,"用户名不能为空");
+                    SongGuoUtils.showOneToast("用户名不能为空");
                     return;
                 }
                 // 保存用户名到全局类

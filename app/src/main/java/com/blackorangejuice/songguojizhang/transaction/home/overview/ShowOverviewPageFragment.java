@@ -233,7 +233,7 @@ public class ShowOverviewPageFragment extends BasicFragment {
                                             accountBookMapper.updateAccountBookSetting(GlobalInfo.currentAccountBook);
                                             currentAccountBookNameTextView.setText(afterName);
                                         }else {
-                                            SongGuoUtils.showOneToast(getContext(),"账本名不能为空");
+                                            SongGuoUtils.showOneToast("账本名不能为空");
                                         }
 
                                     }

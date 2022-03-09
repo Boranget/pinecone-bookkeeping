@@ -3,12 +3,12 @@ plugins {
 }
 
 android {
-    compileSdk 30
+    compileSdk 28
 
     defaultConfig {
         applicationId "com.blackorangejuice.songguojizhang"
         minSdk 23
-        targetSdk 30
+        targetSdk 28
         versionCode 1
         versionName "1.0"
 

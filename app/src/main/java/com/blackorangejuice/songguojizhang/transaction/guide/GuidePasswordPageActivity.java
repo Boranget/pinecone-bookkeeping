@@ -60,7 +60,7 @@ public class GuidePasswordPageActivity extends BasicActivity {
             @Override
             public void onClick(View v) {
                 if(!SongGuoUtils.notEmptyString(passwordEditText.getText().toString())){
-                    SongGuoUtils.showOneToast(GuidePasswordPageActivity.this,"密码不能为空");
+                    SongGuoUtils.showOneToast("密码不能为空");
                     return;
                 }
                 GlobalInfo.guideInfo.setPassword(passwordEditText.getText().toString());

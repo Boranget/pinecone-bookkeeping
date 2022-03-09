@@ -83,10 +83,10 @@ public class CheckPasswordActivity extends BasicActivity {
                         }
                         CheckPasswordActivity.this.finish();
                     }else {
-                        SongGuoUtils.showOneToast(CheckPasswordActivity.this,"用户名或者密码错误");
+                        SongGuoUtils.showOneToast("用户名或者密码错误");
                     }
                 }else {
-                    SongGuoUtils.showOneToast(CheckPasswordActivity.this,"用户名或者密码不能为空");
+                    SongGuoUtils.showOneToast("用户名或者密码不能为空");
                 }
             }
         });

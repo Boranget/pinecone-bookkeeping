@@ -39,11 +39,10 @@ public class SongGuoUtils {
     /**
      * 显示提示框
      *
-     * @param context
      * @param s
      */
-    public static void showOneToast(Context context, String s) {
-        Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
+    public static void showOneToast(String s) {
+        Toast.makeText(SongGuoApplication.getContext(), s, Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -81,18 +80,6 @@ public class SongGuoUtils {
         return bitmap;
     }
 
-    /**
-     * 备份数据库
-     */
-    public static void getPrivateFile() {
-        String path = "/data/data/com.blackorangejuice.songguojizhang/databases/songguojizhang.db";
-        try {
-            FileInputStream fileInputStream = new FileInputStream(path);
-            //
-        } catch (Exception e) {
-
-        }
-    }
 
     /**
      * 解析表格时去掉横线的方法

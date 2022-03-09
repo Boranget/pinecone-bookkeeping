@@ -121,10 +121,10 @@ public class ShowMyInfoPageFragment extends BasicFragment {
                         GlobalInfo.settingInfo.setIfEnablePasswordCheck(String.valueOf(enablePasswordSwitch.isChecked()));
                         // 更新数据库
                         settingInfoMapper.updateBySid(GlobalInfo.settingInfo);
-                        SongGuoUtils.showOneToast(getContext(), "开启密码验证");
+                        SongGuoUtils.showOneToast("开启密码验证");
                     } else {
                         // 如果没有设置密码，跳转到修改密码界面
-                        SongGuoUtils.showOneToast(getContext(), "您还没有设置密码，请先设置密码");
+                        SongGuoUtils.showOneToast("您还没有设置密码，请先设置密码");
                         UpdatePasswordPageActivity.startThisActivity(getActivity());
                     }
                 } else {
@@ -134,7 +134,7 @@ public class ShowMyInfoPageFragment extends BasicFragment {
                     GlobalInfo.settingInfo.setIfEnablePasswordCheck(String.valueOf(enablePasswordSwitch.isChecked()));
                     // 更新数据库
                     settingInfoMapper.updateBySid(GlobalInfo.settingInfo);
-                    SongGuoUtils.showOneToast(getContext(), "关闭密码验证");
+                    SongGuoUtils.showOneToast("关闭密码验证");
                 }
 
 

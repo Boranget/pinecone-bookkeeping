@@ -123,7 +123,7 @@ public class UpdateEditAccountPageActivity extends EditAccountActivity {
     public void init() {
         // 初始化记账项对象
         if (GlobalInfo.lastAddAccount == null) {
-            SongGuoUtils.showOneToast(UpdateEditAccountPageActivity.this, "发生错误：空的记账项");
+            SongGuoUtils.showOneToast("发生错误：空的记账项");
             UpdateEditAccountPageActivity.this.finish();
         } else {
             accountItem = GlobalInfo.lastAddAccount;
@@ -225,7 +225,7 @@ public class UpdateEditAccountPageActivity extends EditAccountActivity {
                 builder.setPositiveButton("确认删除", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        SongGuoUtils.showOneToast(UpdateEditAccountPageActivity.this, "删除成功");
+                        SongGuoUtils.showOneToast("删除成功");
                         AccountItemMapper accountItemMapper = new AccountItemMapper(songGuoDatabaseHelper);
                         accountItemMapper.deleteAccountItem(accountItem);
                         UpdateEditAccountPageActivity.this.finish();
@@ -234,7 +234,7 @@ public class UpdateEditAccountPageActivity extends EditAccountActivity {
                 builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-//                        SongGuoUtils.showOneToast(UpdateEditAccountPageActivity.this,"取消成功");
+//                        SongGuoUtils.showOneToast("取消成功");
                     }
                 });
                 builder.show();
@@ -296,7 +296,7 @@ public class UpdateEditAccountPageActivity extends EditAccountActivity {
                 AccountItemMapper accountItemMapper = new AccountItemMapper(songGuoDatabaseHelper);
                 // 返回带id的对象
                 accountItem = accountItemMapper.updateAccountItem(UpdateEditAccountPageActivity.this.accountItem);
-                SongGuoUtils.showOneToast(UpdateEditAccountPageActivity.this, "修改成功");
+                SongGuoUtils.showOneToast("修改成功");
                 UpdateEditAccountPageActivity.this.finish();
             }
         });

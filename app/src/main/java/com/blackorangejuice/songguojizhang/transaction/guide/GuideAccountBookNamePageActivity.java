@@ -76,7 +76,7 @@ public class GuideAccountBookNamePageActivity extends BasicActivity {
             @Override
             public void onClick(View v) {
                 if (!SongGuoUtils.notEmptyString(accountBookNameEditText.getText().toString())) {
-                    SongGuoUtils.showOneToast(GuideAccountBookNamePageActivity.this, "账本名不能为空");
+                    SongGuoUtils.showOneToast("账本名不能为空");
                     return;
                 }
                 // 防止用户多次点击

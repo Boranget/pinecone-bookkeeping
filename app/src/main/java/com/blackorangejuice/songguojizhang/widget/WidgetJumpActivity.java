@@ -54,7 +54,7 @@ public class WidgetJumpActivity extends BasicActivity {
         System.out.println("有反应");
         if (isFirstUse) {
             // 如果为第一次启动,则进入引导界面,引导流程结束后再更改标识
-            SongGuoUtils.showOneToast(this, "您还未建立账本");
+            SongGuoUtils.showOneToast("您还未建立账本");
             MainActivity.startThisActivity(this);
         } else {
             // 如果不是第一次启动,取出SID

@@ -67,9 +67,9 @@ public class UpdateUsernamePageActivity extends BasicActivity {
                     settingInfoMapper.updateBySid(settingInfo);
 
                     UpdateUsernamePageActivity.this.finish();
-                    SongGuoUtils.showOneToast(UpdateUsernamePageActivity.this,"修改成功");
+                    SongGuoUtils.showOneToast("修改成功");
                 }else {
-                    SongGuoUtils.showOneToast(UpdateUsernamePageActivity.this,"用户名不能为空");
+                    SongGuoUtils.showOneToast("用户名不能为空");
                 }
 
             }

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -81,10 +82,7 @@ public class ExportsActivity extends BasicActivity {
         exportExcelLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 useEasyPermission();
-
-
             }
         });
     }
@@ -93,7 +91,7 @@ public class ExportsActivity extends BasicActivity {
     @AfterPermissionGranted(REQUEST_PERMISSIONS_CODE)
     public void export() {
         // 这里找不到文件异常
-        SongGuoUtils.showOneToast(ExportsActivity.this, "正在导出.........");
+        SongGuoUtils.showOneToast( "正在导出账单.........");
         String filePath = Environment.getExternalStorageDirectory() + "/SongGuoExportExcel";
         File file = new File(Environment.getExternalStorageDirectory(), "SongGuoExportExcel");
         if (!file.exists()) {
@@ -110,21 +108,32 @@ public class ExportsActivity extends BasicActivity {
         String sheetName = accountBookName;
 
         List<ExportItem> exportItems = accountItemMapper.exportToExcel();
+        if(!exportItems.isEmpty()){
+            ExcelUtil.initExcel(filePath, excelFileName);
+            ExcelUtil.writeToExcel(exportItems, filePath, excelFileName, ExportsActivity.this);
+        }else {
+            SongGuoUtils.showOneToast("您没有账单可以导出");
+        }
 
-        ExcelUtil.initExcel(filePath, excelFileName);
-        ExcelUtil.writeToExcel(exportItems, filePath, excelFileName, ExportsActivity.this);
 
     }
 
     public void useEasyPermission() {
-        String[] perms = {
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE};
-        if (EasyPermissions.hasPermissions(this, perms)) {
-            export();
+        // 这里最小sdk设置了23，所以权限都是需要申请的
+        // 所以这里的判断其实没有用处
+        if (Build.VERSION.SDK_INT >= 23) {
+
+            String[] perms = {
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE};
+            if (EasyPermissions.hasPermissions(this, perms)) {
+                export();
+            } else {
+                // Do not have permissions, request them now
+                EasyPermissions.requestPermissions(this, "请允许本应用的读写文件权限", REQUEST_PERMISSIONS_CODE, perms);
+            }
         } else {
-            // Do not have permissions, request them now
-            EasyPermissions.requestPermissions(this, "请允许本应用的读写文件权限", REQUEST_PERMISSIONS_CODE, perms);
+            export();
         }
     }
 

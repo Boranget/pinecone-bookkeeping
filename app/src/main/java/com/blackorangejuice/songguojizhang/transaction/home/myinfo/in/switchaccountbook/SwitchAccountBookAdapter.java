@@ -56,7 +56,7 @@ public class SwitchAccountBookAdapter extends RecyclerView.Adapter<SwitchAccount
                 SettingInfoMapper settingInfoMapper =
                         new SettingInfoMapper(SongGuoDatabaseHelper.getSongGuoDatabaseHelper(viewGroup.getContext()));
                 settingInfoMapper.updateBySid(GlobalInfo.settingInfo);
-                SongGuoUtils.showOneToast(activity,"切换成功,当前帐本为《"+accountBook.getAccountBookName()+"》");
+                SongGuoUtils.showOneToast("切换成功,当前帐本为《"+accountBook.getAccountBookName()+"》");
                 activity.finish();
             }
         });
@@ -66,7 +66,7 @@ public class SwitchAccountBookAdapter extends RecyclerView.Adapter<SwitchAccount
                 int adapterPosition = accountBookViewHolder.getAdapterPosition();
                 AccountBook accountBook = accountBooks.get(adapterPosition);
                 if (accountBook.getBid() == GlobalInfo.currentAccountBook.getBid()){
-                    SongGuoUtils.showOneToast(activity,"不能删除当前账本");
+                    SongGuoUtils.showOneToast("不能删除当前账本");
                     return true;
                 }
                 AlertDialog.Builder builder = new AlertDialog.Builder(activity);

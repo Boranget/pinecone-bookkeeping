@@ -272,7 +272,7 @@ public class AddEditAccountPageActivity extends EditAccountActivity {
                 AccountItemMapper accountItemMapper = new AccountItemMapper(songGuoDatabaseHelper);
                 // 返回带id的对象
                 accountItem = accountItemMapper.insertAccountItem(AddEditAccountPageActivity.this.accountItem);
-                SongGuoUtils.showOneToast(AddEditAccountPageActivity.this, "保存成功");
+                SongGuoUtils.showOneToast("保存成功");
                 AddEditAccountPageActivity.this.finish();
             }
         });

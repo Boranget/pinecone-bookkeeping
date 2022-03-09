@@ -134,7 +134,7 @@ public class UpdateEditEventPageActivity extends EditEventActivity {
                 EventItemMapper eventItemMapper = new EventItemMapper(songGuoDatabaseHelper);
                 // 返回带id的对象
                 eventItem = eventItemMapper.updateEventItem(UpdateEditEventPageActivity.this.eventItem);
-                SongGuoUtils.showOneToast(UpdateEditEventPageActivity.this, "修改成功");
+                SongGuoUtils.showOneToast("修改成功");
                 UpdateEditEventPageActivity.this.finish();
             }
         });
@@ -153,7 +153,7 @@ public class UpdateEditEventPageActivity extends EditEventActivity {
                         // 删除事件
                         EventItemMapper eventItemMapper = new EventItemMapper(songGuoDatabaseHelper);
                         eventItemMapper.deleteEventItem(eventItem);
-                        SongGuoUtils.showOneToast(UpdateEditEventPageActivity.this, "删除成功");
+                        SongGuoUtils.showOneToast("删除成功");
                         UpdateEditEventPageActivity.this.finish();
                     }
                 });

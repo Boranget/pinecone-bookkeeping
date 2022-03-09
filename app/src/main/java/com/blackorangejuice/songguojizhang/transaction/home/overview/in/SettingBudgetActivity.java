@@ -207,7 +207,7 @@ public class SettingBudgetActivity extends BasicActivity {
                                     // 刷新当前页面
                                     refreshCurrentPage();
                                 } else {
-                                    SongGuoUtils.showOneToast(SettingBudgetActivity.this, "error");
+                                    SongGuoUtils.showOneToast( "error");
                                 }
 
                             }

@@ -110,7 +110,7 @@ public class ShowChosenEventPageActivity extends BasicActivity {
         moreLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SongGuoUtils.showOneToast(ShowChosenEventPageActivity.this,"当前页面不可编辑");
+                SongGuoUtils.showOneToast("当前页面不可编辑");
             }
         });
 

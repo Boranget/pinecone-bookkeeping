@@ -68,10 +68,10 @@ public class UpdatePasswordPageActivity extends BasicActivity {
                 String confirmPasswordS = confirmPasswordEditText.getText().toString();
 
                 if(!SongGuoUtils.notEmptyString(passwordS)){
-                    SongGuoUtils.showOneToast(UpdatePasswordPageActivity.this,"密码不能为空");
+                    SongGuoUtils.showOneToast("密码不能为空");
                     return;
                 }else if(!Objects.equals(passwordS,confirmPasswordS)){
-                    SongGuoUtils.showOneToast(UpdatePasswordPageActivity.this,"两次密码不同");
+                    SongGuoUtils.showOneToast("两次密码不同");
                     return;
                 }else{
                     SettingInfoMapper settingInfoMapper = new SettingInfoMapper(SongGuoDatabaseHelper.getSongGuoDatabaseHelper(UpdatePasswordPageActivity.this));
@@ -79,7 +79,7 @@ public class UpdatePasswordPageActivity extends BasicActivity {
                     settingInfo.setPassword(passwordS);
                     settingInfoMapper.updateBySid(settingInfo);
                     UpdatePasswordPageActivity.this.finish();
-                    SongGuoUtils.showOneToast(UpdatePasswordPageActivity.this,"修改成功");
+                    SongGuoUtils.showOneToast("修改成功");
                 }
 
 

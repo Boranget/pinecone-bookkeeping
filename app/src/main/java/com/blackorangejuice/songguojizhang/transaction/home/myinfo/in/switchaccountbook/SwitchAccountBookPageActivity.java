@@ -116,10 +116,10 @@ public class SwitchAccountBookPageActivity extends BasicActivity {
                                     SettingInfoMapper settingInfoMapper = new SettingInfoMapper(SongGuoDatabaseHelper.getSongGuoDatabaseHelper(SwitchAccountBookPageActivity.this));
                                     settingInfoMapper.updateBySid(settingInfo);
                                     refreshAccountBook();
-                                    SongGuoUtils.showOneToast(SwitchAccountBookPageActivity.this,"添加成功,当前帐本为《"+accountBook.getAccountBookName()+"》");
+                                    SongGuoUtils.showOneToast("添加成功,当前帐本为《"+accountBook.getAccountBookName()+"》");
                                     SwitchAccountBookPageActivity.this.finish();
                                 } else {
-                                    SongGuoUtils.showOneToast(SwitchAccountBookPageActivity.this, "账本名不能为空");
+                                    SongGuoUtils.showOneToast( "账本名不能为空");
                                 }
 
                             }

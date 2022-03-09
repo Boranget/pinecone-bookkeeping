@@ -248,7 +248,7 @@ public class ImportsActivity extends BasicActivity {
                             stringBuilder.append("]条是支出账单,除此之外还有[");
                             stringBuilder.append(otherNum);
                             stringBuilder.append("]条不支持的账单类型");
-                            SongGuoUtils.showOneToast(ImportsActivity.this, stringBuilder.toString());
+                            SongGuoUtils.showOneToast(stringBuilder.toString());
                             eventBuilder.append(stringBuilder);
                             int eidWechat = autoCreatEvent("微信", eventBuilder.toString());
                             for(AccountItem accountItem:importsAccountList){
@@ -347,7 +347,7 @@ public class ImportsActivity extends BasicActivity {
                             stringBuilder.append("]条是支出账单,除此之外还有[");
                             stringBuilder.append(otherNum);
                             stringBuilder.append("]条不支持的账单类型");
-                            SongGuoUtils.showOneToast(ImportsActivity.this, stringBuilder.toString());
+                            SongGuoUtils.showOneToast( stringBuilder.toString());
                             eventBuilder.append(stringBuilder);
                             int eidAlipay = autoCreatEvent("支付宝", eventBuilder.toString());
                             for(AccountItem accountItem:importsAccountList){
@@ -358,7 +358,7 @@ public class ImportsActivity extends BasicActivity {
                             break;
 
                         default:
-                            SongGuoUtils.showOneToast(ImportsActivity.this, "异常");
+                            SongGuoUtils.showOneToast("异常");
                             break;
                     }
                 } catch (FileNotFoundException e) {
@@ -370,7 +370,7 @@ public class ImportsActivity extends BasicActivity {
                 }
             }
         } else {
-            SongGuoUtils.showOneToast(ImportsActivity.this, "没有选择任何文件");
+            SongGuoUtils.showOneToast("没有选择任何文件");
         }
 
     }

@@ -139,7 +139,7 @@ public class AddEditEventPageActivity extends EditEventActivity {
                 EventItemMapper eventItemMapper = new EventItemMapper(songGuoDatabaseHelper);
                 // 返回带id的对象
                 eventItem = eventItemMapper.insertEventItem(AddEditEventPageActivity.this.eventItem);
-                SongGuoUtils.showOneToast(AddEditEventPageActivity.this, "保存成功");
+                SongGuoUtils.showOneToast("保存成功");
                 AddEditEventPageActivity.this.finish();
             }
         });

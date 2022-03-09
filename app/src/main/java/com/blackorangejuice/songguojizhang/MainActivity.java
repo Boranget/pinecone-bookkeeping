@@ -1,8 +1,10 @@
 package com.blackorangejuice.songguojizhang;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.blackorangejuice.songguojizhang.transaction.guide.GuideStartPageActivity;
@@ -17,6 +19,9 @@ import com.blackorangejuice.songguojizhang.utils.basic.BasicActivity;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalConstant;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
 import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
+import com.blackorangejuice.songguojizhang.utils.other.SongGuoApplication;
+
+import pub.devrel.easypermissions.EasyPermissions;
 
 public class MainActivity extends BasicActivity {
 
@@ -29,7 +34,6 @@ public class MainActivity extends BasicActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome_page);
-        SongGuoUtils.getPrivateFile();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -37,11 +41,12 @@ public class MainActivity extends BasicActivity {
                 // preferences 存储 第一次使用的标志
                 SharedPreferences songguoPreferences = SongGuoUtils.getSongGuoSharedPreferences();
                 // 如果没有该值,则为第一次启动
-                boolean isFirstUse = songguoPreferences.getBoolean(GlobalConstant.IS_FIRST_USE,true);
-                if(isFirstUse){
+                boolean isFirstUse = songguoPreferences.getBoolean(GlobalConstant.IS_FIRST_USE, true);
+
+                if (isFirstUse) {
                     // 如果为第一次启动,则进入引导界面,引导流程结束后再更改标识
                     GuideStartPageActivity.startThisActivity(MainActivity.this);
-                }else {
+                } else {
                     // 如果不是第一次启动,取出SID
                     int sid = songguoPreferences.getInt(GlobalConstant.SID, 0);
                     // 初始化全局类
@@ -60,9 +65,9 @@ public class MainActivity extends BasicActivity {
 
                     // 取出是否启用了密码检查
                     String ifEnablePasswordCheck = settingInfo.getIfEnablePasswordCheck();
-                    if(String.valueOf(true).equals(ifEnablePasswordCheck)){
-                        CheckPasswordActivity.startThisActivity(MainActivity.this,"");
-                    }else {
+                    if (String.valueOf(true).equals(ifEnablePasswordCheck)) {
+                        CheckPasswordActivity.startThisActivity(MainActivity.this, "");
+                    } else {
 
                         // 进入主页
                         HomePageActivity.startThisActivity(MainActivity.this);

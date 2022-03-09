@@ -95,7 +95,7 @@ public class ExcelUtil {
             sheet.setRowView(0, 340);
             workbook.write();
         } catch (Exception e) {
-            SongGuoUtils.showOneToast(SongGuoApplication.getContext(),"出现未知问题，请退出应用重试");
+            SongGuoUtils.showOneToast("出现未知问题，请退出应用重试"+e.toString());
             SongGuoActivityController.finishAll();
         } finally {
             if (workbook != null) {
@@ -170,7 +170,7 @@ public class ExcelUtil {
                 }
 
                 writebook.write();
-                SongGuoUtils.showOneToast(c,"导出成功，请前往/手机内部存储根目录/SongGuoExportExcel/下查看");
+                SongGuoUtils.showOneToast("导出成功，请前往/手机内部存储根目录/SongGuoExportExcel/下查看");
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
