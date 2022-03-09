@@ -45,6 +45,8 @@ public class ImportsActivity extends BasicActivity {
     TagMapper tagMapper;
     AccountItemMapper accountItemMapper;
     EventItemMapper eventItemMapper;
+    SimpleDateFormat simpleDateFormatFirst;
+    SimpleDateFormat simpleDateFormatSecond;
 
     /**
      * 启动此活动
@@ -71,6 +73,8 @@ public class ImportsActivity extends BasicActivity {
         tagMapper = new TagMapper(songGuoDatabaseHelper);
         accountItemMapper = new AccountItemMapper(songGuoDatabaseHelper);
         eventItemMapper = new EventItemMapper(songGuoDatabaseHelper);
+        simpleDateFormatFirst = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        simpleDateFormatSecond = new SimpleDateFormat("yyyy/MM/dd HH:mm");
     }
 
     @Override
@@ -163,6 +167,7 @@ public class ImportsActivity extends BasicActivity {
                     // 另一种思路:先创建好事件后获取事件id,最后进行内容更新
                     List<AccountItem> importsAccountList = new ArrayList<>();
                     switch (ImportsActivity.currentImport) {
+
                         case WECHAT:
                             wechatfor:
                             for (String s : fileContent) {
@@ -184,8 +189,13 @@ public class ImportsActivity extends BasicActivity {
                                     String[] accountContent = s.split(",");
                                     // 0 交易时间,2021-12-14 11:59:58
                                     String timeStr = accountContent[0];
-                                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-                                    Date parse = simpleDateFormat.parse(timeStr);
+                                    Date parse = null;
+                                    // 避免出现用户自己修改文件导致的解析异常
+                                    try {
+                                        parse = simpleDateFormatFirst.parse(timeStr);
+                                    } catch (Exception e) {
+                                        parse = simpleDateFormatSecond.parse(timeStr);
+                                    }
                                     accountItem.setAccountTime(parse.getTime());
                                     // 1 交易类型,扫二维码付款,添加到备注
                                     remark.append(accountContent[1].trim());
@@ -251,7 +261,7 @@ public class ImportsActivity extends BasicActivity {
                             SongGuoUtils.showOneToast(stringBuilder.toString());
                             eventBuilder.append(stringBuilder);
                             int eidWechat = autoCreatEvent("微信", eventBuilder.toString());
-                            for(AccountItem accountItem:importsAccountList){
+                            for (AccountItem accountItem : importsAccountList) {
                                 accountItem.setEid(eidWechat);
                                 accountItemMapper.insertAccountItem(accountItem);
                             }
@@ -318,8 +328,12 @@ public class ImportsActivity extends BasicActivity {
                                     // 9 商家订单号
                                     // 10 交易时间
                                     String timeStr = accountContent[10];
-                                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                                    Date parse = simpleDateFormat.parse(timeStr);
+                                    Date parse = null;
+                                    try {
+                                        parse = simpleDateFormatFirst.parse(timeStr);
+                                    } catch (Exception e) {
+                                        parse = simpleDateFormatSecond.parse(timeStr);
+                                    }
                                     accountItem.setAccountTime(parse.getTime());
                                     // remark
                                     accountItem.setRemark(remark.toString());
@@ -347,10 +361,10 @@ public class ImportsActivity extends BasicActivity {
                             stringBuilder.append("]条是支出账单,除此之外还有[");
                             stringBuilder.append(otherNum);
                             stringBuilder.append("]条不支持的账单类型");
-                            SongGuoUtils.showOneToast( stringBuilder.toString());
+                            SongGuoUtils.showOneToast(stringBuilder.toString());
                             eventBuilder.append(stringBuilder);
                             int eidAlipay = autoCreatEvent("支付宝", eventBuilder.toString());
-                            for(AccountItem accountItem:importsAccountList){
+                            for (AccountItem accountItem : importsAccountList) {
                                 accountItem.setEid(eidAlipay);
                                 accountItemMapper.insertAccountItem(accountItem);
                             }
