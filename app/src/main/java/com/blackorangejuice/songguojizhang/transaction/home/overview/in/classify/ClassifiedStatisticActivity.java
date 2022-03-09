@@ -135,7 +135,9 @@ public class ClassifiedStatisticActivity extends BasicActivity {
         pieDataSet.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
 
         PieData pieData = new PieData(pieDataSet);
-        pieData.setValueFormatter(new PercentFormatter());
+        // 饼图使用百分比时显示百分号需要使用pieData.setValueFormatter(new PercentFormatter(pieChart));方法
+        // 注意要将饼图对象传入,否则无效
+        pieData.setValueFormatter(new PercentFormatter(pieChart));
         pieData.setValueTextSize(11f);
         pieData.setValueTextColor(Color.DKGRAY);
         pieChart.setData(pieData);
