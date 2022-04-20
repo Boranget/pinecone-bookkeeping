@@ -18,6 +18,7 @@ import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
 import com.blackorangejuice.songguojizhang.db.mapper.AccountItemMapper;
 import com.blackorangejuice.songguojizhang.db.mapper.TagMapper;
 import com.blackorangejuice.songguojizhang.transaction.home.list.in.account.edit.AddEditAccountPageActivity;
+import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
 import com.blackorangejuice.songguojizhang.utils.basic.BasicActivity;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalConstant;
 
@@ -202,6 +203,7 @@ public class ChooseShowAccountListPageActivity extends BasicActivity {
         chooseBlockRecycleViewAdapter = new ChooseBlockRecycleViewAdapter(this, blocks);
         recyclerView.setAdapter(chooseBlockRecycleViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(ChooseShowAccountListPageActivity.this));
+        SongGuoUtils.showOneToast("多选框不可见的账单已被别的事件绑定");
     }
 
     @Override

@@ -121,7 +121,7 @@ public class ChooseAccountItemRecycleViewAdapter extends RecyclerView.Adapter<Ch
                 // 否则隐藏
                 holder.checkBox.setEnabled(false);
                 holder.itemView.setClickable(false);
-                holder.itemView.setVisibility(View.INVISIBLE);
+                holder.checkBox.setVisibility(View.INVISIBLE);
             }
 
         }
