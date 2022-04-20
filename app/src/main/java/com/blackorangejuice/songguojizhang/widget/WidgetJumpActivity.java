@@ -51,7 +51,7 @@ public class WidgetJumpActivity extends BasicActivity {
         SharedPreferences songguoPreferences = SongGuoUtils.getSongGuoSharedPreferences();
         // 如果没有该值,则为第一次启动
         boolean isFirstUse = songguoPreferences.getBoolean(GlobalConstant.IS_FIRST_USE, true);
-        System.out.println("有反应");
+//        System.out.println("有反应");
         if (isFirstUse) {
             // 如果为第一次启动,则进入引导界面,引导流程结束后再更改标识
             SongGuoUtils.showOneToast("您还未建立账本");

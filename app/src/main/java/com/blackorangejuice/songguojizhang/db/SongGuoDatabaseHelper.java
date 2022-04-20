@@ -56,6 +56,8 @@ public class SongGuoDatabaseHelper extends SQLiteOpenHelper {
     private static final String CREAT_TABLE_SETTING_INFO = "create table t_setting_info(\n" +
             "    username text not null unique,\n" +
             "    password text,\n" +
+            "    password_question text,\n" +
+            "    password_answer text,\n"+
             "    sid integer primary key autoincrement,\n" +
             "    if_enable_password_check text not null,\n" +
             "    defult_launch_page text not null,\n" +

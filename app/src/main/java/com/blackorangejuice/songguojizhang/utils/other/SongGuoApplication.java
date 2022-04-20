@@ -6,7 +6,7 @@ import android.content.Context;
 import org.litepal.LitePal;
 
 /**
- * 全局获取context，并初始化litepal框架
+ * 全局获取context，但有的时候不能用
  */
 public class SongGuoApplication extends Application {
     private static Context context;

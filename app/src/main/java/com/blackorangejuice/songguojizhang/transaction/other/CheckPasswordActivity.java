@@ -1,16 +1,22 @@
 package com.blackorangejuice.songguojizhang.transaction.other;
 
+import static com.blackorangejuice.songguojizhang.utils.other.SongGuoApplication.getContext;
+
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.appcompat.app.AlertDialog;
+
 import com.blackorangejuice.songguojizhang.R;
 import com.blackorangejuice.songguojizhang.transaction.home.HomePageActivity;
 import com.blackorangejuice.songguojizhang.transaction.home.list.in.account.edit.AddEditAccountPageActivity;
 import com.blackorangejuice.songguojizhang.transaction.home.list.in.event.edit.AddEditEventPageActivity;
+import com.blackorangejuice.songguojizhang.transaction.home.myinfo.in.UpdatePasswordPageActivity;
 import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
 import com.blackorangejuice.songguojizhang.utils.basic.BasicActivity;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
@@ -26,6 +32,7 @@ public class CheckPasswordActivity extends BasicActivity {
     EditText usernameEditText;
     EditText passwordEditText;
     Button checkButton;
+    Button forgetButton;
 
     public static void startThisActivity(Context context, String jumpTo) {
         Intent intent = new Intent(context, CheckPasswordActivity.class);
@@ -53,6 +60,7 @@ public class CheckPasswordActivity extends BasicActivity {
         usernameEditText = findViewById(R.id.activity_check_password_username);
         passwordEditText = findViewById(R.id.activity_check_password_password);
         checkButton = findViewById(R.id.activity_check_password_button);
+        forgetButton = findViewById(R.id.activity_forget_password_button);
     }
 
 
@@ -71,6 +79,7 @@ public class CheckPasswordActivity extends BasicActivity {
                     // 验证账号密码
                     if(Objects.equals(username,username1)&&Objects.equals(password,password1)){
                         switch (getIntent().getStringExtra(JUMP_TO)){
+                            // 如果intent中存放了标识,则按标识跳转
                             case JUMP_ACCOUNT:
                                 AddEditAccountPageActivity.startThisActivity(CheckPasswordActivity.this, "");
                                 break;
@@ -78,6 +87,7 @@ public class CheckPasswordActivity extends BasicActivity {
                                 AddEditEventPageActivity.startThisActivity(CheckPasswordActivity.this, "");
                                 break;
                             default:
+                                // 如果不符合,则跳转到首页
                                 HomePageActivity.startThisActivity(CheckPasswordActivity.this);
                                 break;
                         }
@@ -88,6 +98,33 @@ public class CheckPasswordActivity extends BasicActivity {
                 }else {
                     SongGuoUtils.showOneToast("用户名或者密码不能为空");
                 }
+            }
+        });
+        // 忘记密码
+        forgetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditText editText = new EditText(CheckPasswordActivity.this);
+                editText.setSingleLine(true);
+                new AlertDialog.Builder(CheckPasswordActivity.this).setTitle(GlobalInfo.settingInfo.getPasswordQuestion())
+                        .setView(editText)
+                        .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        String userAnswer = editText.getText().toString();
+                                        if(SongGuoUtils.notEmptyString(userAnswer)){
+                                            if(userAnswer.equals(GlobalInfo.settingInfo.getPasswordAnswer())){
+                                                UpdatePasswordPageActivity.startThisActivity(CheckPasswordActivity.this);
+                                            }else {
+                                                SongGuoUtils.showOneToast("答案错误");
+                                            }
+                                        }else {
+                                            SongGuoUtils.showOneToast("密保答案不能为空");
+                                        }
+
+                                    }
+                                }
+                        ).setNegativeButton("取消", null).show();
             }
         });
     }

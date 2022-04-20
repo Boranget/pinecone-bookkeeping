@@ -90,16 +90,16 @@ public class ExportsActivity extends BasicActivity {
 
     @AfterPermissionGranted(REQUEST_PERMISSIONS_CODE)
     public void export() {
-        // 这里找不到文件异常
+        // 这里找不到文件异常，原因是权限问题
         SongGuoUtils.showOneToast( "正在导出账单.........");
         String filePath = Environment.getExternalStorageDirectory() + "/SongGuoExportExcel";
         File file = new File(Environment.getExternalStorageDirectory(), "SongGuoExportExcel");
         if (!file.exists()) {
             file.mkdirs();
         }
-        if (file.exists()) {
-            System.out.println("yes");
-        }
+//        if (file.exists()) {
+//            System.out.println("yes");
+//        }
         String excelName = new SimpleDateFormat("yyyy年MM月dd日HH时mm分ss秒导出账单").format(new Date());
         String accountBookName = GlobalInfo.currentAccountBook.getAccountBookName();
 

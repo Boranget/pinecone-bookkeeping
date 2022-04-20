@@ -9,6 +9,10 @@ public class SettingInfo {
     private String username;
     // 密码
     private String password;
+    // 密保问题
+    private String passwordQuestion;
+    // 密保答案
+    private String passwordAnswer;
     // 是否启用登陆密码检查,存true或false
     private String ifEnablePasswordCheck;
     // 默认启动页面
@@ -22,6 +26,8 @@ public class SettingInfo {
         SettingInfo settingInfo = new SettingInfo();
         settingInfo.setUsername("");
         settingInfo.setPassword("");
+        settingInfo.setPasswordQuestion("");
+        settingInfo.setPasswordAnswer("");
         settingInfo.setIfEnablePasswordCheck("true");
         settingInfo.setDefultLaunchPage(GlobalConstant.LAUNCH_PAGE_OVERVIEW_PAGE);
         settingInfo.setDefultAddPage(GlobalConstant.ADD_PAGE_ACCOUNT);
@@ -83,5 +89,21 @@ public class SettingInfo {
 
     public void setCurrentAccountBookBid(Integer currentAccountBookBid) {
         this.currentAccountBookBid = currentAccountBookBid;
+    }
+
+    public String getPasswordQuestion() {
+        return passwordQuestion;
+    }
+
+    public void setPasswordQuestion(String passwordQuestion) {
+        this.passwordQuestion = passwordQuestion;
+    }
+
+    public String getPasswordAnswer() {
+        return passwordAnswer;
+    }
+
+    public void setPasswordAnswer(String passwordAnswer) {
+        this.passwordAnswer = passwordAnswer;
     }
 }

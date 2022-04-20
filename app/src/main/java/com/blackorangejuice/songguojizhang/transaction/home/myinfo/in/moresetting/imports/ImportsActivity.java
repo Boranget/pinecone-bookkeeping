@@ -99,9 +99,11 @@ public class ImportsActivity extends BasicActivity {
             }
 
             private void importsWechat() {
+                // 初始化文件选择器
                 FilePickerManager.INSTANCE
                         .from(ImportsActivity.this)
                         .forResult(FilePickerManager.REQUEST_CODE);
+                // 标识入口
                 currentImport = WECHAT;
 
             }
@@ -169,6 +171,11 @@ public class ImportsActivity extends BasicActivity {
                     switch (ImportsActivity.currentImport) {
 
                         case WECHAT:
+                            if(!fileContent.get(0).contains("微信")){
+                             // 说明是不合法的微信账单文件
+                             SongGuoUtils.showOneToast("导入失败：该文件不是合法的微信账单文件");
+                             return;
+                            }
                             wechatfor:
                             for (String s : fileContent) {
                                 if (s.startsWith("交易时间")) {
@@ -258,6 +265,7 @@ public class ImportsActivity extends BasicActivity {
                             stringBuilder.append("]条是支出账单,除此之外还有[");
                             stringBuilder.append(otherNum);
                             stringBuilder.append("]条不支持的账单类型");
+
                             SongGuoUtils.showOneToast(stringBuilder.toString());
                             eventBuilder.append(stringBuilder);
                             int eidWechat = autoCreatEvent("微信", eventBuilder.toString());
@@ -268,6 +276,11 @@ public class ImportsActivity extends BasicActivity {
 
                             break;
                         case ALIPAY:
+                            if(!fileContent.get(0).contains("支付宝")){
+                                // 说明是不合法的微信账单文件
+                                SongGuoUtils.showOneToast("导入失败：该文件不是合法的支付宝账单文件");
+                                return;
+                            }
                             // 循环标签,便于跳出
                             alipayfor:
                             for (String s : fileContent) {
@@ -390,20 +403,10 @@ public class ImportsActivity extends BasicActivity {
     }
 
     /**
-     * 记录事件
-     * private Integer eid;
-     * // 事件标题
-     * private String eventTitle;
-     * // 时间内容
-     * private String eventContent;
-     * // 事件时间,存时间戳
-     * private Long eventTime;
-     * // 绑定的记账列表
-     * private List<AccountItem> accountItemList;
-     * // 对应账本id
-     * private Integer bid;
-     * // 对应账本
-     * private AccountBook accountBook;
+     * 自动生成事件
+     * @param importType
+     * @param content
+     * @return
      */
     private int autoCreatEvent(String importType, String content) {
         EventItem eventItem = new EventItem();

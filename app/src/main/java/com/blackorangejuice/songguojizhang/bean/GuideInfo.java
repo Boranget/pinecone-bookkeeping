@@ -3,6 +3,9 @@ package com.blackorangejuice.songguojizhang.bean;
 public class GuideInfo {
     private String username;
     private String password;
+    private String passwordQuestion;
+    private String passwordAnswer;
+
     private String ifEnablePasswordCheck;
     private String accountBookName;
 
@@ -20,6 +23,22 @@ public class GuideInfo {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPasswordQuestion() {
+        return passwordQuestion;
+    }
+
+    public void setPasswordQuestion(String passwordQuestion) {
+        this.passwordQuestion = passwordQuestion;
+    }
+
+    public String getPasswordAnswer() {
+        return passwordAnswer;
+    }
+
+    public void setPasswordAnswer(String passwordAnswer) {
+        this.passwordAnswer = passwordAnswer;
     }
 
     public String getIfEnablePasswordCheck() {

@@ -20,6 +20,7 @@ public class SongGuoDesktopWidget extends AppWidgetProvider {
                                 int appWidgetId) {
 
         // Construct the RemoteViews object
+        // 这里使用xml来构造一个对象
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.song_guo_desktop_widget);
 
         // 这里刚开始想用“不同的intent”放入不同的extra来告知跳转活动的不同意图
@@ -28,13 +29,16 @@ public class SongGuoDesktopWidget extends AppWidgetProvider {
         // 经过查找资料得知，不同的data域可以判断为不同的intent
         // 所以使用intent带一个data的uri，在跳转activity中再判断
 
-
+        // intent用来传递信息
         Intent mainIntent = new Intent(context, MainActivity.class);
         PendingIntent mainPendingIntent = PendingIntent.getActivity(context, 0, mainIntent, 0);
+        // 这里设置点击事件
         views.setOnClickPendingIntent(R.id.song_guo_desktop_widget_add_main, mainPendingIntent);
 
         Intent accountIntent = new Intent(context, WidgetJumpActivity.class);
+        // 这里设定标记为记账
         accountIntent.setData(Uri.parse(WidgetJumpActivity.ACCOUNT_URI));
+        // 包装
         PendingIntent accountPendingIntent = PendingIntent.getActivity(context, 1, accountIntent, PendingIntent.FLAG_CANCEL_CURRENT);
         views.setOnClickPendingIntent(R.id.song_guo_desktop_widget_add_account, accountPendingIntent);
 

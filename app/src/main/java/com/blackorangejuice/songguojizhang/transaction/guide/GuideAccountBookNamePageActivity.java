@@ -47,13 +47,13 @@ public class GuideAccountBookNamePageActivity extends BasicActivity {
         setContentView(R.layout.activity_guide_account_book_name_page);
 
         findView();
-
+        init();
         setListener();
     }
 
     @Override
     public void init() {
-
+        accountBookNameEditText.setText(GlobalInfo.guideInfo.getUsername()+"的账本");
     }
 
     @Override
@@ -91,6 +91,9 @@ public class GuideAccountBookNamePageActivity extends BasicActivity {
                 String username = guideInfo.getUsername();
                 // 密码
                 String password = guideInfo.getPassword();
+                // 密保
+                String passwordQuestion = guideInfo.getPasswordQuestion();
+                String passwordAnswer = guideInfo.getPasswordAnswer();
                 // 是否启用密码验证
                 String ifEnablePasswordCheck = guideInfo.getIfEnablePasswordCheck();
                 // 账本名
@@ -114,6 +117,8 @@ public class GuideAccountBookNamePageActivity extends BasicActivity {
                 SettingInfo settingInfo = SettingInfo.getDefultSettingInfo();
                 settingInfo.setUsername(username);
                 settingInfo.setPassword(password);
+                settingInfo.setPasswordQuestion(passwordQuestion);
+                settingInfo.setPasswordAnswer(passwordAnswer);
                 settingInfo.setIfEnablePasswordCheck(ifEnablePasswordCheck);
                 settingInfo.setCurrentAccountBookBid(accountBook.getBid());
                 SettingInfoMapper settingInfoMapper = new SettingInfoMapper(songGuoDatabaseHelper);

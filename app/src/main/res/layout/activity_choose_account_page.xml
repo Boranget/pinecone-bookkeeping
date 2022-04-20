@@ -54,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#ffededed"
-            tools:listitem="@layout/item_show_chosen_account_list"/>
+            tools:listitem="@layout/item_choose_account_list"/>
     </LinearLayout>
 
 </LinearLayout>
