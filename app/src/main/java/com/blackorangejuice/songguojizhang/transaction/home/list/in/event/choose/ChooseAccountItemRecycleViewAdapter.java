@@ -118,9 +118,10 @@ public class ChooseAccountItemRecycleViewAdapter extends RecyclerView.Adapter<Ch
             if (eid == GlobalInfo.lastAddEvent.getEid()) {
                 holder.checkBox.setChecked(true);
             } else {
-                // 否则隐藏多选框
-                holder.checkBox.setVisibility(View.INVISIBLE);
-//                holder.checkBox.setText("测试");
+                // 否则隐藏
+                holder.checkBox.setEnabled(false);
+                holder.itemView.setClickable(false);
+                holder.itemView.setVisibility(View.INVISIBLE);
             }
 
         }
