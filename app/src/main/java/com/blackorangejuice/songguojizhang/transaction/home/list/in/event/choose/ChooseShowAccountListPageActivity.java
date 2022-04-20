@@ -244,4 +244,5 @@ public class ChooseShowAccountListPageActivity extends BasicActivity {
         });
     }
 
+
 }

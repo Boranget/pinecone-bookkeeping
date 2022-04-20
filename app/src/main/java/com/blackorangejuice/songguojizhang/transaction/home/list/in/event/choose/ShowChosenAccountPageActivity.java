@@ -18,6 +18,7 @@ import com.blackorangejuice.songguojizhang.utils.basic.BasicActivity;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 public class ShowChosenAccountPageActivity extends BasicActivity {
@@ -56,6 +57,11 @@ public class ShowChosenAccountPageActivity extends BasicActivity {
         accountItemMapper = new AccountItemMapper(songGuoDatabaseHelper);
         accountItems = new ArrayList<>();
         accountItems.addAll(accountItemMapper.selectByEvent(GlobalInfo.lastAddEvent));
+        // 如果用户新增了绑定，则添加
+        if(GlobalInfo.lastAddEvent.getWillAccountItemList()!=null){
+            accountItems.clear();
+            accountItems.addAll(GlobalInfo.lastAddEvent.getWillAccountItemList());
+        }
         // 组合tag
         TagMapper tagMapper = new TagMapper(songGuoDatabaseHelper);
         for(AccountItem accountItem:accountItems){

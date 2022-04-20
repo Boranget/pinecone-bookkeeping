@@ -13,8 +13,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blackorangejuice.songguojizhang.R;
+import com.blackorangejuice.songguojizhang.bean.AccountItem;
 import com.blackorangejuice.songguojizhang.bean.EventItem;
 import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
+import com.blackorangejuice.songguojizhang.db.mapper.AccountItemMapper;
 import com.blackorangejuice.songguojizhang.db.mapper.EventItemMapper;
 import com.blackorangejuice.songguojizhang.transaction.home.list.in.event.choose.ShowChosenAccountPageActivity;
 import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
@@ -24,6 +26,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class UpdateEditEventPageActivity extends EditEventActivity {
 
@@ -132,8 +135,18 @@ public class UpdateEditEventPageActivity extends EditEventActivity {
             public void onClick(View v) {
                 getEventInfoToAccountItem();
                 EventItemMapper eventItemMapper = new EventItemMapper(songGuoDatabaseHelper);
+                // 暂存账单列表
+                List<AccountItem> willAccountItemList = GlobalInfo.lastAddEvent.getWillAccountItemList();
                 // 返回带id的对象
                 eventItem = eventItemMapper.updateEventItem(UpdateEditEventPageActivity.this.eventItem);
+                // 绑定所有账单
+                if(willAccountItemList != null){
+                    for(AccountItem a : willAccountItemList){
+                        AccountItemMapper accountItemMapper = new AccountItemMapper(SongGuoDatabaseHelper.getSongGuoDatabaseHelper(UpdateEditEventPageActivity.this));
+                        a.setEid(eventItem.getEid());
+                        accountItemMapper.updateAccountItem(a);
+                    }
+                }
                 SongGuoUtils.showOneToast("修改成功");
                 UpdateEditEventPageActivity.this.finish();
             }

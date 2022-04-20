@@ -17,6 +17,16 @@ public class EventItem {
     private Integer bid;
     // 对应账本
     private AccountBook accountBook;
+    // 要添加的账单
+    private List<AccountItem> willAccountItemList;
+
+    public List<AccountItem> getWillAccountItemList() {
+        return willAccountItemList;
+    }
+
+    public void setWillAccountItemList(List<AccountItem> willAccountItemList) {
+        this.willAccountItemList = willAccountItemList;
+    }
 
     public Integer getEid() {
         return eid;

@@ -19,10 +19,12 @@ import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChooseAccountItemRecycleViewAdapter extends RecyclerView.Adapter<ChooseAccountItemRecycleViewAdapter.AccountItemViewHolder> {
     private List<AccountItem> accountItems;
+    List<AccountItem> willAccountItemList ;
 
     static class AccountItemViewHolder extends RecyclerView.ViewHolder {
         View accountItemView;
@@ -71,15 +73,19 @@ public class ChooseAccountItemRecycleViewAdapter extends RecyclerView.Adapter<Ch
                 AccountItemMapper accountItemMapper = new AccountItemMapper(SongGuoDatabaseHelper.getSongGuoDatabaseHelper(accountItemViewHolder.itemView.getContext()));
                 int adapterPosition = accountItemViewHolder.getAdapterPosition();
                 AccountItem accountItem = accountItems.get(adapterPosition);
+                if(willAccountItemList == null){
+                    willAccountItemList = new ArrayList<>();
+                    GlobalInfo.lastAddEvent.setWillAccountItemList(willAccountItemList);
+                }
                 if (isChecked) {
-                    // 当前账单的eid设为当前事件的id
-
-                    accountItem.setEid(GlobalInfo.lastAddEvent.getEid());
-                    accountItemMapper.updateAccountItem(accountItem);
+                    // 将当前账单添加到当前事件的list中
+                    // 这里使用list主要是因为在新建的时候事件还没有id，无法绑定，所以暂存
+                    willAccountItemList.add(accountItem);
                 } else {
-                    // eid 设为0
+                    // 移除
+                    willAccountItemList.remove(accountItem);
+                    // 同时eid设为0
                     accountItem.setEid(0);
-                    accountItemMapper.updateAccountItem(accountItem);
                 }
             }
         });
