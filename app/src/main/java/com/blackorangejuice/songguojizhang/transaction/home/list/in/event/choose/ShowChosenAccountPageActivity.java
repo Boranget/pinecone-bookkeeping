@@ -17,6 +17,7 @@ import com.blackorangejuice.songguojizhang.db.mapper.TagMapper;
 import com.blackorangejuice.songguojizhang.utils.basic.BasicActivity;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShowChosenAccountPageActivity extends BasicActivity {
@@ -25,6 +26,9 @@ public class ShowChosenAccountPageActivity extends BasicActivity {
     TextView addTextView;
 
     SongGuoDatabaseHelper songGuoDatabaseHelper;
+    ShowChosenAccountItemRecycleViewAdapter showChosenAccountItemRecycleViewAdapter;
+    List<AccountItem> accountItems;
+    AccountItemMapper accountItemMapper;
 
     public static void startThisActivity(Context context){
         Intent intent = new Intent(context,ShowChosenAccountPageActivity.class);
@@ -49,14 +53,15 @@ public class ShowChosenAccountPageActivity extends BasicActivity {
     @Override
     public void init() {
         songGuoDatabaseHelper = SongGuoDatabaseHelper.getSongGuoDatabaseHelper(ShowChosenAccountPageActivity.this);
-        AccountItemMapper accountItemMapper = new AccountItemMapper(songGuoDatabaseHelper);
-        List<AccountItem> accountItems = accountItemMapper.selectByEvent(GlobalInfo.lastAddEvent);
+        accountItemMapper = new AccountItemMapper(songGuoDatabaseHelper);
+        accountItems = new ArrayList<>();
+        accountItems.addAll(accountItemMapper.selectByEvent(GlobalInfo.lastAddEvent));
         // 组合tag
         TagMapper tagMapper = new TagMapper(songGuoDatabaseHelper);
         for(AccountItem accountItem:accountItems){
             accountItem.setTag(tagMapper.selectByTid(accountItem.getTid()));
         }
-        ShowChosenAccountItemRecycleViewAdapter showChosenAccountItemRecycleViewAdapter = new ShowChosenAccountItemRecycleViewAdapter(ShowChosenAccountPageActivity.this,accountItems);
+        showChosenAccountItemRecycleViewAdapter = new ShowChosenAccountItemRecycleViewAdapter(ShowChosenAccountPageActivity.this,accountItems);
         chosenAccountRecyclerView.setAdapter(showChosenAccountItemRecycleViewAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(ShowChosenAccountPageActivity.this);
         chosenAccountRecyclerView.setLayoutManager(layoutManager);
@@ -83,5 +88,15 @@ public class ShowChosenAccountPageActivity extends BasicActivity {
                 ChooseShowAccountListPageActivity.startThisActivity(ShowChosenAccountPageActivity.this);
             }
         });
+    }
+    public void refreshAccountList() {
+        accountItems.clear();
+        accountItems.addAll(accountItemMapper.selectByEvent(GlobalInfo.lastAddEvent));
+        // 组合tag
+        TagMapper tagMapper = new TagMapper(songGuoDatabaseHelper);
+        for(AccountItem accountItem:accountItems){
+            accountItem.setTag(tagMapper.selectByTid(accountItem.getTid()));
+        }
+        showChosenAccountItemRecycleViewAdapter.notifyDataSetChanged();
     }
 }

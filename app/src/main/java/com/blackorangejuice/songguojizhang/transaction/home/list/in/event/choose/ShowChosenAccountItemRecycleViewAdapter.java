@@ -1,5 +1,7 @@
 package com.blackorangejuice.songguojizhang.transaction.home.list.in.event.choose;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.blackorangejuice.songguojizhang.R;
 import com.blackorangejuice.songguojizhang.bean.AccountItem;
+import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
+import com.blackorangejuice.songguojizhang.db.mapper.AccountBookMapper;
+import com.blackorangejuice.songguojizhang.db.mapper.AccountItemMapper;
+import com.blackorangejuice.songguojizhang.db.mapper.EventItemMapper;
 import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
 
 import java.text.SimpleDateFormat;
@@ -52,7 +58,30 @@ public class ShowChosenAccountItemRecycleViewAdapter extends RecyclerView.Adapte
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_account_list, parent, false);
         AccountItemViewHolder accountItemViewHolder = new AccountItemViewHolder(view);
+        accountItemViewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(showChosenAccountPageActivity);
+                builder.setTitle("你确定要解除与该账单的绑定吗");
+                builder.setCancelable(true);
+                builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // 取消绑定该账单
+                        AccountItem accountItem = accountItems.get(accountItemViewHolder.getAdapterPosition());
+                        accountItem.setEid(0);
+                        AccountItemMapper accountItemMapper
+                                = new AccountItemMapper(SongGuoDatabaseHelper.getSongGuoDatabaseHelper(showChosenAccountPageActivity));
+                        accountItemMapper.updateAccountItem(accountItem);
+                        showChosenAccountPageActivity.refreshAccountList();
 
+                    }
+                });
+                builder.setNegativeButton("取消", null);
+                builder.show();
+                return true;
+            }
+        });
         return accountItemViewHolder;
     }
 
