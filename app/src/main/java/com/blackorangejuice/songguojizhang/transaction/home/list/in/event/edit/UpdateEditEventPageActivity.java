@@ -136,7 +136,7 @@ public class UpdateEditEventPageActivity extends EditEventActivity {
                 getEventInfoToAccountItem();
                 EventItemMapper eventItemMapper = new EventItemMapper(songGuoDatabaseHelper);
                 // 暂存账单列表
-                List<AccountItem> willAccountItemList = GlobalInfo.lastAddEvent.getWillAccountItemList();
+                List<AccountItem> willAccountItemList = GlobalInfo.lastAddEvent.getWillAddAccountItemList();
                 // 返回带id的对象
                 eventItem = eventItemMapper.updateEventItem(UpdateEditEventPageActivity.this.eventItem);
                 // 绑定所有账单
@@ -144,6 +144,16 @@ public class UpdateEditEventPageActivity extends EditEventActivity {
                     for(AccountItem a : willAccountItemList){
                         AccountItemMapper accountItemMapper = new AccountItemMapper(SongGuoDatabaseHelper.getSongGuoDatabaseHelper(UpdateEditEventPageActivity.this));
                         a.setEid(eventItem.getEid());
+                        accountItemMapper.updateAccountItem(a);
+                    }
+                }
+                // 暂存解绑账单列表
+                List<AccountItem> willRemoveAccountItemList = GlobalInfo.lastAddEvent.getWillRemoveAccountItemList();
+                // 解绑取消绑定的账单
+                if(willRemoveAccountItemList != null){
+                    for(AccountItem a : willRemoveAccountItemList){
+                        AccountItemMapper accountItemMapper = new AccountItemMapper(SongGuoDatabaseHelper.getSongGuoDatabaseHelper(UpdateEditEventPageActivity.this));
+                        a.setEid(0);
                         accountItemMapper.updateAccountItem(a);
                     }
                 }

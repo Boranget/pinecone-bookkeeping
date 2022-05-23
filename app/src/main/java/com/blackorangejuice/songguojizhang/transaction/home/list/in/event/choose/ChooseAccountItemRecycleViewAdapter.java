@@ -24,7 +24,8 @@ import java.util.List;
 
 public class ChooseAccountItemRecycleViewAdapter extends RecyclerView.Adapter<ChooseAccountItemRecycleViewAdapter.AccountItemViewHolder> {
     private List<AccountItem> accountItems;
-    List<AccountItem> willAccountItemList ;
+    List<AccountItem> willAddAccountItemList;
+    List<AccountItem> willRemoveAccountItemList ;
 
     static class AccountItemViewHolder extends RecyclerView.ViewHolder {
         View accountItemView;
@@ -73,19 +74,24 @@ public class ChooseAccountItemRecycleViewAdapter extends RecyclerView.Adapter<Ch
                 AccountItemMapper accountItemMapper = new AccountItemMapper(SongGuoDatabaseHelper.getSongGuoDatabaseHelper(accountItemViewHolder.itemView.getContext()));
                 int adapterPosition = accountItemViewHolder.getAdapterPosition();
                 AccountItem accountItem = accountItems.get(adapterPosition);
-                if(willAccountItemList == null){
-                    willAccountItemList = new ArrayList<>();
-                    GlobalInfo.lastAddEvent.setWillAccountItemList(willAccountItemList);
+                // 如果没有这个列表就新建一个
+                if(willAddAccountItemList == null){
+                    willAddAccountItemList = new ArrayList<>();
+                    GlobalInfo.lastAddEvent.setWillAddAccountItemList(willAddAccountItemList);
                 }
                 if (isChecked) {
                     // 将当前账单添加到当前事件的list中
                     // 这里使用list主要是因为在新建的时候事件还没有id，无法绑定，所以暂存
-                    willAccountItemList.add(accountItem);
+                    willAddAccountItemList.add(accountItem);
                 } else {
                     // 移除
-                    willAccountItemList.remove(accountItem);
-                    // 同时eid设为0
-                    accountItem.setEid(0);
+                    willAddAccountItemList.remove(accountItem);
+                    if(willRemoveAccountItemList == null){
+                        willRemoveAccountItemList = new ArrayList<>();
+                        GlobalInfo.lastAddEvent.setWillRemoveAccountItemList(willRemoveAccountItemList);
+                    }
+                    // 暂存到列表，保存后同意置为0
+                    willRemoveAccountItemList.add(accountItem);
                 }
             }
         });

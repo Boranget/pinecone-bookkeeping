@@ -18,13 +18,16 @@ import com.blackorangejuice.songguojizhang.db.mapper.AccountBookMapper;
 import com.blackorangejuice.songguojizhang.db.mapper.AccountItemMapper;
 import com.blackorangejuice.songguojizhang.db.mapper.EventItemMapper;
 import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
+import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShowChosenAccountItemRecycleViewAdapter extends RecyclerView.Adapter<ShowChosenAccountItemRecycleViewAdapter.AccountItemViewHolder> {
     private List<AccountItem> accountItems;
     ShowChosenAccountPageActivity showChosenAccountPageActivity;
+    List<AccountItem> willRemoveAccountItemList ;
 
     static class AccountItemViewHolder extends RecyclerView.ViewHolder {
         View accountItemView;
@@ -67,13 +70,18 @@ public class ShowChosenAccountItemRecycleViewAdapter extends RecyclerView.Adapte
                 builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // 取消绑定该账单
+                        // 暂存到列表
                         AccountItem accountItem = accountItems.get(accountItemViewHolder.getAdapterPosition());
-                        accountItem.setEid(0);
-                        AccountItemMapper accountItemMapper
-                                = new AccountItemMapper(SongGuoDatabaseHelper.getSongGuoDatabaseHelper(showChosenAccountPageActivity));
-                        accountItemMapper.updateAccountItem(accountItem);
-                        showChosenAccountPageActivity.refreshAccountList();
+                        if(willRemoveAccountItemList == null){
+                            willRemoveAccountItemList = new ArrayList<>();
+                            GlobalInfo.lastAddEvent.setWillRemoveAccountItemList(willRemoveAccountItemList);
+                        }
+                        // 暂存到列表，保存后同意置为0
+                        willRemoveAccountItemList.add(accountItem);
+                        GlobalInfo.lastAddEvent.getWillAddAccountItemList().remove(accountItem);
+//                        showChosenAccountPageActivity.refreshAccountList();
+                        showChosenAccountPageActivity.dbrefreshAccountList();
+
 
                     }
                 });

@@ -18,7 +18,6 @@ import com.blackorangejuice.songguojizhang.utils.basic.BasicActivity;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
 
 public class ShowChosenAccountPageActivity extends BasicActivity {
@@ -30,6 +29,7 @@ public class ShowChosenAccountPageActivity extends BasicActivity {
     ShowChosenAccountItemRecycleViewAdapter showChosenAccountItemRecycleViewAdapter;
     List<AccountItem> accountItems;
     AccountItemMapper accountItemMapper;
+
 
     public static void startThisActivity(Context context){
         Intent intent = new Intent(context,ShowChosenAccountPageActivity.class);
@@ -48,7 +48,8 @@ public class ShowChosenAccountPageActivity extends BasicActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        init();
+
+        reinit();
     }
 
     @Override
@@ -57,10 +58,30 @@ public class ShowChosenAccountPageActivity extends BasicActivity {
         accountItemMapper = new AccountItemMapper(songGuoDatabaseHelper);
         accountItems = new ArrayList<>();
         accountItems.addAll(accountItemMapper.selectByEvent(GlobalInfo.lastAddEvent));
+
+        GlobalInfo.lastAddEvent.getWillAddAccountItemList().addAll(accountItems);
+
+        // 组合tag
+        TagMapper tagMapper = new TagMapper(songGuoDatabaseHelper);
+        for(AccountItem accountItem:accountItems){
+            accountItem.setTag(tagMapper.selectByTid(accountItem.getTid()));
+        }
+        showChosenAccountItemRecycleViewAdapter = new ShowChosenAccountItemRecycleViewAdapter(ShowChosenAccountPageActivity.this,accountItems);
+        chosenAccountRecyclerView.setAdapter(showChosenAccountItemRecycleViewAdapter);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(ShowChosenAccountPageActivity.this);
+        chosenAccountRecyclerView.setLayoutManager(layoutManager);
+
+    }
+    public void reinit() {
+        songGuoDatabaseHelper = SongGuoDatabaseHelper.getSongGuoDatabaseHelper(ShowChosenAccountPageActivity.this);
+        accountItemMapper = new AccountItemMapper(songGuoDatabaseHelper);
+        accountItems = new ArrayList<>();
+        accountItems.addAll(accountItemMapper.selectByEvent(GlobalInfo.lastAddEvent));
+
         // 如果用户新增了绑定，则添加
-        if(GlobalInfo.lastAddEvent.getWillAccountItemList()!=null){
+        if(GlobalInfo.lastAddEvent.getWillAddAccountItemList()!=null){
             accountItems.clear();
-            accountItems.addAll(GlobalInfo.lastAddEvent.getWillAccountItemList());
+            accountItems.addAll(GlobalInfo.lastAddEvent.getWillAddAccountItemList());
         }
         // 组合tag
         TagMapper tagMapper = new TagMapper(songGuoDatabaseHelper);
@@ -71,8 +92,8 @@ public class ShowChosenAccountPageActivity extends BasicActivity {
         chosenAccountRecyclerView.setAdapter(showChosenAccountItemRecycleViewAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(ShowChosenAccountPageActivity.this);
         chosenAccountRecyclerView.setLayoutManager(layoutManager);
-    }
 
+    }
     @Override
     public void findView() {
         chosenAccountRecyclerView = findViewById(R.id.activity_show_chosen_account_page_show_event_list_recycle_view);
@@ -95,6 +116,7 @@ public class ShowChosenAccountPageActivity extends BasicActivity {
             }
         });
     }
+    
     public void refreshAccountList() {
         accountItems.clear();
         accountItems.addAll(accountItemMapper.selectByEvent(GlobalInfo.lastAddEvent));
@@ -103,6 +125,12 @@ public class ShowChosenAccountPageActivity extends BasicActivity {
         for(AccountItem accountItem:accountItems){
             accountItem.setTag(tagMapper.selectByTid(accountItem.getTid()));
         }
+        showChosenAccountItemRecycleViewAdapter.notifyDataSetChanged();
+    }
+
+    public void dbrefreshAccountList() {
+        accountItems.clear();
+        accountItems.addAll(GlobalInfo.lastAddEvent.getWillAddAccountItemList());
         showChosenAccountItemRecycleViewAdapter.notifyDataSetChanged();
     }
 }

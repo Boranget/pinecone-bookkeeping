@@ -1,6 +1,6 @@
 package com.blackorangejuice.songguojizhang.bean;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EventItem {
@@ -18,14 +18,24 @@ public class EventItem {
     // 对应账本
     private AccountBook accountBook;
     // 要添加的账单
-    private List<AccountItem> willAccountItemList;
+    private List<AccountItem> willAddAccountItemList = new ArrayList<>();
+    // 要移除的账单
+    private List<AccountItem> willRemoveAccountItemList = new ArrayList<>();
 
-    public List<AccountItem> getWillAccountItemList() {
-        return willAccountItemList;
+    public List<AccountItem> getWillRemoveAccountItemList() {
+        return willRemoveAccountItemList;
     }
 
-    public void setWillAccountItemList(List<AccountItem> willAccountItemList) {
-        this.willAccountItemList = willAccountItemList;
+    public void setWillRemoveAccountItemList(List<AccountItem> willRemoveAccountItemList) {
+        this.willRemoveAccountItemList = willRemoveAccountItemList;
+    }
+
+    public List<AccountItem> getWillAddAccountItemList() {
+        return willAddAccountItemList;
+    }
+
+    public void setWillAddAccountItemList(List<AccountItem> willAddAccountItemList) {
+        this.willAddAccountItemList = willAddAccountItemList;
     }
 
     public Integer getEid() {

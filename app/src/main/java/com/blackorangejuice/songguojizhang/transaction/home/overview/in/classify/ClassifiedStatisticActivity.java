@@ -115,10 +115,6 @@ public class ClassifiedStatisticActivity extends BasicActivity {
         pieChart.setTransparentCircleRadius(0f);
         // 是否显示标签
         pieChart.setDrawEntryLabels(false);
-        // 设置圆环中心的文字
-
-
-
         // 数据
         // 饼图展示的数据集 使用数据库中查出的数据
         List<PieEntry> entries = accountItemMapper.selectClassifiedPie(incomeOrExpenditure);
