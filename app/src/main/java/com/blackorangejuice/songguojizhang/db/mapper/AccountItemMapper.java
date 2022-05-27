@@ -59,7 +59,7 @@ public class AccountItemMapper {
     public static final String SELECT_BY_EID = "select * from t_account_item where eid = ?";
     public static final String SELECT_BY_KEY_WORD = "select * from t_account_item where  bid = ? and sum like ? or remark like ? ";
     public static final String SELECT_BY_TIME = "select * from t_account_item where bid = ? and account_time between ? and ? ";
-    public static final String SELECT_CLASSIFIED_PIE = "select tag_name, SUM(sum) sum_pie from t_account_item left outer join t_tag on t_tag.tid = t_account_item.tid where income_or_expenditure = ? and bid = ? group by tag_name ;";
+    public static final String SELECT_CLASSIFIED_PIE = "select tag_name, SUM(sum) sum_pie from t_account_item left outer join t_tag on t_tag.tid = t_account_item.tid where income_or_expenditure = ? and  account_time between ? and ? and bid = ?  group by tag_name ;";
     public static final String EXPORT_TO_EXCEL = "select * from t_account_item where bid = ?";
     SongGuoDatabaseHelper songGuoDatabaseHelper;
     SQLiteDatabase sqLiteDatabase;
@@ -423,8 +423,10 @@ public class AccountItemMapper {
     public List<SearchItem> selectByTime(Date d0, Date d1) {
 
         Long date0 = d0.getTime();
-        // 这里为啥要加一来着，忘了
-        Long date1 = d1.getTime() + 1;
+        Long date1 = d1.getTime();
+//        // 这里为啥要加一来着，忘了
+//        Long date1 = d1.getTime() + 1;
+
         Cursor cursor = sqLiteDatabase.rawQuery(SELECT_BY_TIME, new String[]{
                 String.valueOf(GlobalInfo.currentAccountBook.getBid()),
                 String.valueOf(date0), String.valueOf(date1)
@@ -475,14 +477,16 @@ public class AccountItemMapper {
     /**
      * 分类生生饼图所需数据
      * 注意where 和 having的区别
+     * 新增按时间查找
      * @param incomeOrExpenditure
      * @return
      */
-    public List<PieEntry> selectClassifiedPie(String incomeOrExpenditure) {
-
+    public List<PieEntry> selectClassifiedPie(String incomeOrExpenditure, Date d0, Date d1) {
+        Long date0 = d0.getTime();
+        Long date1 = d1.getTime();
 
         Cursor cursor = sqLiteDatabase.rawQuery(SELECT_CLASSIFIED_PIE, new String[]{
-                incomeOrExpenditure, String.valueOf(GlobalInfo.currentAccountBook.getBid()),
+                incomeOrExpenditure, String.valueOf(date0), String.valueOf(date1), String.valueOf(GlobalInfo.currentAccountBook.getBid()),
         });
         // 饼图展示的数据集
         List<PieEntry> entries = new ArrayList<>();
@@ -540,7 +544,7 @@ public class AccountItemMapper {
                 exportItem.setTime(new SimpleDateFormat("yyyy年MM月dd日HH时mm分ss秒").format(new Date(accountTime)));
                 EventItemMapper eventItemMapper = new EventItemMapper(songGuoDatabaseHelper);
                 EventItem eventItem = null;
-                if((eventItem = eventItemMapper.selectByEid(eid)) != null){
+                if ((eventItem = eventItemMapper.selectByEid(eid)) != null) {
                     exportItem.setEventItemTitle(eventItem.getEventTitle());
                 }
                 exportItems.add(exportItem);

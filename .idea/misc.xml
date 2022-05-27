@@ -17,7 +17,7 @@
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_check_password.xml" value="0.128" />
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_choose_account_page.xml" value="0.18055555555555555" />
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_choose_event_page.xml" value="0.22237442922374429" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_classified_statistic_page.xml" value="0.1" />
+        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_classified_statistic_page.xml" value="0.264" />
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_exports.xml" value="0.12037037037037036" />
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_guide_account_book_name_page.xml" value="0.25364583333333335" />
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_guide_enable_password_check_page.xml" value="0.176" />
@@ -37,6 +37,7 @@
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_search_by_time_page.xml" value="0.1398148148148148" />
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_search_page.xml" value="0.2" />
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_searchs.xml" value="0.1398148148148148" />
+        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_setting_budget.xml" value="0.264" />
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_setting_surplus.xml" value="0.2187214611872146" />
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_show_chosen_account_page.xml" value="0.1648148148148148" />
         <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_show_chosen_event_page.xml" value="0.14074074074074075" />

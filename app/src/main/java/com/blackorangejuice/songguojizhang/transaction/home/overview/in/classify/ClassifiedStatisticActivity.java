@@ -1,15 +1,18 @@
 package com.blackorangejuice.songguojizhang.transaction.home.overview.in.classify;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.blackorangejuice.songguojizhang.R;
 import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
 import com.blackorangejuice.songguojizhang.db.mapper.AccountItemMapper;
+import com.blackorangejuice.songguojizhang.transaction.home.list.in.account.edit.AddEditAccountPageActivity;
 import com.blackorangejuice.songguojizhang.utils.basic.BasicActivity;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalConstant;
 import com.github.mikephil.charting.charts.PieChart;
@@ -19,6 +22,10 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class ClassifiedStatisticActivity extends BasicActivity {
@@ -28,6 +35,11 @@ public class ClassifiedStatisticActivity extends BasicActivity {
     SongGuoDatabaseHelper songGuoDatabaseHelper;
     AccountItemMapper accountItemMapper;
     TextView backTextView;
+    TextView fromTimeTextView;
+    TextView toTimeTextView;
+    SimpleDateFormat simpleDateFormat;
+    Date date0;
+    Date date1;
 
     public static void startThisActivity(Context context) {
         Intent intent = new Intent(context, ClassifiedStatisticActivity.class);
@@ -47,9 +59,13 @@ public class ClassifiedStatisticActivity extends BasicActivity {
     public void init() {
         songGuoDatabaseHelper = SongGuoDatabaseHelper.getSongGuoDatabaseHelper(this);
         accountItemMapper = new AccountItemMapper(songGuoDatabaseHelper);
-        initPieChart(GlobalConstant.INCOME);
-        initPieChart(GlobalConstant.EXPENDITURE);
-
+        simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        // 初始化的时候查找全部
+        date0 = new Date(0);
+        date1 = new Date();
+        fromTimeTextView.setText(simpleDateFormat.format(date0));
+        toTimeTextView.setText(simpleDateFormat.format(date1));
+        drowChart();
     }
 
     @Override
@@ -57,8 +73,17 @@ public class ClassifiedStatisticActivity extends BasicActivity {
         backTextView = findViewById(R.id.activity_classified_statistic_page_back_textview);
         pieChartIncome = findViewById(R.id.activity_classified_statistic_page_pie_chart_income);
         pieChartExpenditure = findViewById(R.id.activity_classified_statistic_page_pie_chart_expenditure);
+        fromTimeTextView = findViewById(R.id.activity_classified_statistic_page_from_time);
+        toTimeTextView = findViewById(R.id.activity_classified_statistic_page_to_time);
     }
 
+    /**
+     * 绘制图表
+     */
+    public void drowChart(){
+        initPieChartByTime(GlobalConstant.INCOME);
+        initPieChartByTime(GlobalConstant.EXPENDITURE);
+    }
     @Override
     public void setListener() {
         backTextView.setOnClickListener(new View.OnClickListener() {
@@ -67,9 +92,72 @@ public class ClassifiedStatisticActivity extends BasicActivity {
                 ClassifiedStatisticActivity.this.finish();
             }
         });
+        fromTimeTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar cale1 = Calendar.getInstance();
+
+                new DatePickerDialog(ClassifiedStatisticActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                          int dayOfMonth) {
+
+//                        Toast.makeText(getApplicationContext(), "你选择的是 " + year + "年" + (monthOfYear + 1) + "月" + dayOfMonth + "日", Toast.LENGTH_SHORT).show();
+                        String dataS = year + "/" + (monthOfYear + 1) + "/" + dayOfMonth;
+                        Date theDateAfterParse = new Date();
+                        try {
+                            theDateAfterParse = simpleDateFormat.parse(dataS);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        fromTimeTextView.setText(simpleDateFormat.format(theDateAfterParse));
+                        // 账目设置时间
+                        date0 = theDateAfterParse;
+                        // 重新绘制图表
+                        drowChart();
+                    }
+                }
+                        , cale1.get(Calendar.YEAR)
+                        , cale1.get(Calendar.MONTH)
+                        , cale1.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+        toTimeTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar cale1 = Calendar.getInstance();
+
+                new DatePickerDialog(ClassifiedStatisticActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                          int dayOfMonth) {
+
+//                        Toast.makeText(getApplicationContext(), "你选择的是 " + year + "年" + (monthOfYear + 1) + "月" + dayOfMonth + "日", Toast.LENGTH_SHORT).show();
+                        String dataS = year + "/" + (monthOfYear + 1) + "/" + dayOfMonth;
+                        Date theDateAfterParse = new Date();
+                        try {
+                            theDateAfterParse = simpleDateFormat.parse(dataS);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        toTimeTextView.setText(simpleDateFormat.format(theDateAfterParse));
+                        // 账目设置时间
+                        date1 = theDateAfterParse;
+                        drowChart();
+                    }
+                }
+                        , cale1.get(Calendar.YEAR)
+                        , cale1.get(Calendar.MONTH)
+                        , cale1.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
     }
 
-    public void initPieChart(String incomeOrExpenditure){
+    public void initPieChartByTime(String incomeOrExpenditure){
+        List<PieEntry> pieEntries = accountItemMapper.selectClassifiedPie(incomeOrExpenditure, date0, date1);
+        initPieChart(incomeOrExpenditure,pieEntries);
+    }
+    public void initPieChart(String incomeOrExpenditure,List<PieEntry> entries){
         // 外观
         // 使用的颜色
         final int[] PIE_COLORS = {
@@ -117,7 +205,7 @@ public class ClassifiedStatisticActivity extends BasicActivity {
         pieChart.setDrawEntryLabels(false);
         // 数据
         // 饼图展示的数据集 使用数据库中查出的数据
-        List<PieEntry> entries = accountItemMapper.selectClassifiedPie(incomeOrExpenditure);
+
         // 将数据集设置到饼图数据源
         PieDataSet pieDataSet = new PieDataSet(entries, "");
         pieDataSet.setSliceSpace(3f);//设置饼块之间的间隔

@@ -52,6 +52,12 @@ public class ChooseAccountItemRecycleViewAdapter extends RecyclerView.Adapter<Ch
 
     public ChooseAccountItemRecycleViewAdapter(ChooseBlockRecycleViewAdapter blockAdapter, int postation, ChooseShowAccountListPageActivity fragment, List<AccountItem> accountItems) {
         this.accountItems = accountItems;
+        //获取全局列表
+        willAddAccountItemList = GlobalInfo.lastAddEvent.getWillAddAccountItemList();
+
+
+        willRemoveAccountItemList = GlobalInfo.lastAddEvent.getWillRemoveAccountItemList();
+        willRemoveAccountItemList.clear();
     }
 
     @NonNull
@@ -74,23 +80,14 @@ public class ChooseAccountItemRecycleViewAdapter extends RecyclerView.Adapter<Ch
                 AccountItemMapper accountItemMapper = new AccountItemMapper(SongGuoDatabaseHelper.getSongGuoDatabaseHelper(accountItemViewHolder.itemView.getContext()));
                 int adapterPosition = accountItemViewHolder.getAdapterPosition();
                 AccountItem accountItem = accountItems.get(adapterPosition);
-                // 如果没有这个列表就新建一个
-                if(willAddAccountItemList == null){
-                    willAddAccountItemList = new ArrayList<>();
-                    GlobalInfo.lastAddEvent.setWillAddAccountItemList(willAddAccountItemList);
-                }
                 if (isChecked) {
                     // 将当前账单添加到当前事件的list中
                     // 这里使用list主要是因为在新建的时候事件还没有id，无法绑定，所以暂存
-                    willAddAccountItemList.add(accountItem);
+                    ChooseAccountItemRecycleViewAdapter.this.willAddAccountItemList.add(accountItem);
                 } else {
                     // 移除
-                    willAddAccountItemList.remove(accountItem);
-                    if(willRemoveAccountItemList == null){
-                        willRemoveAccountItemList = new ArrayList<>();
-                        GlobalInfo.lastAddEvent.setWillRemoveAccountItemList(willRemoveAccountItemList);
-                    }
-                    // 暂存到列表，保存后同意置为0
+                    ChooseAccountItemRecycleViewAdapter.this.willAddAccountItemList.remove(accountItem);
+                    // 暂存到列表，保存后统一置为0
                     willRemoveAccountItemList.add(accountItem);
                 }
             }

@@ -21,6 +21,7 @@ import com.blackorangejuice.songguojizhang.transaction.home.list.in.account.edit
 import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
 import com.blackorangejuice.songguojizhang.utils.basic.BasicActivity;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalConstant;
+import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -204,6 +205,8 @@ public class ChooseShowAccountListPageActivity extends BasicActivity {
         recyclerView.setAdapter(chooseBlockRecycleViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(ChooseShowAccountListPageActivity.this));
         SongGuoUtils.showOneToast("多选框不可见的账单已被别的事件绑定");
+        // 每次进入选择页面将所有即将加上的账单清空,会在后期根据checkbox添加
+        GlobalInfo.lastAddEvent.getWillAddAccountItemList().clear();
     }
 
     @Override
