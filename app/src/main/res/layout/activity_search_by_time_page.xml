@@ -55,7 +55,8 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginBottom="20dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
 
             <TextView
@@ -70,7 +71,33 @@
 
 
         </LinearLayout>
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:text="2011/12/3"
+                android:gravity="center"
+                android:id="@+id/activity_search_by_time_page_from_time"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"/>
+            <TextView
+                android:text="——"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+            <TextView
+                android:text="2011/12/3"
+                android:gravity="center"
+                android:id="@+id/activity_search_by_time_page_to_time"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"/>
+        </LinearLayout>
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

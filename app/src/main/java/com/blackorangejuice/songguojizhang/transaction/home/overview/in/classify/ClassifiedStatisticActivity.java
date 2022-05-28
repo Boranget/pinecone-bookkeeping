@@ -142,7 +142,7 @@ public class ClassifiedStatisticActivity extends BasicActivity {
                         }
                         toTimeTextView.setText(simpleDateFormat.format(theDateAfterParse));
                         // 账目设置时间
-                        date1 = theDateAfterParse;
+                        date1 = new Date(theDateAfterParse.getTime()+ (24 * 60 * 60 * 1000));
                         drowChart();
                     }
                 }
