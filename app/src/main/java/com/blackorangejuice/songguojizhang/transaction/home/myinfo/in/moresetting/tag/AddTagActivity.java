@@ -65,6 +65,7 @@ public class AddTagActivity extends BasicActivity {
         findView();
         init();
         setListener();
+
     }
 
     @Override
