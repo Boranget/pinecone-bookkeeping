@@ -92,6 +92,7 @@ public class ClassifiedStatisticActivity extends BasicActivity {
                 ClassifiedStatisticActivity.this.finish();
             }
         });
+        // 日期范围选择-从
         fromTimeTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,6 +123,7 @@ public class ClassifiedStatisticActivity extends BasicActivity {
                         , cale1.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
+        // 日期范围选择-到
         toTimeTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -153,10 +155,21 @@ public class ClassifiedStatisticActivity extends BasicActivity {
         });
     }
 
+    /**
+     * 按照时间初始化饼图
+     * @param incomeOrExpenditure
+     */
     public void initPieChartByTime(String incomeOrExpenditure){
+        // 获取时间范围内的账单列表
         List<PieEntry> pieEntries = accountItemMapper.selectClassifiedPie(incomeOrExpenditure, date0, date1);
         initPieChart(incomeOrExpenditure,pieEntries);
     }
+
+    /**
+     * 初始化饼图
+     * @param incomeOrExpenditure
+     * @param entries
+     */
     public void initPieChart(String incomeOrExpenditure,List<PieEntry> entries){
         // 外观
         // 使用的颜色

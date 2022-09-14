@@ -118,22 +118,9 @@ public class ShowAddListPageFragment extends BasicFragment {
         });
     }
 
-    //    /**
-//     * 获取当前设置的默认界面
-//     * @return
-//     */
-//    private Fragment getDefultFragment(){
-//        switch (defultSelectId){
-//            case OVER_PAGE_NUM:
-//                return new ShowOverviewPageFragment();
-//            case ADD_LIST_PAGE_NUM:
-//                return new ShowAddListPageFragment();
-//            case MY_INFO_PAGE_NUM:
-//                return new ShowMyInfoPageFragment();
-//            default:
-//                return new ShowOverviewPageFragment();
-//        }
-//    }
+    /**
+     * 根据当前全局信息中的当前添加页面来设置碎片中要展示的页面
+     */
     private void refreshCurrentPage() {
         switch (GlobalInfo.currentAddPage) {
             case GlobalConstant.ADD_PAGE_ACCOUNT:

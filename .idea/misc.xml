@@ -3,78 +3,55 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/drawable-v21/app_widget_background.xml" value="0.10833333333333334" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/drawable-v21/app_widget_inner_view_background.xml" value="0.10833333333333334" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2365296803652968" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/drawable/ic_launcher_background.xml" value="0.26564102564102565" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/drawable/list_click_color.xml" value="0.26564102564102565" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/drawable/rounded_corner.xml" value="0.15833333333333333" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/drawable/textview_click_color.xml" value="0.1699074074074074" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/account_item_in_the_recycle_view.xml" value="0.264" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_about_page.xml" value="0.22546296296296298" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_add_edit_account_page.xml" value="0.22546296296296298" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_add_edit_event_page.xml" value="0.2" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_check_password.xml" value="0.128" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_choose_account_page.xml" value="0.18055555555555555" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_choose_event_page.xml" value="0.22237442922374429" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_classified_statistic_page.xml" value="0.264" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_exports.xml" value="0.12037037037037036" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_guide_account_book_name_page.xml" value="0.25364583333333335" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_guide_enable_password_check_page.xml" value="0.176" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_guide_password.xml" value="0.2390625" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_guide_password_page.xml" value="0.25364583333333335" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_guide_repassword_page.xml" value="0.2390625" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_guide_start_page.xml" value="0.14947916666666666" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_guide_username_page.xml" value="0.2390625" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_home_page.xml" value="0.25364583333333335" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_import_log.xml" value="0.17962962962962964" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_imports.xml" value="0.2037037037037037" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_main.xml" value="0.25364583333333335" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_more_setting.xml" value="0.22546296296296298" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_password_question_and_answer.xml" value="0.12" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_search.xml" value="0.2" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_search_by_keyword_page.xml" value="0.1712962962962963" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_search_by_time_page.xml" value="0.264" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_search_page.xml" value="0.2" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_searchs.xml" value="0.1398148148148148" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_setting_budget.xml" value="0.264" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_setting_surplus.xml" value="0.2187214611872146" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_show_chosen_account_page.xml" value="0.1648148148148148" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_show_chosen_event_page.xml" value="0.14074074074074075" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_switch_account_book_page.xml" value="0.22546296296296298" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_update_edit_account_page.xml" value="0.23414634146341465" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_update_edit_event_page.xml" value="0.22546296296296298" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_update_password_page.xml" value="0.264" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/activity_update_username_page.xml" value="0.176" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/block_with_time_and_account_list_recycle_view_item.xml" value="0.22546296296296298" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/fragment_show_account_list.xml" value="0.22546296296296298" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/fragment_show_event_list.xml" value="0.22546296296296298" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/home_page.xml" value="0.1640625" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/item_account_list.xml" value="0.22546296296296298" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/item_choose_account_list.xml" value="0.176" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/item_event_list.xml" value="0.22546296296296298" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/item_event_list_choose.xml" value="0.22237442922374429" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/item_search_result.xml" value="0.264" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/item_show_chosen_account_list.xml" value="0.1648148148148148" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/item_switch_account_book.xml" value="0.22546296296296298" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/item_tag_grid.xml" value="0.13055555555555556" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/my_info_page.xml" value="0.264" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/my_navigation_items.xml" value="0.1296875" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/password_check_page.xml" value="0.12708333333333333" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/recycle_view_item.xml" value="0.22546296296296298" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/show_add_list_page.xml" value="0.1" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/show_overview_page.xml" value="0.264" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/song_guo_desktop_widget.xml" value="0.15833333333333333" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/tag_grid_item.xml" value="0.1439814814814815" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/testnavigation.xml" value="0.264" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/layout/welcome_page.xml" value="0.12708333333333333" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/menu/home_page_nav_menu.xml" value="0.25364583333333335" />
-        <entry key="..\:/DevTools/Androidstuido/AndroidStudioProjects/SongGuoJiZhang/app/src/main/res/menu/my_navigation_items.xml" value="0.23177083333333334" />
-        <entry key="..\:/DevTools/Androidstuido/sdk/platforms/android-30/data/res/drawable-watch/sym_def_app_icon.xml" value="0.2365296803652968" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/drawable-v21/app_widget_background.xml" value="0.216" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/drawable-v21/app_widget_inner_view_background.xml" value="0.216" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.216" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/drawable/ic_launcher_background.xml" value="0.216" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/drawable/rounded_corner.xml" value="0.1555" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/drawable/text_view_circle.xml" value="0.216" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/activity_about_page.xml" value="0.25364583333333335" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/activity_add_edit_account_page.xml" value="0.264" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/activity_add_edit_event_page.xml" value="0.20969202898550723" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/activity_check_password.xml" value="0.20969202898550723" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/activity_choose_account_page.xml" value="0.25364583333333335" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/activity_choose_event_page.xml" value="0.25364583333333335" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/activity_classified_statistic_page.xml" value="0.25364583333333335" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/activity_exports.xml" value="0.25364583333333335" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/activity_guide_account_book_name_page.xml" value="0.25364583333333335" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/activity_guide_enable_password_check_page.xml" value="0.25364583333333335" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/activity_guide_password_page.xml" value="0.125" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/activity_guide_start_page.xml" value="0.125" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/activity_imports.xml" value="0.125" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/activity_search_by_keyword_page.xml" value="0.125" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/activity_search_by_time_page.xml" value="0.125" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/activity_searchs.xml" value="0.125" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/activity_setting_budget.xml" value="0.125" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/activity_show_chosen_account_page.xml" value="0.125" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/activity_show_chosen_event_page.xml" value="0.125" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/activity_update_edit_account_page.xml" value="0.125" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/activity_update_password_page.xml" value="0.125" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/activity_update_username_page.xml" value="0.125" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/block_with_time_and_account_list_recycle_view_item.xml" value="0.125" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/fragment_show_account_list.xml" value="0.125" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/fragment_show_event_list.xml" value="0.125" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/home_page.xml" value="0.125" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/item_account_list.xml" value="0.125" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/item_choose_account_list.xml" value="0.25364583333333335" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/item_event_list.xml" value="0.25364583333333335" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/item_event_list_choose.xml" value="0.25364583333333335" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/item_search_result.xml" value="0.25364583333333335" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/item_show_chosen_account_list.xml" value="0.25364583333333335" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/item_switch_account_book.xml" value="0.25364583333333335" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/item_tag_grid.xml" value="0.25364583333333335" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/my_info_page.xml" value="0.25364583333333335" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/show_add_list_page.xml" value="0.125" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/show_overview_page.xml" value="0.25364583333333335" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/song_guo_desktop_widget.xml" value="0.25364583333333335" />
+        <entry key="..\:/my_file/projects/android_projects/song_guo/pinecone-bookkeeping-master/app/src/main/res/layout/welcome_page.xml" value="0.25364583333333335" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

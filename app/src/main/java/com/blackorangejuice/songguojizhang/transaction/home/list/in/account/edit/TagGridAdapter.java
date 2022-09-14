@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.blackorangejuice.songguojizhang.R;
 import com.blackorangejuice.songguojizhang.bean.Tag;
 import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
+import com.blackorangejuice.songguojizhang.utils.view.TextViewDrawable;
 
 import java.util.List;
 
@@ -27,13 +28,15 @@ public class TagGridAdapter extends RecyclerView.Adapter<TagGridAdapter.TagGridV
     static class TagGridViewHolder extends RecyclerView.ViewHolder {
 
         private View tagItem;
-        ImageView tagImageView;
+//        ImageView tagImageView;
+        TextView tagImageTextView;
         TextView tagTextView;
 
         public TagGridViewHolder(@NonNull View itemView) {
             super(itemView);
             tagItem = itemView;
-            tagImageView = itemView.findViewById(R.id.tag_grid_item_image_view);
+//            tagImageView = itemView.findViewById(R.id.tag_grid_item_image_view);
+            tagImageTextView = itemView.findViewById(R.id.tag_grid_item_image_text_view);
             tagTextView = itemView.findViewById(R.id.tag_grid_item_text_view);
         }
     }
@@ -68,9 +71,12 @@ public class TagGridAdapter extends RecyclerView.Adapter<TagGridAdapter.TagGridV
         // 绑定标签名
         holder.tagTextView.setText(tag.getTagName());
         // 绑定图片
-        String tagImgName = tag.getTagImgName();
-        Bitmap bitmap = SongGuoUtils.getBitmapByFileName(mContext,"tag/"+tagImgName);
-        holder.tagImageView.setImageBitmap(bitmap);
+
+//        String tagImgName = tag.getTagImgName();
+//        Bitmap bitmap = SongGuoUtils.getBitmapByFileName(mContext,"tag/"+tagImgName);
+//        holder.tagImageView.setImageBitmap(bitmap);
+        holder.tagImageTextView.setText(tag.getTagName());
+        holder.tagImageTextView.setBackground(TextViewDrawable.getDrawable(TextViewDrawable.BLUE));
     }
 
     @Override

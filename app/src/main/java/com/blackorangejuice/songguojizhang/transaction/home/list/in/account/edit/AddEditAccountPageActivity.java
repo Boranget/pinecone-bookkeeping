@@ -5,12 +5,10 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -30,6 +28,7 @@ import com.blackorangejuice.songguojizhang.utils.globle.GlobalConstant;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
 import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
 import com.blackorangejuice.songguojizhang.utils.inputfilter.CashierInputFilter;
+import com.blackorangejuice.songguojizhang.utils.view.TextViewDrawable;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -44,7 +43,8 @@ public class AddEditAccountPageActivity extends EditAccountActivity {
     TextView backTextView;
     TextView incomeTextView;
     TextView expenditureTextView;
-    ImageView tagImageView;
+//    ImageView tagImageView;
+    TextView tagImageTextView;
     TextView tagNameTextView;
     EditText remarkEditText;
     TextView timeTextView;
@@ -132,6 +132,7 @@ public class AddEditAccountPageActivity extends EditAccountActivity {
     public void init() {
         Intent intent = getIntent();
         String stringExtra = intent.getStringExtra(ARG);
+        // 递归事件开启的页面不能绑定事件,避免不必要的问题
         switch (stringExtra){
             // 如果是递归调用，禁用绑定按钮
             case GlobalConstant.DISABLE_BIND:
@@ -185,7 +186,9 @@ public class AddEditAccountPageActivity extends EditAccountActivity {
         // 标签名
         tagNameTextView = findViewById(R.id.activity_add_edit_account_page_tag_name);
         // 标签图片
-        tagImageView = findViewById(R.id.activity_add_edit_account_page_tag_img);
+//        tagImageView = findViewById(R.id.activity_add_edit_account_page_tag_img);
+        // 标签图片二代
+        tagImageTextView = findViewById(R.id.activity_add_edit_account_page_tag_text);
         // 金额输入框
         sumEditText = findViewById(R.id.activity_add_edit_account_page_sum_edit);
         // 标签选择网格
@@ -307,11 +310,18 @@ public class AddEditAccountPageActivity extends EditAccountActivity {
     }
 
     @Override
+    /**
+     *
+     */
     public void setTagNameAndImg(Tag tag) {
         accountItem.setTag(tag);
+//        String tagImgName = tag.getTagImgName();
         tagNameTextView.setText(tag.getTagName());
-        String tagImgName = tag.getTagImgName();
-        Bitmap bitmap = SongGuoUtils.getBitmapByFileName(this, "tag/" + tagImgName);
-        tagImageView.setImageBitmap(bitmap);
+        tagImageTextView.setText(tag.getTagName());
+        tagImageTextView.setBackground(TextViewDrawable.getDrawable(TextViewDrawable.BLUE));
+//        Bitmap bitmap = SongGuoUtils.getBitmapByFileName(this, "tag/" + tagImgName);
+//        tagImageView.setImageBitmap(bitmap);
+
+
     }
 }

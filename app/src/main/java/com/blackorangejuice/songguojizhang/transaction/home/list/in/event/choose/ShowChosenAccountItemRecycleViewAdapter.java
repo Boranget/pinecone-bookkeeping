@@ -19,6 +19,7 @@ import com.blackorangejuice.songguojizhang.db.mapper.AccountItemMapper;
 import com.blackorangejuice.songguojizhang.db.mapper.EventItemMapper;
 import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
+import com.blackorangejuice.songguojizhang.utils.view.TextViewDrawable;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -31,7 +32,8 @@ public class ShowChosenAccountItemRecycleViewAdapter extends RecyclerView.Adapte
 
     static class AccountItemViewHolder extends RecyclerView.ViewHolder {
         View accountItemView;
-        ImageView tagImageView;
+//        ImageView tagImageView;
+        TextView tagImageTextView;
         TextView tagNameTextView;
         TextView remarkTextView;
         TextView sumTextView;
@@ -41,7 +43,8 @@ public class ShowChosenAccountItemRecycleViewAdapter extends RecyclerView.Adapte
         public AccountItemViewHolder(@NonNull View itemView) {
             super(itemView);
             accountItemView = itemView;
-            tagImageView = itemView.findViewById(R.id.account_item_in_the_recycle_view_tag_img);
+//            tagImageView = itemView.findViewById(R.id.account_item_in_the_recycle_view_tag_img);
+            tagImageTextView = itemView.findViewById(R.id.account_item_in_the_recycle_view_tag_img_text);
             tagNameTextView = itemView.findViewById(R.id.account_item_in_the_recycle_view_tag_name);
             remarkTextView = itemView.findViewById(R.id.account_item_in_the_recycle_view_tag_remark);
             sumTextView = itemView.findViewById(R.id.account_item_in_the_recycle_view_tag_sum);
@@ -98,9 +101,13 @@ public class ShowChosenAccountItemRecycleViewAdapter extends RecyclerView.Adapte
     public void onBindViewHolder(@NonNull AccountItemViewHolder holder, int position) {
 
         AccountItem accountItem = accountItems.get(position);
-        String tagImgName = accountItem.getTag().getTagImgName();
-        String fileName = "tag/" + tagImgName;
-        holder.tagImageView.setImageBitmap(SongGuoUtils.getBitmapByFileName(holder.itemView.getContext(), fileName));
+//        String tagImgName = accountItem.getTag().getTagImgName();
+//        String fileName = "tag/" + tagImgName;
+//        holder.tagImageView.setImageBitmap(SongGuoUtils.getBitmapByFileName(holder.itemView.getContext(), fileName));
+
+        holder.tagImageTextView.setText(accountItem.getTag().getTagName());
+        holder.tagImageTextView.setBackground(TextViewDrawable.getDrawable(TextViewDrawable.BLUE));
+
         holder.tagNameTextView.setText(accountItem.getTag().getTagName());
         holder.remarkTextView.setText(accountItem.getRemark());
 

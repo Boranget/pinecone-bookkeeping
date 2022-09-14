@@ -475,7 +475,8 @@ public class AccountItemMapper {
     }
 
     /**
-     * 分类生生饼图所需数据
+     * 分类生成饼图所需数据
+     * 这里添加了按照时间范围查找的功能
      * 注意where 和 having的区别
      * 新增按时间查找
      * @param incomeOrExpenditure

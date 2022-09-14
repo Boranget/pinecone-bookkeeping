@@ -29,6 +29,7 @@ import com.blackorangejuice.songguojizhang.transaction.home.list.in.account.choo
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
 import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
 import com.blackorangejuice.songguojizhang.utils.inputfilter.CashierInputFilter;
+import com.blackorangejuice.songguojizhang.utils.view.TextViewDrawable;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -42,7 +43,8 @@ public class UpdateEditAccountPageActivity extends EditAccountActivity {
     TextView backTextView;
     TextView incomeTextView;
     TextView expenditureTextView;
-    ImageView tagImageView;
+//    ImageView tagImageView;
+    TextView tagImageTextView;
     TextView tagNameTextView;
     EditText remarkEditText;
     TextView timeTextView;
@@ -182,7 +184,9 @@ public class UpdateEditAccountPageActivity extends EditAccountActivity {
         // 标签名
         tagNameTextView = findViewById(R.id.activity_update_edit_account_page_tag_name);
         // 标签图片
-        tagImageView = findViewById(R.id.activity_update_edit_account_page_tag_img);
+//        tagImageView = findViewById(R.id.activity_update_edit_account_page_tag_img);
+        // 标签图片
+        tagImageTextView = findViewById(R.id.activity_update_edit_account_page_tag_img_text);
         // 金额输入框
         sumEditText = findViewById(R.id.activity_update_edit_account_page_sum_edit);
         // 标签选择网格
@@ -334,9 +338,11 @@ public class UpdateEditAccountPageActivity extends EditAccountActivity {
     public void setTagNameAndImg(Tag tag) {
         accountItem.setTag(tag);
         tagNameTextView.setText(tag.getTagName());
-        String tagImgName = tag.getTagImgName();
-        Bitmap bitmap = SongGuoUtils.getBitmapByFileName(this, "tag/" + tagImgName);
-        tagImageView.setImageBitmap(bitmap);
+//        String tagImgName = tag.getTagImgName();
+//        Bitmap bitmap = SongGuoUtils.getBitmapByFileName(this, "tag/" + tagImgName);
+//        tagImageView.setImageBitmap(bitmap);
+        tagImageTextView.setText(tag.getTagName());
+        tagImageTextView.setBackground(TextViewDrawable.getDrawable(TextViewDrawable.BLUE));
     }
 
 
