@@ -342,7 +342,7 @@ public class UpdateEditAccountPageActivity extends EditAccountActivity {
 //        Bitmap bitmap = SongGuoUtils.getBitmapByFileName(this, "tag/" + tagImgName);
 //        tagImageView.setImageBitmap(bitmap);
         tagImageTextView.setText(tag.getTagName());
-        tagImageTextView.setBackground(TextViewDrawable.getDrawable(TextViewDrawable.BLUE));
+        tagImageTextView.setBackground(TextViewDrawable.getDrawable(tag.getTagImgColor()));
     }
 
 

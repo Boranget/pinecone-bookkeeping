@@ -318,7 +318,7 @@ public class AddEditAccountPageActivity extends EditAccountActivity {
 //        String tagImgName = tag.getTagImgName();
         tagNameTextView.setText(tag.getTagName());
         tagImageTextView.setText(tag.getTagName());
-        tagImageTextView.setBackground(TextViewDrawable.getDrawable(TextViewDrawable.BLUE));
+        tagImageTextView.setBackground(TextViewDrawable.getDrawable(tag.getTagImgColor()));
 //        Bitmap bitmap = SongGuoUtils.getBitmapByFileName(this, "tag/" + tagImgName);
 //        tagImageView.setImageBitmap(bitmap);
 

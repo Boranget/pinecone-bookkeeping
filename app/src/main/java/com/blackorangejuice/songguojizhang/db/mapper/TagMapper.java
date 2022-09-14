@@ -11,11 +11,11 @@ import java.util.List;
 
 public class TagMapper {
     public static final String INIT =
-            "insert into t_tag (tag_name,tag_img_name) values (?,?);\n";
+            "insert into t_tag (tag_name,tag_img_name,tag_img_color) values (?,?,?);\n";
     public static final String INSERT_TAG = "insert into t_tag \n" +
-            "(tag_name, tag_img_name)\n" +
+            "(tag_name, tag_img_name,tag_img_color)\n" +
             "values\n" +
-            "(?,?)";
+            "(?,?,?)";
     public static final String SELECT_BY_TID = "select * from t_tag where tid = ?";
     public static final String SELECT_BY_TAG_NAME = "select * from t_tag where tag_name = ?";
 
@@ -30,36 +30,37 @@ public class TagMapper {
 
     /**
      * 初始化tag
+     *  0xFF0099CC 4278229452;
+     *  0xFF99CC66 4288296414;
+     *  0xFFCC9933 4291598643;
+     *  0xFF33CC33 4281584691;
+     *  0xFFFF6666 4294927974;
      */
     public void init() {
         String strs[][] = {
-                {"交通","jiaotong"},
-                {"超市","chaoshi"},
-                {"充值","chongzhi"},
-                {"服饰","fushi"},
-                {"吃喝","chihe"},
-                {"买菜","maicai"},
-                {"化妆","huazhuang"},
-                {"日用","riyong"},
-                {"红包","hongbao"},
-                {"话费","huafei"},
-                {"娱乐","yvle"},
-                {"医疗","yiliao"},
-                {"宠物","chongwu"},
-                {"养车","yangche"},
-                {"洗澡","xizao"},
-                {"学习","xuexi"},
-                {"微信","weixin"},
-                {"支付宝","zhifubao"},
-                {"工资","gongzi"},
-                {"投资","touzi"},
-                {"奖金","jiangjin"},
-                {"兼职","jianzhi"},
-                {"其他","qita"}
+                {"交通","jiaotong","4278229452"},
+                {"超市","chaoshi","4288296414"},
+                {"充值","chongzhi","4291598643"},
+                {"服饰","fushi","4281584691"},
+                {"吃喝","chihe","4294927974"},
+                {"买菜","maicai","4278229452"},
+                {"化妆","huazhuang","4288296414"},
+                {"日用","riyong","4281584691"},
+                {"红包","hongbao","4291598643"},
+                {"话费","huafei","4294927974"},
+                {"娱乐","yvle","4278229452"},
+                {"医疗","yiliao","4288296414"},
+                {"学习","xuexi","4278229452"},
+                {"微信","weixin","4281584691"},
+                {"支付宝","zhifubao","4288296414"},
+                {"工资","gongzi","4294927974"},
+                {"投资","touzi","4288296414"},
+                {"奖金","jiangjin","4278229452"},
+                {"其他","qita","4291598643"}
 
         };
         for(String s[]:strs){
-            sqLiteDatabase.execSQL(INIT, new String[]{s[0],s[1]+".jpg"});
+            sqLiteDatabase.execSQL(INIT, new String[]{s[0],s[1]+".jpg",s[2]});
         }
     }
 
@@ -67,7 +68,9 @@ public class TagMapper {
         Tag tag0 = selectByTagName(tag.getTagName());
         // 如果不存在该名称的tag,则插入
         if (tag0 == null) {
-            sqLiteDatabase.execSQL(INSERT_TAG, new String[]{tag.getTagName(), tag.getTagImgName()});
+            sqLiteDatabase.execSQL(INSERT_TAG, new String[]{tag.getTagName(), tag.getTagImgName(),String.valueOf(tag.getTagImgColor())});
+        }else {
+            return null;
         }
         return selectByTagName(tag.getTagName());
     }
@@ -86,6 +89,7 @@ public class TagMapper {
             tag.setTid(cursor.getInt(cursor.getColumnIndex("tid")));
             tag.setTagName(cursor.getString(cursor.getColumnIndex("tag_name")));
             tag.setTagImgName(cursor.getString(cursor.getColumnIndex("tag_img_name")));
+            tag.setTagImgColor(cursor.getInt(cursor.getColumnIndex("tag_img_color")));
         }
         cursor.close();
         return tag;
@@ -105,6 +109,7 @@ public class TagMapper {
             tag.setTid(cursor.getInt(cursor.getColumnIndex("tid")));
             tag.setTagName(cursor.getString(cursor.getColumnIndex("tag_name")));
             tag.setTagImgName(cursor.getString(cursor.getColumnIndex("tag_img_name")));
+            tag.setTagImgColor(cursor.getInt(cursor.getColumnIndex("tag_img_color")));
         }
         cursor.close();
         return tag;
@@ -124,6 +129,7 @@ public class TagMapper {
                 tag.setTid(cursor.getInt(cursor.getColumnIndex("tid")));
                 tag.setTagName(cursor.getString(cursor.getColumnIndex("tag_name")));
                 tag.setTagImgName(cursor.getString(cursor.getColumnIndex("tag_img_name")));
+                tag.setTagImgColor(cursor.getInt(cursor.getColumnIndex("tag_img_color")));
                 tags.add(tag);
             } while (cursor.moveToNext());
 

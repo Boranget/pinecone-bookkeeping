@@ -76,7 +76,7 @@ public class TagGridAdapter extends RecyclerView.Adapter<TagGridAdapter.TagGridV
 //        Bitmap bitmap = SongGuoUtils.getBitmapByFileName(mContext,"tag/"+tagImgName);
 //        holder.tagImageView.setImageBitmap(bitmap);
         holder.tagImageTextView.setText(tag.getTagName());
-        holder.tagImageTextView.setBackground(TextViewDrawable.getDrawable(TextViewDrawable.BLUE));
+        holder.tagImageTextView.setBackground(TextViewDrawable.getDrawable(tag.getTagImgColor()));
     }
 
     @Override

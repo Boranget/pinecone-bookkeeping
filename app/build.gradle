@@ -51,4 +51,6 @@ dependencies {
     implementation group: 'net.sourceforge.jexcelapi', name: 'jxl', version: '2.6.12'
     // 申请权限
     implementation 'pub.devrel:easypermissions:3.0.0'
+    // 颜色选择
+    implementation 'com.larswerkman:HoloColorPicker:1.5'
 }

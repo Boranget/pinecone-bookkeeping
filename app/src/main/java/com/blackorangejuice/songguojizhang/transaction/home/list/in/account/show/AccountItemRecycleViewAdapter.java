@@ -126,7 +126,7 @@ public class AccountItemRecycleViewAdapter extends RecyclerView.Adapter<AccountI
 //        String fileName = "tag/" + tagImgName;
 //        holder.tagImageView.setImageBitmap(SongGuoUtils.getBitmapByFileName(holder.itemView.getContext(), fileName));
         holder.tagImageTextView.setText(accountItem.getTag().getTagName());
-        holder.tagImageTextView.setBackground(TextViewDrawable.getDrawable(TextViewDrawable.BLUE));
+        holder.tagImageTextView.setBackground(TextViewDrawable.getDrawable(accountItem.getTag().getTagImgColor()));
 
         holder.tagNameTextView.setText(accountItem.getTag().getTagName());
         holder.remarkTextView.setText(accountItem.getRemark());

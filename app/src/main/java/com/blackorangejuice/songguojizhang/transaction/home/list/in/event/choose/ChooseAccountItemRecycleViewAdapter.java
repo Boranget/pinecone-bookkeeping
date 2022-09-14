@@ -111,7 +111,7 @@ public class ChooseAccountItemRecycleViewAdapter extends RecyclerView.Adapter<Ch
 //        holder.tagImageView.setImageBitmap(SongGuoUtils.getBitmapByFileName(holder.itemView.getContext(), fileName));
 
         holder.tagImageTextView.setText(accountItem.getTag().getTagName());
-        holder.tagImageTextView.setBackground(TextViewDrawable.getDrawable(TextViewDrawable.BLUE));
+        holder.tagImageTextView.setBackground(TextViewDrawable.getDrawable(accountItem.getTag().getTagImgColor()));
 
         // 设置文字
         holder.tagNameTextView.setText(accountItem.getTag().getTagName());

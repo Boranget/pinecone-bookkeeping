@@ -78,6 +78,9 @@
             android:name=".transaction.home.myinfo.in.moresetting.imports.ImportsActivity"
             android:exported="false" />
         <activity
+            android:name=".transaction.home.myinfo.in.moresetting.tag.AddTagActivity"
+            android:exported="false" />
+        <activity
             android:name=".transaction.home.myinfo.in.AboutPageActivity"
             android:exported="false" />
         <activity

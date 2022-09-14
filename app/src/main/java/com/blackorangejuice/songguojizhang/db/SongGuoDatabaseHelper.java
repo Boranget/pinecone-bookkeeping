@@ -24,7 +24,8 @@ public class SongGuoDatabaseHelper extends SQLiteOpenHelper {
     private static final String CREAT_TABLE_TAG = "create table t_tag(\n" +
             "    tid integer primary key autoincrement,\n" +
             "    tag_name text not null unique,\n" +
-            "    tag_img_name text not null\n" +
+            "    tag_img_name text ,\n" +
+            "    tag_img_color integer not null\n" +
             ")";
     private static final String CREATE_TABLE_ACCOUNT_BOOK = "create table t_account_book(\n" +
             "    bid integer primary key autoincrement,\n" +
