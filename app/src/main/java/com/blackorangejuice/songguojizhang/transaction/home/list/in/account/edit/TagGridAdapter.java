@@ -1,11 +1,11 @@
 package com.blackorangejuice.songguojizhang.transaction.home.list.in.account.edit;
 
+import android.app.AlertDialog;
 import android.content.Context;
-import android.graphics.Bitmap;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,13 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.blackorangejuice.songguojizhang.R;
 import com.blackorangejuice.songguojizhang.bean.Tag;
+import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
+import com.blackorangejuice.songguojizhang.db.mapper.TagMapper;
 import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
 import com.blackorangejuice.songguojizhang.utils.view.TextViewDrawable;
 
 import java.util.List;
 
 public class TagGridAdapter extends RecyclerView.Adapter<TagGridAdapter.TagGridViewHolder> {
-    EditAccountActivity addEditAccountPageActivity;
+    EditAccountActivity editAccountPageActivity;
 
     private List<Tag> tagGridItems;
 
@@ -43,7 +45,7 @@ public class TagGridAdapter extends RecyclerView.Adapter<TagGridAdapter.TagGridV
 
     public TagGridAdapter(List<Tag> tags, EditAccountActivity activity) {
         tagGridItems = tags;
-        addEditAccountPageActivity = activity;
+        editAccountPageActivity = activity;
     }
 
     @NonNull
@@ -58,11 +60,48 @@ public class TagGridAdapter extends RecyclerView.Adapter<TagGridAdapter.TagGridV
             public void onClick(View v) {
                 int adapterPosition = tagGridViewHolder.getAdapterPosition();
                 Tag tag = tagGridItems.get(adapterPosition);
-                addEditAccountPageActivity.setTagNameAndImg(tag);
+                editAccountPageActivity.setTagNameAndImg(tag);
+            }
 
+        });
+        tagGridViewHolder.tagItem.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                int adapterPosition = tagGridViewHolder.getAdapterPosition();
+                Tag tag = tagGridItems.get(adapterPosition);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(editAccountPageActivity);
+                builder.setTitle("你确定要删除此标签吗");
+                builder.setMessage("删除后不可恢复");
+                builder.setCancelable(true);
+                builder.setPositiveButton("确认删除", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        // 删除该账单
+                        TagMapper tagMapper = new TagMapper(SongGuoDatabaseHelper.getSongGuoDatabaseHelper(editAccountPageActivity));
+                        // 若删除失败则做提醒
+                        if(tagMapper.deleteByTid(tag)){
+                            // 删除列表中的标签
+                            tagGridItems.remove(adapterPosition);
+                            // 网格刷新
+                            TagGridAdapter.this.notifyItemRemoved(adapterPosition);
+                        }else{
+                            SongGuoUtils.showOneToast("您还有账单使用了该标签，故该标签无法删除，若必须删除，请先删除对应账单");
+                        }
+
+
+
+                    }
+                });
+                builder.setNegativeButton("取消", null);
+                builder.show();
+
+                return true;
             }
         });
         return tagGridViewHolder;
+
     }
 
     @Override

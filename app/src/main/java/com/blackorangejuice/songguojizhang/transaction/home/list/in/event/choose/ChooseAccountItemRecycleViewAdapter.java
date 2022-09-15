@@ -23,6 +23,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 事件绑定账单时选择账单页面的item适配器
+ */
 public class ChooseAccountItemRecycleViewAdapter extends RecyclerView.Adapter<ChooseAccountItemRecycleViewAdapter.AccountItemViewHolder> {
     private List<AccountItem> accountItems;
     List<AccountItem> willAddAccountItemList;
@@ -77,6 +80,12 @@ public class ChooseAccountItemRecycleViewAdapter extends RecyclerView.Adapter<Ch
 
             }
         });
+        /**
+         * 这里的重点就在于: 要在保存后才能进行账单与事件的绑定或者取消绑定,
+         * 否则不管有没有进行保存,都会对账单事件绑定做修改
+         * 保存事件后会获取保存后的事件, 此时获取事件id,遍历绑定列表中的账单进行绑定
+         * 取消绑定列表中的事件id置为0
+         */
         accountItemViewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -90,7 +99,7 @@ public class ChooseAccountItemRecycleViewAdapter extends RecyclerView.Adapter<Ch
                 } else {
                     // 移除
                     ChooseAccountItemRecycleViewAdapter.this.willAddAccountItemList.remove(accountItem);
-                    // 暂存到列表，保存后统一置为0
+                    // 暂存到移除列表，保存后统一置为0
                     willRemoveAccountItemList.add(accountItem);
                 }
             }

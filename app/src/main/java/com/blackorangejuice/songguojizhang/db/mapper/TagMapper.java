@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.blackorangejuice.songguojizhang.bean.Tag;
 import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
+import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +18,11 @@ public class TagMapper {
             "values\n" +
             "(?,?,?)";
     public static final String SELECT_BY_TID = "select * from t_tag where tid = ?";
+    public static final String DELETE_BY_TID = "delete from t_tag where tid = ?";
     public static final String SELECT_BY_TAG_NAME = "select * from t_tag where tag_name = ?";
 
     public static final String SELECT_ALL = "select * from t_tag";
+
     SongGuoDatabaseHelper songGuoDatabaseHelper;
     SQLiteDatabase sqLiteDatabase;
 
@@ -136,6 +139,23 @@ public class TagMapper {
         }
         cursor.close();
         return tags;
+    }
+
+    /**
+     * 删除tag
+     *  这里不是简单的删除那么简单，因为会有账单已经使用了该标签，所以需要先进行判断
+     * @return
+     */
+    public boolean deleteByTid(Tag tag) {
+
+        AccountItemMapper accountItemMapper = new AccountItemMapper(songGuoDatabaseHelper);
+        if(! accountItemMapper.ifExistAccountItemUseThisTag(tag)){
+            sqLiteDatabase.execSQL(DELETE_BY_TID, new String[]{String.valueOf(tag.getTid())});
+            return true;
+        }else {
+            return false;
+        }
+
     }
 
 }

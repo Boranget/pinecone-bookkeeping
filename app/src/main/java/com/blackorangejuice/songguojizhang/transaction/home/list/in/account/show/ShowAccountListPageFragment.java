@@ -74,17 +74,9 @@ public class ShowAccountListPageFragment extends BasicFragment {
     @Override
     public void onResume() {
         super.onResume();
-
-
-
-//        if (!blocks.isEmpty()) {
-        // adapter初始化
         findView();
         init();
         setListener();
-
-
-//        }
 
     }
 

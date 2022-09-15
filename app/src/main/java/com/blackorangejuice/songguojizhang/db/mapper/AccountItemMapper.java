@@ -8,6 +8,7 @@ import com.blackorangejuice.songguojizhang.bean.AccountItem;
 import com.blackorangejuice.songguojizhang.bean.EventItem;
 import com.blackorangejuice.songguojizhang.bean.ExportItem;
 import com.blackorangejuice.songguojizhang.bean.SearchItem;
+import com.blackorangejuice.songguojizhang.bean.Tag;
 import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalConstant;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
@@ -60,7 +61,9 @@ public class AccountItemMapper {
     public static final String SELECT_BY_KEY_WORD = "select * from t_account_item where  bid = ? and sum like ? or remark like ? ";
     public static final String SELECT_BY_TIME = "select * from t_account_item where bid = ? and account_time between ? and ? ";
     public static final String SELECT_CLASSIFIED_PIE = "select tag_name, SUM(sum) sum_pie from t_account_item left outer join t_tag on t_tag.tid = t_account_item.tid where income_or_expenditure = ? and  account_time between ? and ? and bid = ?  group by tag_name ;";
+    public static final String SELECT_BY_TAG = "select * from t_account_item where tid = ?";
     public static final String EXPORT_TO_EXCEL = "select * from t_account_item where bid = ?";
+
     SongGuoDatabaseHelper songGuoDatabaseHelper;
     SQLiteDatabase sqLiteDatabase;
 
@@ -554,5 +557,11 @@ public class AccountItemMapper {
         cursor.close();
         return exportItems;
     }
+
+    public boolean ifExistAccountItemUseThisTag(Tag tag){
+        Cursor cursor = sqLiteDatabase.rawQuery(SELECT_BY_TAG, new String[]{String.valueOf(tag.getTid())});
+        return cursor.getCount() > 0;
+    }
+
 
 }
