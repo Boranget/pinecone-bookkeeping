@@ -27,6 +27,8 @@ public class TagGridAdapter extends RecyclerView.Adapter<TagGridAdapter.TagGridV
 
     private Context mContext ;
 
+    private Tag currentShowTag;
+
     static class TagGridViewHolder extends RecyclerView.ViewHolder {
 
         private View tagItem;
@@ -60,6 +62,7 @@ public class TagGridAdapter extends RecyclerView.Adapter<TagGridAdapter.TagGridV
             public void onClick(View v) {
                 int adapterPosition = tagGridViewHolder.getAdapterPosition();
                 Tag tag = tagGridItems.get(adapterPosition);
+                currentShowTag = tag;
                 editAccountPageActivity.setTagNameAndImg(tag);
             }
 
@@ -68,7 +71,7 @@ public class TagGridAdapter extends RecyclerView.Adapter<TagGridAdapter.TagGridV
             @Override
             public boolean onLongClick(View v) {
                 int adapterPosition = tagGridViewHolder.getAdapterPosition();
-                Tag tag = tagGridItems.get(adapterPosition);
+                Tag theTagWhichWantToDelete = tagGridItems.get(adapterPosition);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(editAccountPageActivity);
                 builder.setTitle("你确定要删除此标签吗");
@@ -80,8 +83,10 @@ public class TagGridAdapter extends RecyclerView.Adapter<TagGridAdapter.TagGridV
 
                         // 删除该账单
                         TagMapper tagMapper = new TagMapper(SongGuoDatabaseHelper.getSongGuoDatabaseHelper(editAccountPageActivity));
-                        // 若删除失败则做提醒
-                        if(tagMapper.deleteByTid(tag)){
+                        // 判断当前账单是否使用了该标签
+                        if(currentShowTag == theTagWhichWantToDelete) {
+                            SongGuoUtils.showOneToast("当前编辑账单使用了该标签，故该标签无法删除，若必须删除，请先修改");
+                        }else if(tagMapper.deleteByTid(theTagWhichWantToDelete)){
                             // 删除列表中的标签
                             tagGridItems.remove(adapterPosition);
                             // 网格刷新
@@ -89,6 +94,7 @@ public class TagGridAdapter extends RecyclerView.Adapter<TagGridAdapter.TagGridV
                         }else{
                             SongGuoUtils.showOneToast("您还有账单使用了该标签，故该标签无法删除，若必须删除，请先删除对应账单");
                         }
+
 
 
 
