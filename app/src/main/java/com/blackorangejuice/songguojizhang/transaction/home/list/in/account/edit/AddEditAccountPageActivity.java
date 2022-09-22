@@ -53,7 +53,8 @@ public class AddEditAccountPageActivity extends EditAccountActivity {
     LinearLayout bindEventLinearLayout;
     TextView bindEventTitleTextView;
 
-
+    TagGridAdapter tagGridAdapter;
+    TagMapper tagMapper;
     AccountItem accountItem;
     SongGuoDatabaseHelper songGuoDatabaseHelper;
     SimpleDateFormat simpleDateFormat;
@@ -92,7 +93,10 @@ public class AddEditAccountPageActivity extends EditAccountActivity {
         if (eventItem != null) {
             bindEventTitleTextView.setText(eventItem.getEventTitle());
         }
+
+        tagGridAdapter.refreshTags(tagMapper.selectAll());
     }
+
 
     public void getAccountInfoToAccountItem() {
         // 获取金额
@@ -140,6 +144,7 @@ public class AddEditAccountPageActivity extends EditAccountActivity {
                 break;
         }
         songGuoDatabaseHelper = SongGuoDatabaseHelper.getSongGuoDatabaseHelper(this);
+        tagMapper = new TagMapper(songGuoDatabaseHelper);
         // 初始化记账项对象,若是从其他界面返回需要保存信息
         accountItem = new AccountItem();
         GlobalInfo.lastAddAccount = accountItem;
@@ -157,9 +162,9 @@ public class AddEditAccountPageActivity extends EditAccountActivity {
         // tag网格
         GridLayoutManager layoutManager = new GridLayoutManager(this, 5);//第二个参数为网格的列数
         recyclerView.setLayoutManager(layoutManager);
-        TagMapper tagMapper = new TagMapper(songGuoDatabaseHelper);
         List<Tag> tags = tagMapper.selectAll();
-        recyclerView.setAdapter(new TagGridAdapter(tags, this));
+        tagGridAdapter = new TagGridAdapter(tags, this);
+        recyclerView.setAdapter(tagGridAdapter);
         // 设置默认tag
         accountItem.setTag(tags.get(0));
         setTagNameAndImg(tags.get(0));
@@ -324,4 +329,5 @@ public class AddEditAccountPageActivity extends EditAccountActivity {
 
 
     }
+
 }

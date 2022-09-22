@@ -55,6 +55,8 @@ public class UpdateEditAccountPageActivity extends EditAccountActivity {
 
 
     AccountItem accountItem;
+    TagMapper tagMapper;
+    TagGridAdapter tagGridAdapter;
     SimpleDateFormat simpleDateFormat;
     SongGuoDatabaseHelper songGuoDatabaseHelper;
 
@@ -119,6 +121,8 @@ public class UpdateEditAccountPageActivity extends EditAccountActivity {
         if (eventItem != null) {
             bindEventTitleTextView.setText(eventItem.getEventTitle());
         }
+
+        tagGridAdapter.refreshTags(tagMapper.selectAll());
     }
 
     @Override
@@ -130,7 +134,9 @@ public class UpdateEditAccountPageActivity extends EditAccountActivity {
         } else {
             accountItem = GlobalInfo.lastAddAccount;
         }
-
+        // 数据库操作对象
+        songGuoDatabaseHelper = SongGuoDatabaseHelper.getSongGuoDatabaseHelper(UpdateEditAccountPageActivity.this);
+        tagMapper = new TagMapper(songGuoDatabaseHelper);
         // 取出金额显示
         sumEditText.setText(String.valueOf(accountItem.getSum()));
         // 取出备注显示
@@ -147,11 +153,10 @@ public class UpdateEditAccountPageActivity extends EditAccountActivity {
         // tag网格
         GridLayoutManager layoutManager = new GridLayoutManager(this, 5);//第二个参数为网格的列数
         recyclerView.setLayoutManager(layoutManager);
-        songGuoDatabaseHelper = SongGuoDatabaseHelper.getSongGuoDatabaseHelper(UpdateEditAccountPageActivity.this);
-        TagMapper tagMapper = new TagMapper(songGuoDatabaseHelper);
+
         List<Tag> tags = tagMapper.selectAll();
-        recyclerView.setAdapter(new
-                TagGridAdapter(tags, this));
+        tagGridAdapter = new TagGridAdapter(tags, this);
+        recyclerView.setAdapter(tagGridAdapter);
         // 设置tag为accountitem中的tag
 
         setTagNameAndImg(tagMapper.selectByTid(accountItem.getTid()));

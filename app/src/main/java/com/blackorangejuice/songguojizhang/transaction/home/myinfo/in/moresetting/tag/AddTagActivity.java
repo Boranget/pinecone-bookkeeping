@@ -93,7 +93,15 @@ public class AddTagActivity extends BasicActivity {
         saveTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String tagName = tagNameEditText.getText().toString();
+                Editable tagNameEditable = tagNameEditText.getText();
+                if(tagNameEditable == null){
+                    return;
+                }
+                String tagName = tagNameEditable.toString();
+                if(tagName.trim().equals("")){
+                    SongGuoUtils.showOneToast("请先输入标签名");
+                    return;
+                }
                 Integer color = colorPicker.getColor();
                 TagMapper tagMapper = new TagMapper(songGuoDatabaseHelper);
                 Tag tag = new Tag();

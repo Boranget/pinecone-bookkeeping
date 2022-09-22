@@ -15,12 +15,17 @@ import com.blackorangejuice.songguojizhang.R;
 import com.blackorangejuice.songguojizhang.bean.Tag;
 import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
 import com.blackorangejuice.songguojizhang.db.mapper.TagMapper;
+import com.blackorangejuice.songguojizhang.transaction.home.myinfo.in.moresetting.tag.AddTagActivity;
 import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
 import com.blackorangejuice.songguojizhang.utils.view.TextViewDrawable;
 
 import java.util.List;
 
+/**
+ * 账单编辑页面的tag网格适配器
+ */
 public class TagGridAdapter extends RecyclerView.Adapter<TagGridAdapter.TagGridViewHolder> {
+    // 该网格当前所在页面
     EditAccountActivity editAccountPageActivity;
 
     private List<Tag> tagGridItems;
@@ -47,9 +52,25 @@ public class TagGridAdapter extends RecyclerView.Adapter<TagGridAdapter.TagGridV
 
     public TagGridAdapter(List<Tag> tags, EditAccountActivity activity) {
         tagGridItems = tags;
+        // 末尾添加标签按钮
+        Tag addButtonTag = new Tag();
+        addButtonTag.setTagName("添加");
+        addButtonTag.setTagImgColor(0xFFF0F0F0);
+        tagGridItems.add(addButtonTag);
         editAccountPageActivity = activity;
     }
 
+
+    public void refreshTags(List<Tag> tags){
+        tagGridItems = tags;
+        // 末尾添加标签按钮
+        Tag addButtonTag = new Tag();
+        addButtonTag.setTagName("添加");
+        addButtonTag.setTagImgColor(0xFFF0F0F0);
+        tagGridItems.add(addButtonTag);
+        // 提醒grid刷新
+        TagGridAdapter.this.notifyDataSetChanged();
+    }
     @NonNull
     @Override
     public TagGridViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -60,10 +81,16 @@ public class TagGridAdapter extends RecyclerView.Adapter<TagGridAdapter.TagGridV
         tagGridViewHolder.tagItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 int adapterPosition = tagGridViewHolder.getAdapterPosition();
-                Tag tag = tagGridItems.get(adapterPosition);
-                currentShowTag = tag;
-                editAccountPageActivity.setTagNameAndImg(tag);
+                Tag theTagWhichWantToSetOnThisAccountItem = tagGridItems.get(adapterPosition);
+                // 如果是添加按钮则要跳到添加界面
+                if(theTagWhichWantToSetOnThisAccountItem.getTagName().equals("添加")){
+                    AddTagActivity.startThisActivity(editAccountPageActivity);
+                    return ;
+                }
+                currentShowTag = theTagWhichWantToSetOnThisAccountItem;
+                editAccountPageActivity.setTagNameAndImg(theTagWhichWantToSetOnThisAccountItem);
             }
 
         });
@@ -72,7 +99,10 @@ public class TagGridAdapter extends RecyclerView.Adapter<TagGridAdapter.TagGridV
             public boolean onLongClick(View v) {
                 int adapterPosition = tagGridViewHolder.getAdapterPosition();
                 Tag theTagWhichWantToDelete = tagGridItems.get(adapterPosition);
-
+                // 如果是添加按钮则不能删除
+                if(theTagWhichWantToDelete.getTagName().equals("添加")){
+                    return true;
+                }
                 AlertDialog.Builder builder = new AlertDialog.Builder(editAccountPageActivity);
                 builder.setTitle("你确定要删除此标签吗");
                 builder.setMessage("删除后不可恢复");
@@ -112,16 +142,20 @@ public class TagGridAdapter extends RecyclerView.Adapter<TagGridAdapter.TagGridV
 
     @Override
     public void onBindViewHolder(@NonNull TagGridViewHolder holder, int position) {
-        Tag tag = tagGridItems.get(position);
+        Tag bindTag = tagGridItems.get(position);
         // 绑定标签名
-        holder.tagTextView.setText(tag.getTagName());
+        holder.tagTextView.setText(bindTag.getTagName());
         // 绑定图片
 
-//        String tagImgName = tag.getTagImgName();
-//        Bitmap bitmap = SongGuoUtils.getBitmapByFileName(mContext,"tag/"+tagImgName);
+//        String tagImgName = bindTag.getTagImgName();
+//        Bitmap bitmap = SongGuoUtils.getBitmapByFileName(mContext,"bindTag/"+tagImgName);
 //        holder.tagImageView.setImageBitmap(bitmap);
-        holder.tagImageTextView.setText(tag.getTagName());
-        holder.tagImageTextView.setBackground(TextViewDrawable.getDrawable(tag.getTagImgColor()));
+        holder.tagImageTextView.setText(bindTag.getTagName());
+        holder.tagImageTextView.setBackground(TextViewDrawable.getDrawable(bindTag.getTagImgColor()));
+        if(bindTag.getTagName().equals("添加")){
+            holder.tagImageTextView.setText("+");
+            holder.tagImageTextView.setTextColor(0xFF000000);
+        }
     }
 
     @Override
