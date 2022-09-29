@@ -4,6 +4,7 @@ public class GlobalConstant {
     public static final String ACCOUNT = "account";
     public static final String EVENT = "event";
     public static final String DATABASE_NAME = "songguojizhang.db";
+    public static final String APPLICATION_PACKAGE_NAME = "com.blackorangejuice.songguojizhang";
     public static final String IS_FIRST_USE = "IS_FIRST_USE";
     public static final String LAUNCH_PAGE_OVERVIEW_PAGE = "LAUNCH_PAGE_OVERVIEW_PAGE";
     public static final String LAUNCH_PAGE_ADD_LIST_PAGE = "LAUNCH_PAGE_ADD_LIST_PAGE";

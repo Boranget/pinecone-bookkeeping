@@ -53,4 +53,7 @@ dependencies {
     implementation 'pub.devrel:easypermissions:3.0.0'
     // 颜色选择
     implementation 'com.larswerkman:HoloColorPicker:1.5'
+    // okhttp
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation 'com.squareup.okio:okio:1.12.0'
 }

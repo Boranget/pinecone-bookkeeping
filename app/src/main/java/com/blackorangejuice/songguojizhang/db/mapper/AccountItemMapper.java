@@ -309,7 +309,11 @@ public class AccountItemMapper {
         Double sum = 0.0;
         if (cursor.moveToFirst()) {
             // 这里直接cursor.getDouble()会出现误差
-            sum = Double.valueOf(cursor.getString(cursor.getColumnIndex("sum_accoumt")));
+            String s = "";
+            if((s = cursor.getString(cursor.getColumnIndex("sum_accoumt"))) == null){
+                s = "0.0";
+            }
+            sum = Double.valueOf(s);
         }
         cursor.close();
         return sum;

@@ -63,14 +63,16 @@ public class GuideStartPageActivity extends BasicActivity {
     public void useEasyPermission() {
         String[] perms = {
                 Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.INTERNET
+
+        };
+
         if (EasyPermissions.hasPermissions(this, perms)) {
             // 不做处理
-            SongGuoUtils.showOneToast("您已获取到了权限");
         } else {
-            SongGuoUtils.showOneToast("请先允许文件读写权限");
             // 申请权限
-            EasyPermissions.requestPermissions(this, "请允许本应用的读写文件权限",1, perms);
+            EasyPermissions.requestPermissions(this, "请允许本应用的读写文件权限与网络权限",1, perms);
         }
     }
 }

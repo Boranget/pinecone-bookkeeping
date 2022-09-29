@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 
 import com.blackorangejuice.songguojizhang.R;
 import com.blackorangejuice.songguojizhang.transaction.home.myinfo.in.AboutPageActivity;
+import com.blackorangejuice.songguojizhang.transaction.home.myinfo.in.backup.NetUtilsForBackup;
 import com.blackorangejuice.songguojizhang.transaction.home.myinfo.in.moresetting.MoreSettingActivity;
 import com.blackorangejuice.songguojizhang.transaction.home.myinfo.in.UpdatePasswordPageActivity;
 import com.blackorangejuice.songguojizhang.transaction.home.myinfo.in.UpdateUsernamePageActivity;
@@ -36,6 +37,7 @@ public class ShowMyInfoPageFragment extends BasicFragment {
     private LinearLayout searchLayout;
     private LinearLayout aboutLayout;
     private LinearLayout moreLayout;
+    private LinearLayout backupLayout;
 
     public SongGuoDatabaseHelper songGuoDatabaseHelper;
 
@@ -74,6 +76,7 @@ public class ShowMyInfoPageFragment extends BasicFragment {
         searchLayout = thisView.findViewById(R.id.my_info_page_search);
         aboutLayout = thisView.findViewById(R.id.my_info_page_about_layout);
         moreLayout = thisView.findViewById(R.id.my_info_page_more_setting_layout);
+        backupLayout = thisView.findViewById(R.id.my_info_page_backup_layout);
     }
 
 
@@ -176,6 +179,22 @@ public class ShowMyInfoPageFragment extends BasicFragment {
             public void onClick(View v) {
                 // 更多设置界面
                 MoreSettingActivity.startThisActivity(getActivity());
+            }
+        });
+        backupLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 更多设置界面
+//                MoreSettingActivity.startThisActivity(getActivity());
+                SongGuoUtils.showOneToast("正在备份中，长按可进行同步设置");
+                NetUtilsForBackup.backup(ShowMyInfoPageFragment.this.thisView);
+            }
+        });
+        backupLayout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                SongGuoUtils.showOneToast("进入同步设置");
+                return true;
             }
         });
 

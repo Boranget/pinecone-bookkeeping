@@ -49,7 +49,6 @@ public class ExportsActivity extends BasicActivity {
         Intent intent = new Intent(context, ExportsActivity.class);
         context.startActivity(intent);
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
