@@ -1,10 +1,15 @@
 package com.blackorangejuice.songguojizhang.utils.globle;
 
+import android.content.Context;
+
 import com.blackorangejuice.songguojizhang.bean.AccountBook;
 import com.blackorangejuice.songguojizhang.bean.AccountItem;
 import com.blackorangejuice.songguojizhang.bean.EventItem;
 import com.blackorangejuice.songguojizhang.bean.GuideInfo;
 import com.blackorangejuice.songguojizhang.bean.SettingInfo;
+import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
+import com.blackorangejuice.songguojizhang.db.mapper.AccountBookMapper;
+import com.blackorangejuice.songguojizhang.db.mapper.SettingInfoMapper;
 
 import java.util.List;
 
@@ -12,6 +17,11 @@ import java.util.List;
  * globle infos
  */
 public class GlobalInfo {
+    public static void refresh(Context context){
+        SongGuoDatabaseHelper songGuoDatabaseHelper = SongGuoDatabaseHelper.getSongGuoDatabaseHelper(context);
+        settingInfo = new SettingInfoMapper(songGuoDatabaseHelper).selectTheFirstSetting();
+        currentAccountBook = new AccountBookMapper(songGuoDatabaseHelper).selectByBid(settingInfo.getCurrentAccountBookBid());
+    }
     // 用户上一次选择的添加页面
     public static String currentAddPage = GlobalConstant.ADD_PAGE_ACCOUNT;
 

@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 
 import com.blackorangejuice.songguojizhang.R;
 import com.blackorangejuice.songguojizhang.transaction.home.myinfo.in.AboutPageActivity;
+import com.blackorangejuice.songguojizhang.transaction.home.myinfo.in.backup.BackupSettingActivity;
 import com.blackorangejuice.songguojizhang.transaction.home.myinfo.in.backup.NetUtilsForBackup;
 import com.blackorangejuice.songguojizhang.transaction.home.myinfo.in.moresetting.MoreSettingActivity;
 import com.blackorangejuice.songguojizhang.transaction.home.myinfo.in.UpdatePasswordPageActivity;
@@ -25,6 +26,9 @@ import com.blackorangejuice.songguojizhang.db.mapper.SettingInfoMapper;
 import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
 import com.blackorangejuice.songguojizhang.utils.basic.BasicFragment;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
+
+import java.util.Objects;
+import java.util.function.ObjDoubleConsumer;
 
 public class ShowMyInfoPageFragment extends BasicFragment {
     private View thisView;
@@ -184,16 +188,23 @@ public class ShowMyInfoPageFragment extends BasicFragment {
         backupLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 更多设置界面
-//                MoreSettingActivity.startThisActivity(getActivity());
-                SongGuoUtils.showOneToast("正在备份中，长按可进行同步设置");
-                NetUtilsForBackup.backup(ShowMyInfoPageFragment.this.thisView);
+                BackupSettingActivity.startThisActivity(ShowMyInfoPageFragment.this.thisView.getContext());
+                SongGuoUtils.showOneToast("进入同步设置,长按可直接备份");
             }
         });
         backupLayout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                SongGuoUtils.showOneToast("进入同步设置");
+                String backupUrl = GlobalInfo.settingInfo.getBackupUrl();
+                // 更多设置界面
+                if (Objects.nonNull(backupUrl) && !backupUrl.trim().equals("")) {
+                    SongGuoUtils.showOneToast("正在备份中");
+                    new NetUtilsForBackup().execute(NetUtilsForBackup.BACKUP);
+                } else {
+                    BackupSettingActivity.startThisActivity(ShowMyInfoPageFragment.this.thisView.getContext());
+                    SongGuoUtils.showOneToast("请先进行同步设置");
+                }
+
                 return true;
             }
         });

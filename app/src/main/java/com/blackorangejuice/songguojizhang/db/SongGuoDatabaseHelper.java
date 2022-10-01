@@ -13,13 +13,29 @@ public class SongGuoDatabaseHelper extends SQLiteOpenHelper {
     private Context myContext;
     public static SongGuoDatabaseHelper songGuoDatabaseHelper = null;
 
+    /**
+     * 私有构造方法
+     * @param context
+     * @param name
+     * @param factory
+     * @param version
+     */
+    private SongGuoDatabaseHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
+        super(context, name, factory, version);
+        myContext = context;
+    }
+
+    /**
+     * 单例模式
+     * @param context
+     * @return
+     */
     public static SongGuoDatabaseHelper getSongGuoDatabaseHelper(Context context){
         if(songGuoDatabaseHelper == null){
             songGuoDatabaseHelper = new SongGuoDatabaseHelper(context, GlobalConstant.DATABASE_NAME, null, 1);
         }
         return songGuoDatabaseHelper;
     }
-
 
     private static final String CREAT_TABLE_TAG = "create table t_tag(\n" +
             "    tid integer primary key autoincrement,\n" +
@@ -55,12 +71,14 @@ public class SongGuoDatabaseHelper extends SQLiteOpenHelper {
             "    eid integer not null\n" +
             ")";
     private static final String CREAT_TABLE_SETTING_INFO = "create table t_setting_info(\n" +
+            "    sid integer primary key autoincrement,\n" +
             "    username text not null unique,\n" +
             "    password text,\n" +
             "    password_question text,\n" +
             "    password_answer text,\n"+
-            "    sid integer primary key autoincrement,\n" +
             "    if_enable_password_check text not null,\n" +
+            "    backup_url text,\n"+
+            "    restore_url text,\n"+
             "    defult_launch_page text not null,\n" +
             "    defult_add_page text not null,\n" +
             "    current_account_book_bid integer\n" +
@@ -90,10 +108,6 @@ public class SongGuoDatabaseHelper extends SQLiteOpenHelper {
             "(income_or_expenditure, tid, sum, remark, account_time, if_borrow_or_lend, bid, eid)\n" +
             "values\n" +
             "(\"expenditure\",\"3\",\"84.21\",\"点击备注可进行编辑\",0,\"false\",2,1)";
-    private SongGuoDatabaseHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
-        myContext = context;
-    }
 
     @Override
     public void onCreate(SQLiteDatabase db) {

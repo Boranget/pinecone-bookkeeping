@@ -13,9 +13,10 @@
         android:icon="@drawable/app"
         android:label="@string/app_name_cn"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SongGuoJiZhang"
-
-        >
+        android:theme="@style/Theme.SongGuoJiZhang">
+        <activity
+            android:name=".transaction.home.myinfo.in.backup.BackupSettingActivity"
+            android:exported="false" />
         <activity
             android:name=".transaction.guide.PasswordQuestionAndAnswerActivity"
             android:exported="false" />

@@ -8,11 +8,11 @@ import com.blackorangejuice.songguojizhang.db.SongGuoDatabaseHelper;
 
 public class SettingInfoMapper {
     public static final String INSERT_SETTING_INFO = "insert into t_setting_info \n" +
-            "(username, password, password_question, password_answer, if_enable_password_check, defult_launch_page, defult_add_page,current_account_book_bid)\n" +
+            "(username, password, password_question, password_answer, if_enable_password_check,backup_url, restore_url,defult_launch_page, defult_add_page,current_account_book_bid)\n" +
             "values\n" +
-            "(?,?,?,?,?,?,?,?)";
+            "(?,?,?,?,?,?,?,?,?,?)";
     public static final String UPDATE_BY_SID = "update t_setting_info\n" +
-            "set username = ?, password = ?, password_question = ?, password_answer = ?,if_enable_password_check = ?, defult_launch_page = ?, defult_add_page = ?, current_account_book_bid = ?\n" +
+            "set username = ?, password = ?, password_question = ?, password_answer = ?,if_enable_password_check = ?, backup_url = ?, restore_url = ?,defult_launch_page = ?, defult_add_page = ?, current_account_book_bid = ?\n" +
             "where sid = ?";
 
     public static final String SELECT_BY_SID = "select * from t_setting_info where sid = ?";
@@ -42,7 +42,18 @@ public class SettingInfoMapper {
      * @return
      */
     public SettingInfo insertSettingInfo(SettingInfo settingInfo) {
-        sqLiteDatabase.execSQL(INSERT_SETTING_INFO, new String[]{settingInfo.getUsername(),settingInfo.getPassword(),settingInfo.getPasswordQuestion(),settingInfo.getPasswordAnswer(), settingInfo.getIfEnablePasswordCheck(), settingInfo.getDefultLaunchPage(), settingInfo.getDefultAddPage(), String.valueOf(settingInfo.getCurrentAccountBookBid())});
+        sqLiteDatabase.execSQL(INSERT_SETTING_INFO, new String[]{
+                settingInfo.getUsername(),
+                settingInfo.getPassword(),
+                settingInfo.getPasswordQuestion(),
+                settingInfo.getPasswordAnswer(),
+                settingInfo.getIfEnablePasswordCheck(),
+                settingInfo.getBackupUrl(),
+                settingInfo.getRestoreUrl(),
+                settingInfo.getDefultLaunchPage(),
+                settingInfo.getDefultAddPage(),
+                String.valueOf(settingInfo.getCurrentAccountBookBid())
+        });
         return selectTheFirstSetting();
     }
 
@@ -53,7 +64,18 @@ public class SettingInfoMapper {
      * @return
      */
     public SettingInfo updateBySid(SettingInfo settingInfo) {
-        sqLiteDatabase.execSQL(UPDATE_BY_SID, new String[]{settingInfo.getUsername(),settingInfo.getPassword(), settingInfo.getPasswordQuestion(),settingInfo.getPasswordAnswer(),settingInfo.getIfEnablePasswordCheck(), settingInfo.getDefultLaunchPage(), settingInfo.getDefultAddPage(), String.valueOf(settingInfo.getCurrentAccountBookBid()), String.valueOf(settingInfo.getSid())});
+        sqLiteDatabase.execSQL(UPDATE_BY_SID, new String[]{
+                settingInfo.getUsername(),
+                settingInfo.getPassword(),
+                settingInfo.getPasswordQuestion(),
+                settingInfo.getPasswordAnswer(),
+                settingInfo.getIfEnablePasswordCheck(),
+                settingInfo.getBackupUrl(),
+                settingInfo.getRestoreUrl(),
+                settingInfo.getDefultLaunchPage(),
+                settingInfo.getDefultAddPage(),
+                String.valueOf(settingInfo.getCurrentAccountBookBid()),
+                String.valueOf(settingInfo.getSid())});
         return selectBySid(settingInfo.getSid());
     }
 
@@ -74,6 +96,8 @@ public class SettingInfoMapper {
             String passwordQuestion = cursor.getString(cursor.getColumnIndex("password_question"));
             String passwordAnswer = cursor.getString(cursor.getColumnIndex("password_answer"));
             String ifEnablePasswordCheck = cursor.getString(cursor.getColumnIndex("if_enable_password_check"));
+            String backupUrl = cursor.getString(cursor.getColumnIndex("backup_url"));
+            String restoreUrl = cursor.getString(cursor.getColumnIndex("restore_url"));
             String defultLaunchPage = cursor.getString(cursor.getColumnIndex("defult_launch_page"));
             String defultAddPage = cursor.getString(cursor.getColumnIndex("defult_add_page"));
             Integer currentAccountBookBid = cursor.getInt(cursor.getColumnIndex("current_account_book_bid"));
@@ -82,6 +106,8 @@ public class SettingInfoMapper {
             settingInfo.setPasswordQuestion(passwordQuestion);
             settingInfo.setPasswordAnswer(passwordAnswer);
             settingInfo.setIfEnablePasswordCheck(ifEnablePasswordCheck);
+            settingInfo.setBackupUrl(backupUrl);
+            settingInfo.setRestoreUrl(restoreUrl);
             settingInfo.setDefultLaunchPage(defultLaunchPage);
             settingInfo.setDefultAddPage(defultAddPage);
             settingInfo.setCurrentAccountBookBid(currentAccountBookBid);
@@ -94,7 +120,7 @@ public class SettingInfoMapper {
      * 查找第一条(唯一一条设置)
      * @return
      */
-    private SettingInfo selectTheFirstSetting(){
+    public SettingInfo selectTheFirstSetting(){
         Cursor cursor = sqLiteDatabase.rawQuery(SELECT_All, null);
         SettingInfo settingInfo = new SettingInfo();
         if(cursor.moveToFirst()){
@@ -104,6 +130,8 @@ public class SettingInfoMapper {
             String passwordQuestion = cursor.getString(cursor.getColumnIndex("password_question"));
             String passwordAnswer = cursor.getString(cursor.getColumnIndex("password_answer"));
             String ifEnablePasswordCheck = cursor.getString(cursor.getColumnIndex("if_enable_password_check"));
+            String backupUrl = cursor.getString(cursor.getColumnIndex("backup_url"));
+            String restoreUrl = cursor.getString(cursor.getColumnIndex("restore_url"));
             String defultLaunchPage = cursor.getString(cursor.getColumnIndex("defult_launch_page"));
             String defultAddPage = cursor.getString(cursor.getColumnIndex("defult_add_page"));
             Integer currentAccountBookBid = cursor.getInt(cursor.getColumnIndex("current_account_book_bid"));
@@ -113,6 +141,8 @@ public class SettingInfoMapper {
             settingInfo.setPasswordQuestion(passwordQuestion);
             settingInfo.setPasswordAnswer(passwordAnswer);
             settingInfo.setIfEnablePasswordCheck(ifEnablePasswordCheck);
+            settingInfo.setBackupUrl(backupUrl);
+            settingInfo.setRestoreUrl(restoreUrl);
             settingInfo.setDefultLaunchPage(defultLaunchPage);
             settingInfo.setDefultAddPage(defultAddPage);
             settingInfo.setCurrentAccountBookBid(currentAccountBookBid);

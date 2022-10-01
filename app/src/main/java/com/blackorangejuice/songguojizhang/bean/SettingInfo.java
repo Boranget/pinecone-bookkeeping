@@ -15,6 +15,10 @@ public class SettingInfo {
     private String passwordAnswer;
     // 是否启用登陆密码检查,存true或false
     private String ifEnablePasswordCheck;
+    // 备份地址
+    private String backupUrl;
+    // 恢复地址
+    private String restoreUrl;
     // 默认启动页面
     private String defultLaunchPage;
     // 默认新增页面
@@ -28,11 +32,29 @@ public class SettingInfo {
         settingInfo.setPassword("");
         settingInfo.setPasswordQuestion("");
         settingInfo.setPasswordAnswer("");
-        settingInfo.setIfEnablePasswordCheck("true");
+        settingInfo.setIfEnablePasswordCheck("false");
+        settingInfo.setBackupUrl("");
+        settingInfo.setRestoreUrl("");
         settingInfo.setDefultLaunchPage(GlobalConstant.LAUNCH_PAGE_OVERVIEW_PAGE);
         settingInfo.setDefultAddPage(GlobalConstant.ADD_PAGE_ACCOUNT);
         settingInfo.setCurrentAccountBookBid(0);
         return settingInfo;
+    }
+
+    public String getBackupUrl() {
+        return backupUrl;
+    }
+
+    public void setBackupUrl(String backupUrl) {
+        this.backupUrl = backupUrl;
+    }
+
+    public String getRestoreUrl() {
+        return restoreUrl;
+    }
+
+    public void setRestoreUrl(String restoreUrl) {
+        this.restoreUrl = restoreUrl;
     }
 
     public Integer getSid() {

@@ -15,6 +15,7 @@ public abstract class BasicActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // 隐藏最上方标题栏
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
@@ -40,9 +41,9 @@ public abstract class BasicActivity extends AppCompatActivity {
         SongGuoActivityController.removeActivity(this);
     }
 
-    public abstract void init();
-
     public abstract void findView();
+
+    public abstract void init();
 
     public abstract void setListener();
 
