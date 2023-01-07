@@ -29,6 +29,7 @@ import com.blackorangejuice.songguojizhang.utils.SongGuoUtils;
 import com.blackorangejuice.songguojizhang.utils.basic.BasicFragment;
 import com.blackorangejuice.songguojizhang.utils.globle.GlobalInfo;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -126,28 +127,29 @@ public class ShowOverviewPageFragment extends BasicFragment {
                 Double surplusAll = GlobalInfo.currentAccountBook.getBudgetAll();
                 // 获取已经消费的数目
                 Double allExpenditure = Double.valueOf(getIncomeOrExpenditureSum(AccountItem.EXPENDITURE, ALL));
-                surplusSumTextView.setText(String.valueOf(surplusAll - allExpenditure));
+
+                surplusSumTextView.setText(String.valueOf(sub(surplusAll , allExpenditure)));
                 break;
             case AccountBook.SHOW_YEAR:
                 // 获取账本设置中的年预算
                 Double surplusYear = GlobalInfo.currentAccountBook.getBudgetYear();
                 // 获取已经消费的数目
                 Double yearExpenditure = Double.valueOf(getIncomeOrExpenditureSum(AccountItem.EXPENDITURE, ALL));
-                surplusSumTextView.setText(String.valueOf(surplusYear - yearExpenditure));
+                surplusSumTextView.setText(String.valueOf(sub(surplusYear , yearExpenditure)));
                 break;
             case AccountBook.SHOW_MONTH:
                 // 获取账本设置中的月预算
                 Double surplusMonth = GlobalInfo.currentAccountBook.getBudgetMonth();
                 // 获取已经消费的数目
                 Double monthExpenditure = Double.valueOf(getIncomeOrExpenditureSum(AccountItem.EXPENDITURE, MONTH));
-                surplusSumTextView.setText(String.valueOf(surplusMonth - monthExpenditure));
+                surplusSumTextView.setText(String.valueOf(sub(surplusMonth , monthExpenditure)));
                 break;
             case AccountBook.SHOW_WEEK:
                 // 获取账本设置中的周预算
                 Double surplusWeek = GlobalInfo.currentAccountBook.getBudgetWeek();
                 // 获取已经消费的数目
                 Double weekExpenditure = Double.valueOf(getIncomeOrExpenditureSum(AccountItem.EXPENDITURE, ALL));
-                surplusSumTextView.setText(String.valueOf(surplusWeek - weekExpenditure));
+                surplusSumTextView.setText(String.valueOf(sub(surplusWeek , weekExpenditure)));
                 break;
             case AccountBook.SHOW_NONE:
                 surplusSumTextView.setText("点击设置");
@@ -264,7 +266,12 @@ public class ShowOverviewPageFragment extends BasicFragment {
         });
     }
 
-
+    /**
+     * 获取收入或支出总和的的文本表示
+     * @param ioe
+     * @param scope
+     * @return
+     */
     public String getIncomeOrExpenditureText(String ioe, String scope) {
         Double result = getIncomeOrExpenditureSum(ioe, scope);
         switch (ioe) {
@@ -277,6 +284,13 @@ public class ShowOverviewPageFragment extends BasicFragment {
         }
 
     }
+
+    /**
+     * 获取收入或支出的总和
+     * @param ioe
+     * @param scope
+     * @return
+     */
     public Double getIncomeOrExpenditureSum(String ioe, String scope) {
         // 获取今天的日期
         Date todayDate = new Date();
@@ -335,5 +349,11 @@ public class ShowOverviewPageFragment extends BasicFragment {
         }
         return result;
 
+    }
+    public static double sub(double d1, double d2)
+    {        // 进行减法运算
+        BigDecimal b1 = new BigDecimal(d1);
+        BigDecimal b2 = new BigDecimal(d2);
+        return b1.subtract(b2).doubleValue();
     }
 }
