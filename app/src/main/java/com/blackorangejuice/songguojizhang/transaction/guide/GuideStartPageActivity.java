@@ -65,6 +65,7 @@ public class GuideStartPageActivity extends BasicActivity {
                 Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.INTERNET
+
         };
 
         if (EasyPermissions.hasPermissions(this, perms)) {
