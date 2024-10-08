@@ -1,6 +1,6 @@
 # 松果记账
 
-![app](README/app.png)
+<img src="README/app.png" alt="app" style="zoom:50%;" />
 
 ## 应用背景
 
@@ -28,32 +28,38 @@
 
 ### 添加账单
 
-![image-20241008115031030](README/image-20241008115031030.png)
+<img src="README/image-20241008115031030.png" alt="image-20241008115031030" style="zoom: 33%;" />
 
 ### 添加事件
 
-![image-20241008115023816](README/image-20241008115023816.png)
+<img src="README/image-20241008115023816.png" alt="image-20241008115023816" style="zoom:33%;" />
 
 ### 账单与事件绑定
 
-![image-20241008115251127](README/image-20241008115251127.png)
+<img src="README/image-20241008115251127.png" alt="image-20241008115251127" style="zoom: 80%;" />
 
 ### 多账本管理
 
-![image-20241008115128896](README/image-20241008115128896.png)
+<img src="README/image-20241008115128896.png" alt="image-20241008115128896" style="zoom:33%;" />
 
 ### 桌面小组件
 
-![image-20241008115012675](README/image-20241008115012675.png)
+<img src="README/image-20241008115012675.png" alt="image-20241008115012675" style="zoom:33%;" />
 
 ### 预算结余设置
 
+<img src="README/image-20241008115725405.png" alt="image-20241008115725405" style="zoom:33%;" />
+
 ### 图表统计
 
+<img src="README/image-20241008115734416.png" alt="image-20241008115734416" style="zoom:33%;" />
+
 ### 自定义标签
+
+<img src="README/image-20241008115743029.png" alt="image-20241008115743029" style="zoom:33%;" />
 
 ### 云备份
 
 云备份需要部署项目中的云端服务
 
-![image-20241008115046652](README/image-20241008115046652.png)
+<img src="README/image-20241008115046652.png" alt="image-20241008115046652" style="zoom:33%;" />
